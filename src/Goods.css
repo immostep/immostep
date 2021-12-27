@@ -1,0 +1,135 @@
+:root {
+  --swiper-theme-color: #e6f4fd;
+  --swiper-pagination-bullet-inactive-color: #fff;
+  --swiper-pagination-bullet-inactive-opacity: 0.5;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: 0.4fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'details-icon details-value'
+    'details-icon details-units';
+}
+
+.details-icon {
+  grid-area: details-icon;
+  @apply flex items-center w-16 row-span-2 justify-items-start;
+}
+
+.details-value {
+  grid-area: details-value;
+  @apply flex items-baseline text-xl font-bold text-black;
+}
+
+.details-units {
+  grid-area: details-units;
+  @apply flex items-end text-xl text-secondary;
+}
+
+ul.tags-list {
+  @apply flex flex-row flex-wrap justify-start list-none;
+}
+
+ul.tags-list > li {
+  @apply p-4 my-2 mr-2 text-lg leading-none rounded-lg bg-ternary-light text-ternary-dark;
+}
+
+.flex-table {
+  @apply flex flex-wrap items-stretch -mx-1 overflow-hidden sm:-mx-1;
+}
+
+.table-row {
+  display: contents;
+}
+
+.table-row.header > .table-cell {
+  @apply text-sm font-semibold text-left uppercase bg-white border border-t-0 border-l-0 border-r-0 border-solid text-secondary-light border-secondary-light whitespace-nowrap;
+}
+
+.table-row:not(.header):hover > .table-cell {
+  @apply underline cursor-pointer;
+}
+
+.table-cell {
+  @apply w-1/5 my-1 overflow-hidden sm:my-1;
+  @apply self-center px-6 py-1 text-left whitespace-nowrap;
+}
+
+.good {
+  @apply relative m-2 bg-white border-2 rounded-md cursor-pointer border-secondary-light;
+  @apply transition duration-200 ease-in-out;
+}
+
+.good a.good-btn {
+  @apply relative overflow-hidden;
+}
+
+.good:hover {
+  @apply border-black;
+}
+
+.goog.active {
+  @apply border-ternary hover:border-black;
+}
+
+.good.active::after {
+  content: '';
+  @apply absolute w-2 h-2 rounded-full;
+  background-color: #428dc2;
+  right: -13px;
+  top: 54px;
+}
+
+.good.active .good__image {
+  @apply filter-none;
+}
+
+.good.active .good__image img {
+  opacity: 1;
+}
+
+.good .good__image {
+  @apply w-40 h-28 filter grayscale;
+  z-index: 1;
+}
+
+.good .good__image img {
+  @apply transition duration-200 ease-in-out;
+  opacity: 0.4;
+}
+
+.good .good__image::before {
+  content: '';
+  width: 7rem;
+  height: 12rem;
+  background-color: #fff;
+  position: absolute;
+  transform: rotate(38deg);
+  transform-origin: top right;
+
+  z-index: 2;
+}
+
+.good:hover .good__image img {
+  @apply scale-125;
+  opacity: 1;
+}
+
+.good .good__content {
+  @apply flex flex-col flex-1 mt-3 ml-5 gap-y-1;
+  z-index: 10;
+}
+
+.add-good {
+  @apply border-2 border-dashed rounded-md border-secondary;
+  @apply bg-secondary-lighter text-secondary hover:text-gray-600 hover:border-gray-600;
+  @apply p-2 m-2 cursor-pointer;
+}
+
+.slideshow {
+  @apply flex flex-row flex-nowrap;
+}

@@ -1,0 +1,217 @@
+[
+  {
+    "id": 1,
+    "name": "Logement #01",
+    "location": {
+      "city": "Cheviré-le-Rouge"
+    },
+    "floors": 2,
+    "surface": 200,
+    "rooms": 4,
+    "views": 243,
+    "messages": 0,
+    "images": [
+      "/img/goods/001.jpg"
+    ],
+    "equipments": [
+      "garage inclus",
+      "balcon",
+      "antenne satellite",
+      "2 salles de bain"
+    ],
+    "requests": [
+      {
+        "from": "Georges Lucas",
+        "read": false,
+        "status": "En attente",
+        "date": "22 oct. 2021",
+        "rating": 5
+      },
+      {
+        "from": "Jim Carrey",
+        "read": false,
+        "status": "En attente",
+        "date": "17 oct. 2021",
+        "rating": 3
+      },
+      {
+        "from": "Silvester Stalone",
+        "read": true,
+        "status": "En attente",
+        "date": "17 oct. 2021",
+        "rating": 2
+      },
+      {
+        "from": "Brad Pitt",
+        "read": true,
+        "status": "Refusé",
+        "date": "10 oct. 2021",
+        "rating": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Logement #02",
+    "location": {
+      "city": "Angers"
+    },
+    "floors": 2,
+    "surface": 200,
+    "rooms": 4,
+    "views": 1254,
+    "messages": 1,
+    "images": [
+      "/img/goods/002.jpg"
+    ],
+    "equipments": [
+      "garage inclus",
+      "balcon",
+      "antenne satellite",
+      "2 salles de bain"
+    ],
+    "requests": [
+      {
+        "from": "Georges Lucas",
+        "read": false,
+        "status": "En attente",
+        "date": "22 oct. 2021",
+        "rating": 5
+      },
+      {
+        "from": "Jim Carrey",
+        "read": false,
+        "status": "En attente",
+        "date": "17 oct. 2021",
+        "rating": 3
+      },
+      {
+        "from": "Silvester Stalone",
+        "read": true,
+        "status": "En attente",
+        "date": "17 oct. 2021",
+        "rating": 2
+      },
+      {
+        "from": "Brad Pitt",
+        "read": true,
+        "status": "Refusé",
+        "date": "10 oct. 2021",
+        "rating": 1
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Logement #03",
+    "location": {
+      "city": "Seiches-sur-le-Loir"
+    },
+    "description": "T3 dernier étage avec ascenseur quartier caserne Desjardins, cuisine aménagée et équipée ouverte sur salon-séjour. 2 chambres avec placards. Salle de bain avec baignoire et douche. Stationnement privatif en sous-sol et cave. dont 6.48 % honoraires TTC à la charge de l'acquéreur. Copropriété de 85 lots (Pas de procédure en cours). Charges annuelles : 1320 euros.",
+    "floors": 2,
+    "surface": 200,
+    "rooms": 4,
+    "views": 243,
+    "messages": 0,
+    "images": [
+      "/img/goods/003.jpg",
+      "/img/goods/003 (1).jpg",
+      "/img/goods/003 (2).jpg",
+      "/img/goods/003 (3).jpg",
+      "/img/goods/003 (4).jpg",
+      "/img/goods/003 (5).jpg",
+      "/img/goods/003 (6).jpg",
+      "/img/goods/003 (7).jpg",
+      "/img/goods/003 (8).jpg"
+    ],
+    "occupiedSince": "1er janvier 2020",
+    "equipments": [
+      "garage inclus",
+      "balcon",
+      "antenne satellite",
+      "2 salles de bain"
+    ],
+    "requests": [
+      {
+        "from": "Georges Lucas",
+        "read": false,
+        "status": "En attente",
+        "date": "22 oct. 2021",
+        "rating": 5
+      },
+      {
+        "from": "Jim Carrey",
+        "read": false,
+        "status": "En attente",
+        "date": "17 oct. 2021",
+        "rating": 3
+      },
+      {
+        "from": "Silvester Stalone",
+        "read": true,
+        "status": "En attente",
+        "date": "17 oct. 2021",
+        "rating": 2
+      },
+      {
+        "from": "Brad Pitt",
+        "read": true,
+        "status": "Refusé",
+        "date": "10 oct. 2021",
+        "rating": 1
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Logement #04",
+    "location": {
+      "city": "Le Mans"
+    },
+    "floors": 2,
+    "surface": 200,
+    "rooms": 4,
+    "views": 243,
+    "messages": 0,
+    "images": [
+      "/img/goods/004.jpg"
+    ],
+    "documents": 4,
+    "equipments": [
+      "garage inclus",
+      "balcon",
+      "antenne satellite",
+      "2 salles de bain"
+    ],
+    "requests": [
+      {
+        "from": "Georges Lucas",
+        "read": false,
+        "status": "En attente",
+        "date": "22 oct. 2021",
+        "rating": 5
+      },
+      {
+        "from": "Jim Carrey",
+        "read": false,
+        "status": "En attente",
+        "date": "17 oct. 2021",
+        "rating": 3
+      },
+      {
+        "from": "Silvester Stalone",
+        "read": true,
+        "status": "En attente",
+        "date": "17 oct. 2021",
+        "rating": 2
+      },
+      {
+        "from": "Brad Pitt",
+        "read": true,
+        "status": "Refusé",
+        "date": "10 oct. 2021",
+        "rating": 1
+      }
+    ]
+  }
+]

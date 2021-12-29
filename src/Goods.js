@@ -1,19 +1,38 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import './Goods.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faExpand, faLayerGroup, faTimes, faMapMarkerAlt, faEye, faEnvelope, faUpload, faImage } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHome,
+  faExpand,
+  faLayerGroup,
+  faTimes,
+  faMapMarkerAlt,
+  faEye,
+  faEnvelope,
+  faUpload,
+  faImage,
+  faMouse,
+  faEuroSign,
+  faArrowUp
+} from '@fortawesome/free-solid-svg-icons';
 import { faHourglass } from '@fortawesome/free-regular-svg-icons';
 import SwiperCore, { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import './Goods.css';
+import Lightbox from 'react-awesome-lightbox';
+import 'react-awesome-lightbox/build/style.css';
 import dataGoods from './sources/goods.json';
 import Ratings from './Ratings';
 import HeaderBar from './HeaderBar';
 import Footer from './Footer';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { Doughnut, Bar } from 'react-chartjs-2';
+
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -46,6 +65,7 @@ function Goods({ isNewGood = false }) {
     value: ''
   });
   const [formEquipments, setFormEquipments] = useState({ value: '' });
+  const [showLightbox, setShowLightbox] = useState('');
 
   let { id: requestedGoodId } = useParams();
 
@@ -63,7 +83,7 @@ function Goods({ isNewGood = false }) {
   function handleFormEquipmentsChange(ev) {
     setFormEquipments({
       ...formEquipments,
-      [ev.target.name]: ev.target.value
+      value: ev.target.value
     });
   }
 
@@ -78,7 +98,7 @@ function Goods({ isNewGood = false }) {
             <div className="">
               {goods.map((good) => {
                 return (
-                  <div className={`good ${good.id === +requestedGoodId && 'active'}`} key={good.id}>
+                  <div className={`good ${good.id === +requestedGoodId ? 'active' : ''}`} key={good.id}>
                     <Link to={`/owner/goods/${good.id}`} className="flex flex-row good-btn items-top">
                       <div className="good__content">
                         <h3 className="text-2xl font-bold text-secondary-dark ">
@@ -99,7 +119,7 @@ function Goods({ isNewGood = false }) {
                         </ul>
                       </div>
                       <div className="good__image">
-                        <img className="object-cover" src={good.images[0]} alt="ImmoStep" />
+                        <img src={good.images[0]} alt="ImmoStep" />
                       </div>
                     </Link>
                   </div>
@@ -107,9 +127,9 @@ function Goods({ isNewGood = false }) {
               })}
 
               <div className="add-good">
-                <h3 className="text-2xl font-bold text-center">
-                  <Link to="/owner/goods/new">Nouveau logement</Link>
-                </h3>
+                <Link as="h3" className="text-2xl font-bold " to="/owner/goods/new">
+                  Nouveau logement
+                </Link>
               </div>
             </div>
           </aside>
@@ -127,23 +147,22 @@ function Goods({ isNewGood = false }) {
                           <Swiper
                             slidesPerView={5}
                             spaceBetween={20}
-                            // centeredSlides={true}
-                            // loop={true}
                             pagination={{
                               clickable: true
                             }}
                             navigation={true}>
                             {requestedGood.images.map((image, idx) => (
-                              <SwiperSlide key={idx}>
-                                <img className="object-scale-down rounded" src={image} />
+                              <SwiperSlide key={idx} onClick={(ev) => setShowLightbox(ev.target.src)}>
+                                <img className="object-scale-down rounded cursor-pointer" src={image} />
                               </SwiperSlide>
                             ))}
                           </Swiper>
+                          {showLightbox && <Lightbox image={showLightbox} onClose={() => setShowLightbox('')} />}
                         </section>
 
                         <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="details">
                           <h2 className="mb-5 text-xl text-ternary-dark">Description</h2>
-                          <p className={!requestedGood.description && 'text-gray-300'}>{requestedGood.description || 'Aucune description'}</p>
+                          <p>{requestedGood.description || 'Aucune description'}</p>
                         </section>
 
                         <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="details">
@@ -322,14 +341,13 @@ function Goods({ isNewGood = false }) {
                           <h2 className="mb-5 text-xl text-ternary-dark">Equipements</h2>
 
                           <ul className="tags-list">
-                            {newGood.equipments &&
-                              newGood.equipments.map((equipment, i) => {
-                                return (
-                                  <li key={i}>
-                                    <span>{equipment}</span>
-                                  </li>
-                                );
-                              })}
+                            {newGood.equipments.map((equipment, i) => {
+                              return (
+                                <li key={i}>
+                                  <span>{equipment}</span>
+                                </li>
+                              );
+                            })}
                           </ul>
                           <form
                             onSubmit={(ev) => {
@@ -347,7 +365,7 @@ function Goods({ isNewGood = false }) {
                               />
                               <button
                                 className="px-4 py-2 text-lg font-medium text-white border-2 border-transparent rounded bg-ternary hover:bg-ternary-dark"
-                                type="button">
+                                type="submit">
                                 Add
                               </button>
                             </div>
@@ -424,6 +442,151 @@ function Goods({ isNewGood = false }) {
                             Ajouter le logement
                           </button>
                         </section>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {!requestedGood && !isNewGood && (
+                  <>
+                    <h2 className="my-6 text-2xl font-semibold text-gray-700">Dashboard</h2>
+
+                    <div className="mt-4">
+                      <div className="flex flex-wrap -mx-6">
+                        <div className="w-full px-6 sm:w-1/2 xl:w-1/3">
+                          <div className="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+                            <div className="p-3 text-center text-white bg-indigo-600 bg-opacity-75 rounded-full w-14 h-14">
+                              <FontAwesomeIcon icon={faMouse} className="fa-2x" />
+                            </div>
+                            <div className="mx-5">
+                              <h4 className="text-2xl font-semibold text-gray-700">1 282</h4>
+                              <div className="text-gray-500">Nouvelles visites</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
+                          <div className="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+                            <div className="p-3 pl-4 text-white bg-blue-600 bg-opacity-75 rounded-full w-14 h-14">
+                              <FontAwesomeIcon icon={faEuroSign} className="fa-2x" />
+                            </div>
+                            <div className="mx-5">
+                              <h4 className="text-2xl font-semibold text-gray-700">2 521</h4>
+                              <div className="text-gray-500">Autre indicateur</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
+                          <div className="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+                            <div className="p-3 text-center text-white bg-pink-600 bg-opacity-75 rounded-full w-14 h-14">
+                              <FontAwesomeIcon icon={faArrowUp} className="fa-2x" />
+                            </div>
+                            <div className="mx-5">
+                              <h4 className="text-2xl font-semibold text-gray-700">21 542</h4>
+                              <div className="text-gray-500">Autre indicateur</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <h2 className="my-6 text-2xl font-semibold text-gray-700">Charts</h2>
+
+                    <div className="grid gap-6 mb-8 md:grid-cols-2">
+                      <div className="object-center min-w-0 p-4 bg-white rounded-lg shadow-sm">
+                        <h2 className="mb-5 text-xl text-ternary-dark">Demandes</h2>
+                        <Doughnut
+                          className="[margin:0_auto]"
+                          data={{
+                            labels: ['Rejetées', 'Acceptées'],
+                            datasets: [
+                              {
+                                data: [88, 12],
+                                backgroundColor: ['#fda4af', '#2dd4bf']
+                              }
+                            ]
+                          }}
+                          options={{
+                            responsive: false,
+                            cutoutPercentage: 80,
+                            plugins: {
+                              legend: {
+                                display: false
+                              }
+                            }
+                          }}
+                        />
+                        <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
+                          {/* <!-- Chart legend --> */}
+                          <div className="flex items-center">
+                            <span className="inline-block w-3 h-3 mr-1 rounded-full bg-rose-300"></span>
+                            <span>Rejetées</span>
+                          </div>
+                          <div className="flex items-center">
+                            <span className="inline-block w-3 h-3 mr-1 bg-teal-400 rounded-full"></span>
+                            <span>Acceptées</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="min-w-0 p-4 bg-white rounded-lg shadow-sm">
+                        <h2 className="mb-5 text-xl text-ternary-dark">Trafic</h2>
+                        <Bar
+                          className="[margin:0_auto]"
+                          data={{
+                            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            datasets: [
+                              {
+                                label: 'Utilisateurs',
+                                backgroundColor: '#428dc2',
+                                strokeColor: '#63b3ed',
+                                pointColor: '#fff',
+                                pointStrokeColor: '#63b3ed',
+                                data: [203, 156, 99, 251, 305, 247, 256]
+                              },
+                              {
+                                label: 'Utilisateurs unique',
+                                backgroundColor: '#e6f4fd',
+                                strokeColor: '#63b3ed',
+                                pointColor: '#fff',
+                                pointStrokeColor: '#63b3ed',
+                                data: [123, 34, 39, 128, 230, 96, 198]
+                              }
+                            ]
+                          }}
+                          options={{
+                            responsive: false,
+                            plugins: {
+                              legend: {
+                                display: false
+                              }
+                            },
+                            scales: {
+                              y: {
+                                grid: {
+                                  display: false
+                                },
+                                ticks: {
+                                  display: false
+                                }
+                              },
+                              x: {
+                                grid: {
+                                  display: false
+                                }
+                              }
+                            }
+                          }}
+                        />
+                        <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600">
+                          {/* <!-- Chart legend --> */}
+                          <div className="flex items-center">
+                            <span className="inline-block w-3 h-3 mr-1 rounded-full bg-secondary"></span>
+                            <span>Utilisateurs</span>
+                          </div>
+                          <div className="flex items-center">
+                            <span className="inline-block w-3 h-3 mr-1 rounded-full bg-secondary-light"></span>
+                            <span>Utilisateurs uniques</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </>

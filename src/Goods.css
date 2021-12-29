@@ -65,58 +65,49 @@ ul.tags-list > li {
 }
 
 .good a.good-btn {
-  @apply relative overflow-hidden;
+  @apply relative overflow-hidden rounded;
 }
 
 .good:hover {
   @apply border-black;
 }
 
-.goog.active {
-  @apply border-ternary hover:border-black;
+.good.active {
+  @apply border-secondary hover:border-black;
+}
+
+.good .good__image {
+  @apply h-28;
+  filter: grayscale(100%);
+}
+
+.good .good__image img {
+  @apply object-cover object-center w-40 rounded aspect-auto;
+  @apply [clip-path:polygon(55%_0,100%_0,100%_100%,0%_100%)];
+  @apply transition duration-200 ease-in-out;
+  opacity: 0.4;
+  transform: scale(1.25);
 }
 
 .good.active::after {
   content: '';
-  @apply absolute w-2 h-2 rounded-full;
-  background-color: #428dc2;
+  @apply absolute w-2 h-2 rounded-full bg-secondary;
   right: -13px;
-  top: 54px;
+  top: 50%;
 }
 
-.good.active .good__image {
-  @apply filter-none;
+.good.active .good__image,
+.good:hover .good__image {
+  filter: grayscale(0);
 }
 
 .good.active .good__image img {
   opacity: 1;
 }
 
-.good .good__image {
-  @apply w-40 h-28 filter grayscale;
-  z-index: 1;
-}
-
-.good .good__image img {
-  @apply transition duration-200 ease-in-out;
-  opacity: 0.4;
-}
-
-.good .good__image::before {
-  content: '';
-  width: 7rem;
-  height: 12rem;
-  background-color: #fff;
-  position: absolute;
-  transform: rotate(38deg);
-  transform-origin: top right;
-
-  z-index: 2;
-}
-
 .good:hover .good__image img {
-  @apply scale-125;
   opacity: 1;
+  transform: scale(1);
 }
 
 .good .good__content {
@@ -125,7 +116,11 @@ ul.tags-list > li {
 }
 
 .add-good {
-  @apply border-2 border-dashed rounded-md border-secondary;
+  @apply text-center;
+}
+
+.add-good a {
+  @apply block border-2 border-dashed rounded-md border-secondary;
   @apply bg-secondary-lighter text-secondary hover:text-gray-600 hover:border-gray-600;
   @apply p-2 m-2 cursor-pointer;
 }

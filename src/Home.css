@@ -1,0 +1,4 @@
+.inspiring-image {
+  @apply relative w-full bg-center bg-cover min-h-hscreen;
+  background-image: url('./img/tierra-mallorca.jpg');
+}

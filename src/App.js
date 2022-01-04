@@ -13,6 +13,9 @@ function App() {
         <Route path="owner" element={<Owner />} />
         <Route path="owner/goods/new" element={<Goods isNewGood />} />
         <Route path="owner/goods/:id" element={<Goods />} />
+        <Route path="owner/goods/:id/preview" element={<Goods />} />
+        <Route path="owner/goods/:id/publish" element={<Goods />} />
+        <Route path="owner/goods/:id/unpublish" element={<Goods />} />
         <Route path="owner/goods" element={<Goods />} />
       </Routes>
     </div>

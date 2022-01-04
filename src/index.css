@@ -30,6 +30,21 @@
     background-position: right 0.75rem center;
     background-size: 16px 12px;
   }
+
+  .btn {
+    @apply px-5 py-3 text-base font-medium text-gray-500 border border-transparent rounded-sm bg-gray-200 hover:bg-gray-300;
+  }
+
+  .btn-primary {
+    @apply text-white bg-secondary hover:bg-secondary-dark;
+  }
+
+  .btn-group {
+  }
+
+  .btn-group .btn {
+    @apply mx-2;
+  }
 }
 
 html {

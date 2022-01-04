@@ -5,6 +5,7 @@
     "location": {
       "city": "Cheviré-le-Rouge"
     },
+    "status": "Publiée",
     "floors": 2,
     "surface": 200,
     "rooms": 4,
@@ -25,28 +26,32 @@
         "read": false,
         "status": "En attente",
         "date": "22 oct. 2021",
-        "rating": 5
+        "rating": 5,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Jim Carrey",
         "read": false,
         "status": "En attente",
         "date": "17 oct. 2021",
-        "rating": 3
+        "rating": 3,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Silvester Stalone",
         "read": true,
         "status": "En attente",
         "date": "17 oct. 2021",
-        "rating": 2
+        "rating": 2,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Brad Pitt",
         "read": true,
         "status": "Refusé",
         "date": "10 oct. 2021",
-        "rating": 1
+        "rating": 1,
+        "content" : "Bla bla bla"
       }
     ]
   },
@@ -56,6 +61,7 @@
     "location": {
       "city": "Angers"
     },
+    "status": "Publiée",
     "floors": 2,
     "surface": 200,
     "rooms": 4,
@@ -76,28 +82,32 @@
         "read": false,
         "status": "En attente",
         "date": "22 oct. 2021",
-        "rating": 5
+        "rating": 5,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Jim Carrey",
         "read": false,
         "status": "En attente",
         "date": "17 oct. 2021",
-        "rating": 3
+        "rating": 3,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Silvester Stalone",
         "read": true,
         "status": "En attente",
         "date": "17 oct. 2021",
-        "rating": 2
+        "rating": 2,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Brad Pitt",
         "read": true,
         "status": "Refusé",
         "date": "10 oct. 2021",
-        "rating": 1
+        "rating": 1,
+        "content" : "Bla bla bla"
       }
     ]
   },
@@ -107,6 +117,7 @@
     "location": {
       "city": "Seiches-sur-le-Loir"
     },
+    "status": "Publiée",
     "description": "T3 dernier étage avec ascenseur quartier caserne Desjardins, cuisine aménagée et équipée ouverte sur salon-séjour. 2 chambres avec placards. Salle de bain avec baignoire et douche. Stationnement privatif en sous-sol et cave. dont 6.48 % honoraires TTC à la charge de l'acquéreur. Copropriété de 85 lots (Pas de procédure en cours). Charges annuelles : 1320 euros.",
     "floors": 2,
     "surface": 200,
@@ -137,28 +148,32 @@
         "read": false,
         "status": "En attente",
         "date": "22 oct. 2021",
-        "rating": 5
+        "rating": 5,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Jim Carrey",
         "read": false,
         "status": "En attente",
         "date": "17 oct. 2021",
-        "rating": 3
+        "rating": 3,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Silvester Stalone",
         "read": true,
         "status": "En attente",
         "date": "17 oct. 2021",
-        "rating": 2
+        "rating": 2,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Brad Pitt",
         "read": true,
         "status": "Refusé",
         "date": "10 oct. 2021",
-        "rating": 1
+        "rating": 1,
+        "content" : "Bla bla bla"
       }
     ]
   },
@@ -168,6 +183,7 @@
     "location": {
       "city": "Le Mans"
     },
+    "status": "Non publiée",
     "floors": 2,
     "surface": 200,
     "rooms": 4,
@@ -189,28 +205,32 @@
         "read": false,
         "status": "En attente",
         "date": "22 oct. 2021",
-        "rating": 5
+        "rating": 5,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Jim Carrey",
         "read": false,
         "status": "En attente",
         "date": "17 oct. 2021",
-        "rating": 3
+        "rating": 3,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Silvester Stalone",
         "read": true,
         "status": "En attente",
         "date": "17 oct. 2021",
-        "rating": 2
+        "rating": 2,
+        "content" : "Bla bla bla"
       },
       {
         "from": "Brad Pitt",
         "read": true,
         "status": "Refusé",
         "date": "10 oct. 2021",
-        "rating": 1
+        "rating": 1,
+        "content" : "Bla bla bla"
       }
     ]
   }

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './Goods.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +15,9 @@ import {
   faImage,
   faMouse,
   faEuroSign,
-  faArrowUp
+  faArrowUp,
+  faCheck,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import { faHourglass } from '@fortawesome/free-regular-svg-icons';
 import SwiperCore, { Pagination, Navigation } from 'swiper';
@@ -29,8 +31,11 @@ import dataGoods from './sources/goods.json';
 import Ratings from './Ratings';
 import HeaderBar from './HeaderBar';
 import Footer from './Footer';
+import ConfirmModal from './ConfirmModal';
+import SimpleModal from './SimpleModal';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
+import logo_color from './img/logo_color.svg';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
@@ -47,6 +52,7 @@ const emptyGood = {
   location: {
     city: ''
   },
+  status: 'Brouillon',
   floors: 0,
   surface: 0,
   rooms: 0,
@@ -89,12 +95,30 @@ function Goods({ isNewGood = false }) {
 
   const requestedGood = goods.find((g) => g.id === +requestedGoodId);
 
+  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [showRequestContentModal, setShowRequestContentModal] = useState(null);
+
   return (
     <>
-      <HeaderBar isFluid user={{ id: 1, name: 'Martial Séron' }} />
+      <ConfirmModal
+        showModal={showConfirmDeleteModal}
+        onCancel={() => {
+          setShowConfirmDeleteModal(false);
+        }}
+        onConfirm={() => {
+          setShowConfirmDeleteModal(false);
+        }}
+        title="Suppression du logement"
+        content="Êtes-vous sûr de vouloir supprimer ce logement ?"
+      />
       <div className="pb-5 mx-auto bg-gray-100">
         <div className="flex">
-          <aside className="w-1/4 min-h-screen px-2 border-r-2 bg-secondary-lighter shrink-0 border-secondary">
+          <aside className="w-1/4 min-h-screen px-2 bg-white border-r-2 shrink-0">
+            <header className="text-center">
+              <a className="no-underline hover:no-underline" href="/">
+                <img src={logo_color} className="[height:64px]" alt="ImmoStep" />
+              </a>
+            </header>
             <div className="">
               {goods.map((good) => {
                 return (
@@ -102,7 +126,10 @@ function Goods({ isNewGood = false }) {
                     <Link to={`/owner/goods/${good.id}`} className="flex flex-row good-btn items-top">
                       <div className="good__content">
                         <h3 className="text-2xl font-bold text-secondary-dark ">
-                          <span>{good.name}</span>
+                          <span>{good.name}</span>{' '}
+                          {good.status !== 'Publiée' ? (
+                            <span className="p-1 text-xs text-center text-pink-400 rounded bg-gray-4000">{good.status}</span>
+                          ) : null}
                         </h3>
                         <h5 className="text-ternary">
                           <FontAwesomeIcon icon={faMapMarkerAlt} className="text-secondary-dark" />
@@ -133,103 +160,152 @@ function Goods({ isNewGood = false }) {
               </div>
             </div>
           </aside>
+
           <main className="flex flex-col flex-1 w-full">
             <div className="h-full overflow-y-auto">
+              <HeaderBar isFluid noLogo={true} user={{ id: 1, name: 'Martial Séron' }} />
               <div className="container grid px-6 mx-auto">
                 {requestedGood && (
                   <>
-                    <h1 className="my-6 text-2xl font-semibold text-secondary">{requestedGood.name}</h1>
+                    <div className="flex items-center justify-between mt-16 mb-8">
+                      <h1 className="text-5xl font-semibold text-secondary">{requestedGood.name}</h1>
 
-                    <div className="container">
-                      <div className="grid grid-cols-1 gap-y-10">
-                        <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="photos">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Photos</h2>
-                          <Swiper
-                            slidesPerView={5}
-                            spaceBetween={20}
-                            pagination={{
-                              clickable: true
-                            }}
-                            navigation={true}>
-                            {requestedGood.images.map((image, idx) => (
-                              <SwiperSlide key={idx} onClick={(ev) => setShowLightbox(ev.target.src)}>
-                                <img className="object-scale-down rounded cursor-pointer" src={image} />
-                              </SwiperSlide>
-                            ))}
-                          </Swiper>
-                          {showLightbox && <Lightbox image={showLightbox} onClose={() => setShowLightbox('')} />}
-                        </section>
+                      <ul className="flex flex-row flex-wrap justify-start list-none btn-group">
+                        <li>
+                          <Link to={`/owner/goods/${requestedGood.id}/preview`} className="pl-4 btn btn-primary">
+                            <FontAwesomeIcon icon={faEye} className="mr-2" />
+                            Prévisualiser l&apos;annonce
+                          </Link>
+                        </li>
+                        {requestedGood.status !== 'Publiée' ? (
+                          <li>
+                            <Link to={`/owner/goods/${requestedGood.id}/publish`} className="pl-4 text-white bg-green-500 btn hover:bg-green-600">
+                              <FontAwesomeIcon icon={faCheck} className="mr-2" />
+                              Publier l&apos;annonce
+                            </Link>
+                          </li>
+                        ) : null}
+                        {requestedGood.status === 'Publiée' ? (
+                          <li>
+                            <Link
+                              to={`/owner/goods/${requestedGood.id}/delete`}
+                              onClick={(ev) => {
+                                ev.preventDefault();
+                                setShowConfirmDeleteModal(true);
+                              }}
+                              className="pl-4 text-white bg-red-500 btn hover:bg-red-600">
+                              <FontAwesomeIcon icon={faTrash} className="mr-2" />
+                              Retirer l&apos;annonce
+                            </Link>
+                          </li>
+                        ) : null}
+                      </ul>
+                    </div>
 
-                        <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="details">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Description</h2>
-                          <p>{requestedGood.description || 'Aucune description'}</p>
-                        </section>
+                    <div className="w-24 p-1 mb-5 text-sm text-center text-white bg-gray-400 rounded">{requestedGood.status}</div>
 
-                        <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="details">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Détails</h2>
+                    <div className="grid grid-cols-1 gap-y-10">
+                      <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="photos">
+                        <h2 className="mb-5 text-xl text-ternary-dark">Photos</h2>
+                        <Swiper
+                          slidesPerView={5}
+                          spaceBetween={20}
+                          pagination={{
+                            clickable: true
+                          }}
+                          navigation={true}>
+                          {requestedGood.images.map((image, idx) => (
+                            <SwiperSlide key={idx} onClick={(ev) => setShowLightbox(ev.target.src)}>
+                              <img className="object-scale-down rounded cursor-pointer" src={image} />
+                            </SwiperSlide>
+                          ))}
+                        </Swiper>
+                        {showLightbox && <Lightbox image={showLightbox} onClose={() => setShowLightbox('')} />}
+                      </section>
 
-                          <div className="grid grid-cols-4 gap-x-5">
-                            <div className="details h-14">
-                              <div className="details-icon">
-                                <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
-                                  <FontAwesomeIcon icon={faHome} fixedWidth />
-                                </div>
+                      <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="details">
+                        <h2 className="mb-5 text-xl text-ternary-dark">Description</h2>
+                        <p>{requestedGood.description || 'Aucune description'}</p>
+                      </section>
+
+                      <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="details">
+                        <h2 className="mb-5 text-xl text-ternary-dark">Détails</h2>
+
+                        <div className="grid grid-cols-4 gap-x-5">
+                          <div className="details h-14">
+                            <div className="details-icon">
+                              <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
+                                <FontAwesomeIcon icon={faHome} fixedWidth />
                               </div>
-                              <div className="details-value">{requestedGood.surface} m2</div>
-                              <div className="details-units">Surface habitable</div>
                             </div>
-
-                            <div className="details h-14">
-                              <div className="details-icon">
-                                <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
-                                  <FontAwesomeIcon icon={faExpand} fixedWidth />
-                                </div>
-                              </div>
-                              <div className="details-value">{requestedGood.rooms}</div>
-                              <div className="details-units">Pièces</div>
-                            </div>
-
-                            <div className="details h-14">
-                              <div className="details-icon">
-                                <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
-                                  <FontAwesomeIcon icon={faLayerGroup} fixedWidth />
-                                </div>
-                              </div>
-                              <div className="details-value">{requestedGood.floors}</div>
-                              <div className="details-units">Etages</div>
-                            </div>
+                            <div className="details-value">{requestedGood.surface} m2</div>
+                            <div className="details-units">Surface habitable</div>
                           </div>
-                        </section>
 
-                        <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="equipments">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Equipements</h2>
-
-                          <ul className="tags-list">
-                            {requestedGood.equipments.map((equipment) => {
-                              return (
-                                <li key={equipment}>
-                                  <span>{equipment}</span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </section>
-
-                        <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="requests">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Demandes</h2>
-
-                          <div className="flex-table">
-                            <div className="table-row header">
-                              <div className="table-cell">Date</div>
-                              <div className="table-cell">Demandeur</div>
-                              <div className="table-cell">Statut</div>
-                              <div className="table-cell">Note</div>
-                              <div className="table-cell">&nbsp;</div>
+                          <div className="details h-14">
+                            <div className="details-icon">
+                              <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
+                                <FontAwesomeIcon icon={faExpand} fixedWidth />
+                              </div>
                             </div>
+                            <div className="details-value">{requestedGood.rooms}</div>
+                            <div className="details-units">Pièces</div>
+                          </div>
 
-                            {requestedGood.requests.map((request, i) => {
-                              return (
-                                <div className={`table-row ${!request.read && 'font-bold'}`} key={i}>
+                          <div className="details h-14">
+                            <div className="details-icon">
+                              <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
+                                <FontAwesomeIcon icon={faLayerGroup} fixedWidth />
+                              </div>
+                            </div>
+                            <div className="details-value">{requestedGood.floors}</div>
+                            <div className="details-units">Etages</div>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="equipments">
+                        <h2 className="mb-5 text-xl text-ternary-dark">Equipements</h2>
+
+                        <ul className="tags-list">
+                          {requestedGood.equipments.map((equipment) => {
+                            return (
+                              <li key={equipment}>
+                                <span>{equipment}</span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </section>
+
+                      <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="requests">
+                        <h2 className="mb-5 text-xl text-ternary-dark">Demandes</h2>
+
+                        <div className="flex-table">
+                          <div className="table-row header">
+                            <div className="table-cell">Date</div>
+                            <div className="table-cell">Demandeur</div>
+                            <div className="table-cell">Statut</div>
+                            <div className="table-cell">Note</div>
+                            <div className="table-cell">&nbsp;</div>
+                          </div>
+
+                          {requestedGood.requests.map((request, i) => {
+                            return (
+                              <React.Fragment key={i}>
+                                <SimpleModal
+                                  showModal={showRequestContentModal === i}
+                                  onClose={() => {
+                                    setShowRequestContentModal(null);
+                                  }}
+                                  title={request.from}
+                                  content={request.content}
+                                />
+                                <div
+                                  className={`table-row ${!request.read && 'font-bold'}`}
+                                  onClick={() => {
+                                    setShowRequestContentModal(i);
+                                  }}>
                                   <div className="table-cell">{request.date}</div>
                                   <div className="table-cell">{request.from}</div>
                                   <div className={`table-cell ${listStatus[request.status].className}`}>
@@ -240,11 +316,11 @@ function Goods({ isNewGood = false }) {
                                   </div>
                                   <div className="table-cell"></div>
                                 </div>
-                              );
-                            })}
-                          </div>
-                        </section>
-                      </div>
+                              </React.Fragment>
+                            );
+                          })}
+                        </div>
+                      </section>
                     </div>
                   </>
                 )}
@@ -515,7 +591,7 @@ function Goods({ isNewGood = false }) {
                             }
                           }}
                         />
-                        <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600">
                           {/* <!-- Chart legend --> */}
                           <div className="flex items-center">
                             <span className="inline-block w-3 h-3 mr-1 rounded-full bg-rose-300"></span>

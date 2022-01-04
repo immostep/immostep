@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 function Home() {
   return (
     <>
-      <HeaderBar />
+      <HeaderBar noSearchField />
       <main className="grid grid-cols-1 my-5 md:grid-cols-2">
         <div className="px-4 py-10 text-center tenant sm:px-6 md:px-8 sm:py-20 xl:py-24">
           <h1 className="mt-0 mb-8 text-5xl font-extrabold leading-none tracking-tight md:text-6xl lg:text-7xl sm:mt-0 sm:mb-10">

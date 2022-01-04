@@ -4,15 +4,8 @@
 ARG VARIANT="16-bullseye"
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 
-ENV http_proxy=http://lin1e77.alt:3128
-ENV https_proxy=http://lin1e77.alt:3128
-ENV ftp_proxy=http://lin1e77.alt:3128
-ENV no_proxy=.alt
 
 # COPY docker/app/.ssh/* /home/node/.ssh/
-
-RUN echo "Acquire::http::proxy \"$http_proxy\";\nAcquire::https::proxy \"$http_proxy\";" > /etc/apt/apt.conf.d/02proxy
-
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>

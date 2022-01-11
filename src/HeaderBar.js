@@ -16,7 +16,7 @@ function HeaderBar({ isFluid = false, user = {}, noLogo = false, noSearchField =
   }, [user]);
 
   return (
-    <header className="relative flex items-center justify-between h-16 bg-white border-b-2 border-ternary-light flex-nowrap">
+    <header className="relative flex items-center justify-between h-16 bg-white border-b-0 border-ternary-light flex-nowrap">
       <nav id="header" className={`top-0 z-30 w-full bg-white text-primary ${isFluid ? 'mx-10' : 'container mx-auto'}`}>
         <div className="flex flex-wrap items-center justify-between w-full mx-auto mt-0">
           {!noLogo && (

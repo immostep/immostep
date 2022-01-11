@@ -38,6 +38,15 @@ $ cd ~/projects/immostep
 $ git pull
 ```
 
+## Installation des dépendances
+
+Cette opération est à effectuer après chaque `git pull` ou `git clone`
+
+```
+$ cd ~/projects/immostep
+$ npm install
+```
+
 ## Démarrage de l'application
 
 ```

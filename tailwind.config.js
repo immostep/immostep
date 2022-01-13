@@ -55,6 +55,18 @@ module.exports = {
           DEFAULT: '#AB8367',
           dark: '#916B50'
         },
+        success: {
+          DEFAULT: '#3ac47d'
+        },
+        warning: {
+          DEFAULT: colors.amber[500]
+        },
+        danger: {
+          DEFAULT: '#d92550'
+        },
+        info: {
+          DEFAULT: '#16aaff'
+        },
         teal: colors.teal,
         rose: colors.rose
       }

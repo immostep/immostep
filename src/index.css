@@ -33,7 +33,11 @@
   }
 
   .btn {
-    @apply px-5 py-3 text-base font-medium text-gray-500 border border-transparent rounded-sm bg-gray-200 hover:bg-gray-300;
+    @apply px-3 py-1 text-base font-medium text-gray-500 border border-transparent rounded-sm bg-gray-200 hover:bg-gray-300;
+  }
+
+  .btn-lg {
+    @apply px-5 py-3;
   }
 
   .btn-primary {
@@ -45,6 +49,48 @@
 
   .btn-group .btn {
     @apply mx-2;
+  }
+
+  .badge {
+    @apply inline-block font-bold leading-4 text-center whitespace-nowrap;
+    font-size: 0.78em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    min-width: 19px;
+  }
+
+  .badge-pill {
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius: 10rem;
+  }
+
+  .badge-rounded {
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    @apply rounded;
+  }
+
+  .badge-warning {
+    @apply bg-warning text-white;
+  }
+
+  .badge-info {
+    @apply bg-info text-white;
+  }
+
+  .badge-success {
+    @apply bg-success text-white;
+  }
+
+  .badge-danger {
+    @apply bg-danger text-white;
+  }
+
+  .card {
+    /* box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%), 0 0.9375rem 1.40625rem rgb(4 9 20 / 3%), 0 0.25rem 0.53125rem rgb(4 9 20 / 5%),
+      0 0.125rem 0.1875rem rgb(4 9 20 / 3%); */
+    @apply border-2 rounded bg-white;
   }
 }
 

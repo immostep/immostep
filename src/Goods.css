@@ -68,7 +68,11 @@ ul.tags-list > li {
 }
 
 .table-row.header > .table-cell {
-  @apply text-sm font-semibold text-left uppercase bg-white border border-t-0 border-l-0 border-r-0 border-solid text-secondary-light border-secondary-light whitespace-nowrap;
+  @apply text-sm font-bold text-left bg-white text-primary-dark whitespace-nowrap;
+}
+
+.table-row.header.bordered > .table-cell {
+  @apply border-b border-solid border-primary-dark;
 }
 
 .table-row:not(.header):hover > .table-cell {

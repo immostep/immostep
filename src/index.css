@@ -92,6 +92,14 @@
       0 0.125rem 0.1875rem rgb(4 9 20 / 3%); */
     @apply border-2 rounded bg-white;
   }
+
+  .card-header {
+    @apply px-4 py-2;
+  }
+
+  .card-title {
+    @apply text-lg font-bold text-secondary-dark;
+  }
 }
 
 html {

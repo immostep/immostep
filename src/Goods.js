@@ -36,16 +36,14 @@ import HeaderBar from './HeaderBar';
 import Footer from './Footer';
 import ConfirmModal from './ConfirmModal';
 import SimpleModal from './SimpleModal';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
-import { Doughnut, Bar } from 'react-chartjs-2';
 import logo_color from './img/logo_color.svg';
 import logo_white_notext from './img/logo_white_notext.svg';
 import avatar1 from './img/1.jpg';
 import avatar2 from './img/2.jpg';
 import avatar3 from './img/3.jpg';
 import avatar4 from './img/4.jpg';
-
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
+import ApexBarChart from './ApexBarChart';
+import ApexAreaChart from './ApexAreaChart';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -611,9 +609,9 @@ function Goods({ isNewGood = false }) {
                       </div>
 
                       <div className="grid gap-6 mb-8 md:grid-cols-2 ">
-                        <div className="object-center min-w-0 col-span-2 p-0 bg-white rounded card">
-                          <div className="px-4 py-2">
-                            <h2 className="text-lg font-bold text-secondary-dark">Communications</h2>
+                        <div className="object-center min-w-0 col-span-2 p-0 card">
+                          <div className="card-header">
+                            <h2 className="card-title">Communications</h2>
                           </div>
                           <div className="">
                             <table className="items-center w-full bg-transparent border-collapse [font-size:.88rem]">
@@ -720,99 +718,47 @@ function Goods({ isNewGood = false }) {
                             </div>
                           </div>
                         </div>
-                        <div className="object-center min-w-0 p-4 bg-white rounded card">
-                          <h2 className="mb-5 text-lg text-ternary-dark">Demandes</h2>
-                          <Doughnut
-                            className="[margin:0_auto]"
-                            data={{
-                              labels: ['Rejetées', 'Acceptées'],
-                              datasets: [
-                                {
-                                  data: [88, 12],
-                                  backgroundColor: ['#fda4af', '#2dd4bf']
-                                }
-                              ]
-                            }}
-                            options={{
-                              responsive: false,
-                              cutoutPercentage: 80,
-                              plugins: {
-                                legend: {
-                                  display: false
-                                }
-                              }
-                            }}
-                          />
-                          <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600">
-                            {/* <!-- Chart legend --> */}
-                            <div className="flex items-center">
-                              <span className="inline-block w-3 h-3 mr-1 rounded-full bg-rose-300"></span>
-                              <span>Rejetées</span>
-                            </div>
-                            <div className="flex items-center">
-                              <span className="inline-block w-3 h-3 mr-1 bg-teal-400 rounded-full"></span>
-                              <span>Acceptées</span>
+
+                        <div className="object-center card">
+                          <div className="card-header">
+                            <h2 className="card-title">Trafic</h2>
+                          </div>
+                          <div className="p-4">
+                            <ApexBarChart />
+                            <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600">
+                              {/* <!-- Chart legend --> */}
+                              <div className="flex items-center">
+                                <span className="inline-block w-3 h-3 mr-1 rounded-full bg-secondary"></span>
+                                <span>Utilisateurs</span>
+                              </div>
+                              <div className="flex items-center">
+                                <span className="inline-block w-3 h-3 mr-1 rounded-full bg-secondary-light"></span>
+                                <span>Utilisateurs uniques</span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div className="min-w-0 p-4 bg-white rounded card">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Trafic</h2>
-                          <Bar
-                            className="[margin:0_auto]"
-                            data={{
-                              labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                              datasets: [
-                                {
-                                  label: 'Utilisateurs',
-                                  backgroundColor: '#428dc2',
-                                  strokeColor: '#63b3ed',
-                                  pointColor: '#fff',
-                                  pointStrokeColor: '#63b3ed',
-                                  data: [203, 156, 99, 251, 305, 247, 256]
-                                },
-                                {
-                                  label: 'Utilisateurs unique',
-                                  backgroundColor: '#e6f4fd',
-                                  strokeColor: '#63b3ed',
-                                  pointColor: '#fff',
-                                  pointStrokeColor: '#63b3ed',
-                                  data: [123, 34, 39, 128, 230, 96, 198]
-                                }
-                              ]
-                            }}
-                            options={{
-                              responsive: false,
-                              plugins: {
-                                legend: {
-                                  display: false
-                                }
-                              },
-                              scales: {
-                                y: {
-                                  grid: {
-                                    display: false
-                                  },
-                                  ticks: {
-                                    display: false
-                                  }
-                                },
-                                x: {
-                                  grid: {
-                                    display: false
-                                  }
-                                }
-                              }
-                            }}
-                          />
-                          <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600">
-                            {/* <!-- Chart legend --> */}
-                            <div className="flex items-center">
-                              <span className="inline-block w-3 h-3 mr-1 rounded-full bg-secondary"></span>
-                              <span>Utilisateurs</span>
-                            </div>
-                            <div className="flex items-center">
-                              <span className="inline-block w-3 h-3 mr-1 rounded-full bg-secondary-light"></span>
-                              <span>Utilisateurs uniques</span>
+                        <div className="object-center card ">
+                          <div className="card-header">
+                            <h2 className="card-title">Finances</h2>
+                          </div>
+                          <div className="p-4">
+                            <ApexAreaChart />
+                            <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600">
+                              {/* <!-- Chart legend --> */}
+
+                              <div className="flex items-center">
+                                <span className="inline-block w-3 h-3 mr-1 rounded-full bg-rose-300"></span>
+                                <span>Dépenses</span>
+                              </div>
+                              <div className="flex items-center">
+                                <span className="inline-block w-3 h-3 mr-1 bg-teal-400 rounded-full"></span>
+                                <span>Revenus</span>
+                              </div>
+                              <div className="flex items-center">
+                                <span className="inline-block w-3 h-3 mr-1 bg-yellow-400 rounded-full"></span>
+                                <span>Bénéfices</span>
+                              </div>
                             </div>
                           </div>
                         </div>

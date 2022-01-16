@@ -15,15 +15,15 @@ import {
   faImage,
   faMouse,
   faEuroSign,
-  faCheck,
-  faTrash,
-  faChevronRight,
+  // faCheck,
+  // faTrash,
   faBuilding,
   faExclamationTriangle,
   faEllipsisV,
   faClock
 } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar, faHourglass } from '@fortawesome/free-regular-svg-icons';
+import DropdownOptions from './DropdownOptions';
 import SwiperCore, { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -38,7 +38,6 @@ import Footer from './Footer';
 import ConfirmModal from './ConfirmModal';
 import SimpleModal from './SimpleModal';
 import logo_color from './img/logo_color.svg';
-import logo_white_notext from './img/logo_white_notext.svg';
 import avatar1 from './img/1.jpg';
 import avatar2 from './img/2.jpg';
 import avatar3 from './img/3.jpg';
@@ -46,6 +45,7 @@ import avatar4 from './img/4.jpg';
 import ChartTrafic from './ChartTrafic';
 import ChartFinances from './ChartFinances';
 import ChartViewsByGood from './ChartViewsByGood';
+import Breadcrumbs from './Breadcrumbs';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -176,10 +176,13 @@ function Goods({ isNewGood = false }) {
                 <div className="container grid mx-auto">
                   {requestedGood && (
                     <>
-                      <div className="flex items-center justify-between mt-16 mb-8">
-                        <h1 className="text-5xl font-semibold text-secondary">{requestedGood.name}</h1>
+                      <h1 className="mt-6 mb-2 text-4xl font-bold text-white">{requestedGood.name}</h1>
+                      <Breadcrumbs />
 
-                        <ul className="flex flex-row flex-wrap justify-start list-none btn-group">
+                      <div className="grid grid-flow-col mb-6 columns-2">
+                        <span className="w-24 p-1 text-sm text-center text-white bg-teal-500 rounded h-7">{requestedGood.status}</span>
+                        <DropdownOptions isPublished={requestedGood.status === 'Publiée'} />
+                        {/* <ul className="flex flex-row flex-wrap justify-end list-none btn-group">
                           <li>
                             <Link to={`/owner/goods/${requestedGood.id}/preview`} className="pl-4 btn btn-primary">
                               <FontAwesomeIcon icon={faEye} className="mr-2" />
@@ -208,10 +211,8 @@ function Goods({ isNewGood = false }) {
                               </Link>
                             </li>
                           ) : null}
-                        </ul>
+                        </ul> */}
                       </div>
-
-                      <div className="w-24 p-1 mb-5 text-sm text-center text-white bg-gray-400 rounded">{requestedGood.status}</div>
 
                       <div className="grid grid-cols-1 gap-y-10">
                         <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="photos">
@@ -535,22 +536,7 @@ function Goods({ isNewGood = false }) {
                   {!requestedGood && !isNewGood && (
                     <>
                       <h1 className="mt-6 mb-2 text-4xl font-bold text-gray-200">Dashboard</h1>
-                      <nav className="flex" aria-label="Breadcrumb">
-                        <ul className="inline-flex items-center mb-6 space-x-1 font-normal text-gray-200 text-md md:space-x-3">
-                          <li className="inline-flex items-center">
-                            <img src={logo_white_notext} className="w-3 h-3 mr-2" />
-                            <Link to="/" className="text-sm font-medium text-gray-200 hover:text-gray-900">
-                              ImmoStep
-                            </Link>
-                          </li>
-                          <li className="inline-flex items-center">
-                            <FontAwesomeIcon icon={faChevronRight} className="w-3 h-3 text-gray-200" />
-                            <a href="#" className="ml-2 text-sm font-medium text-gray-200 hover:text-gray-900">
-                              Propriétaire
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
+                      <Breadcrumbs />
 
                       <div className="mt-4">
                         <div className="flex gap-6 flex-nowrap">

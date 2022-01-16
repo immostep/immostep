@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Chart from 'react-apexcharts';
 
-function ApexBarChart() {
+function ChartTrafic() {
   const [options] = useState({
     chart: {
       id: 'traffic',
@@ -15,7 +15,8 @@ function ApexBarChart() {
     },
     colors: ['#428dc2', '#92c1e3'],
     legend: {
-      show: false
+      show: true,
+      fontSize: '14px'
     },
     dataLabels: {
       enabled: false
@@ -28,7 +29,7 @@ function ApexBarChart() {
       data: [203, 156, 99, 251, 305, 247, 256]
     },
     {
-      name: 'Utilisateurs unique',
+      name: 'Utilisateurs uniques',
       data: [123, 34, 39, 128, 230, 96, 198]
     }
   ]);
@@ -37,11 +38,11 @@ function ApexBarChart() {
     <div className="app">
       <div className="row">
         <div className="mixed-chart">
-          <Chart options={options} series={series} type="bar" width="100%" />
+          <Chart options={options} series={series} type="bar" height="250" />
         </div>
       </div>
     </div>
   );
 }
 
-export default ApexBarChart;
+export default ChartTrafic;

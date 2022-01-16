@@ -4,7 +4,7 @@ import Chart from 'react-apexcharts';
 const loyers = [2000, 5110, 2360, 1450, 2510, 3620, 5410, 6210, 3230, 2560, 2300, 2530];
 const depenses = [200, 0, 236, 145, 610, 1200, 541, 4120, 0, 0, 230, 0];
 
-function ApexAreaChart() {
+function ChartFinances() {
   const [options] = useState({
     chart: {
       id: 'benefices',
@@ -41,7 +41,8 @@ function ApexAreaChart() {
       size: 0
     },
     legend: {
-      show: false
+      show: true,
+      fontSize: '14px'
     },
     dataLabels: {
       enabled: false
@@ -54,17 +55,17 @@ function ApexAreaChart() {
 
   const [series] = useState([
     {
-      name: 'Loyer',
+      name: 'Loyers',
       type: 'column',
       data: loyers
     },
     {
-      name: 'Dépense',
+      name: 'Dépenses',
       type: 'column',
       data: depenses
     },
     {
-      name: 'Bénéfice',
+      name: 'Bénéfices',
       type: 'line',
       data: loyers.map((l, i) => l - depenses[i])
     }
@@ -74,11 +75,11 @@ function ApexAreaChart() {
     <div className="app">
       <div className="row">
         <div className="mixed-chart">
-          <Chart options={options} series={series} type="line" width="100%" />
+          <Chart options={options} series={series} type="line" height="250" />
         </div>
       </div>
     </div>
   );
 }
 
-export default ApexAreaChart;
+export default ChartFinances;

@@ -20,7 +20,8 @@ import {
   faChevronRight,
   faBuilding,
   faExclamationTriangle,
-  faEllipsisV
+  faEllipsisV,
+  faClock
 } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar, faHourglass } from '@fortawesome/free-regular-svg-icons';
 import SwiperCore, { Pagination, Navigation } from 'swiper';
@@ -42,8 +43,9 @@ import avatar1 from './img/1.jpg';
 import avatar2 from './img/2.jpg';
 import avatar3 from './img/3.jpg';
 import avatar4 from './img/4.jpg';
-import ApexBarChart from './ApexBarChart';
-import ApexAreaChart from './ApexAreaChart';
+import ChartTrafic from './ChartTrafic';
+import ChartFinances from './ChartFinances';
+import ChartViewsByGood from './ChartViewsByGood';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -601,11 +603,18 @@ function Goods({ isNewGood = false }) {
                         </div>
                       </div>
 
-                      <div className="px-5 py-2 my-6 text-lg font-normal text-white rounded shadow-sm bg-rose-600">
-                        <FontAwesomeIcon icon={faExclamationTriangle} /> Vous avez 1 logement dont l&apos;annonce n&apos;est pas publiée.{' '}
-                        <Link className="font-semibold" to="/">
-                          Voir
-                        </Link>
+                      <div className="grid grid-flow-row gap-2 my-6">
+                        <div className="px-5 py-2 text-lg font-normal text-white rounded shadow-sm bg-rose-600">
+                          <FontAwesomeIcon icon={faExclamationTriangle} /> Vous avez 1 logement dont l&apos;annonce n&apos;est pas publiée.{' '}
+                          <Link className="font-semibold" to="/">
+                            Voir
+                          </Link>
+                        </div>
+
+                        <div className="px-5 py-2 text-lg font-normal text-white rounded shadow-sm bg-sky-500">
+                          <FontAwesomeIcon icon={faClock} /> <span className="text-bold">Rappel</span> : Révision chaudière{' '}
+                          <span className="italic font-black">Logement #04</span> à prévoir dans 4 mois
+                        </div>
                       </div>
 
                       <div className="grid gap-6 mb-8 md:grid-cols-2 ">
@@ -724,42 +733,25 @@ function Goods({ isNewGood = false }) {
                             <h2 className="card-title">Trafic</h2>
                           </div>
                           <div className="p-4">
-                            <ApexBarChart />
-                            <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600">
-                              {/* <!-- Chart legend --> */}
-                              <div className="flex items-center">
-                                <span className="inline-block w-3 h-3 mr-1 rounded-full bg-secondary"></span>
-                                <span>Utilisateurs</span>
-                              </div>
-                              <div className="flex items-center">
-                                <span className="inline-block w-3 h-3 mr-1 rounded-full bg-secondary-light"></span>
-                                <span>Utilisateurs uniques</span>
-                              </div>
-                            </div>
+                            <ChartTrafic />
                           </div>
                         </div>
+
                         <div className="object-center card ">
                           <div className="card-header">
                             <h2 className="card-title">Finances</h2>
                           </div>
                           <div className="p-4">
-                            <ApexAreaChart />
-                            <div className="flex justify-center mt-4 space-x-3 text-sm text-gray-600">
-                              {/* <!-- Chart legend --> */}
+                            <ChartFinances />
+                          </div>
+                        </div>
 
-                              <div className="flex items-center">
-                                <span className="inline-block w-3 h-3 mr-1 rounded-full bg-rose-300"></span>
-                                <span>Dépenses</span>
-                              </div>
-                              <div className="flex items-center">
-                                <span className="inline-block w-3 h-3 mr-1 bg-teal-400 rounded-full"></span>
-                                <span>Revenus</span>
-                              </div>
-                              <div className="flex items-center">
-                                <span className="inline-block w-3 h-3 mr-1 bg-yellow-400 rounded-full"></span>
-                                <span>Bénéfices</span>
-                              </div>
-                            </div>
+                        <div className="object-center col-span-2 card">
+                          <div className="card-header">
+                            <h2 className="card-title">Vues par logement</h2>
+                          </div>
+                          <div className="p-4">
+                            <ChartViewsByGood />
                           </div>
                         </div>
                       </div>

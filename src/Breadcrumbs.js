@@ -9,15 +9,15 @@ function Breadcrumbs() {
       <ul className="inline-flex items-center mb-6 space-x-1 font-normal text-gray-200 text-md md:space-x-3">
         <li className="inline-flex items-center">
           <img src={logo_white_notext} className="w-3 h-3 mr-2" />
-          <Link to="/" className="text-sm font-medium text-gray-200 hover:text-gray-900">
+          <Link to="/" className="text-sm font-medium text-gray-200 hover:text-white">
             ImmoStep
           </Link>
         </li>
         <li className="inline-flex items-center">
           <FontAwesomeIcon icon={faChevronRight} className="w-3 h-3 text-gray-200" />
-          <a href="#" className="ml-2 text-sm font-medium text-gray-200 hover:text-gray-900">
+          <Link to="/owner/goods" className="ml-2 text-sm font-medium text-gray-200 hover:text-white">
             Propriétaire
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

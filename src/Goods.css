@@ -8,16 +8,8 @@
   z-index: 1;
 }
 
-.main_content::before {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  height: 160px;
-  z-index: -1;
-  content: '';
-  border-radius: 0px;
-  @apply bg-secondary;
+.main_content .main_title {
+  @apply bg-secondary mb-3;
 }
 
 aside {
@@ -60,7 +52,7 @@ ul.tags-list > li {
 }
 
 .flex-table {
-  @apply flex flex-wrap items-stretch -mx-1 overflow-hidden sm:-mx-1;
+  @apply flex flex-wrap items-stretch overflow-hidden;
 }
 
 .table-row {

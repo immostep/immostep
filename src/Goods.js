@@ -46,6 +46,7 @@ import ChartTrafic from './ChartTrafic';
 import ChartFinances from './ChartFinances';
 import ChartViewsByGood from './ChartViewsByGood';
 import Breadcrumbs from './Breadcrumbs';
+import DropdownDocuments from './DropdownDocuments';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -173,125 +174,125 @@ function Goods({ isNewGood = false }) {
             <div className="h-full overflow-y-auto">
               <HeaderBar isFluid noLogo={true} user={{ id: 1, name: 'Martial Séron' }} />
               <div className="relative main_content">
-                <div className="container grid mx-auto">
-                  {requestedGood && (
-                    <>
-                      <h1 className="mt-6 mb-2 text-4xl font-bold text-white">{requestedGood.name}</h1>
-                      <Breadcrumbs />
+                {requestedGood && (
+                  <>
+                    <div className="main_title">
+                      <div className="container grid mx-auto">
+                        <h1 className="mt-6 mb-2 text-4xl font-bold text-white">{requestedGood.name}</h1>
+                        <Breadcrumbs />
 
-                      <div className="grid grid-flow-col mb-6 columns-2">
-                        <span className="w-24 p-1 text-sm text-center text-white bg-teal-500 rounded h-7">{requestedGood.status}</span>
-                        <DropdownOptions isPublished={requestedGood.status === 'Publiée'} />
-                        {/* <ul className="flex flex-row flex-wrap justify-end list-none btn-group">
-                          <li>
-                            <Link to={`/owner/goods/${requestedGood.id}/preview`} className="pl-4 btn btn-primary">
-                              <FontAwesomeIcon icon={faEye} className="mr-2" />
-                              Prévisualiser l&apos;annonce
-                            </Link>
-                          </li>
-                          {requestedGood.status !== 'Publiée' ? (
-                            <li>
-                              <Link to={`/owner/goods/${requestedGood.id}/publish`} className="pl-4 text-white bg-green-500 btn hover:bg-green-600">
-                                <FontAwesomeIcon icon={faCheck} className="mr-2" />
-                                Publier l&apos;annonce
-                              </Link>
-                            </li>
-                          ) : null}
-                          {requestedGood.status === 'Publiée' ? (
-                            <li>
-                              <Link
-                                to={`/owner/goods/${requestedGood.id}/delete`}
-                                onClick={(ev) => {
-                                  ev.preventDefault();
-                                  setShowConfirmDeleteModal(true);
-                                }}
-                                className="pl-4 text-white bg-red-500 btn hover:bg-red-600">
-                                <FontAwesomeIcon icon={faTrash} className="mr-2" />
-                                Retirer l&apos;annonce
-                              </Link>
-                            </li>
-                          ) : null}
-                        </ul> */}
+                        <div className="grid grid-flow-col grid-cols-2 mb-6">
+                          <div className="tags">
+                            <span className="p-1 text-sm text-center text-white bg-teal-500 rounded h-7">
+                              Status annonce : {requestedGood.status}
+                            </span>
+                          </div>
+
+                          <div className="flex flex-row-reverse gap-6 options">
+                            <DropdownOptions isPublished={requestedGood.status === 'Publiée'} />
+                            <DropdownDocuments />
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="grid grid-cols-1 gap-y-10">
-                        <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="photos">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Photos</h2>
-                          <Swiper
-                            slidesPerView={5}
-                            spaceBetween={20}
-                            pagination={{
-                              clickable: true
-                            }}
-                            navigation={true}>
-                            {requestedGood.images.map((image, idx) => (
-                              <SwiperSlide key={idx} onClick={(ev) => setShowLightbox(ev.target.src)}>
-                                <img className="object-scale-down rounded cursor-pointer" src={image} />
-                              </SwiperSlide>
-                            ))}
-                          </Swiper>
-                          {showLightbox && <Lightbox image={showLightbox} onClose={() => setShowLightbox('')} />}
+                      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-primary"></div>
+                      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
+                    </div>
+                    <div className="container grid mx-auto">
+                      <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
+                        <section className="object-center min-w-0 p-0 md:col-span-2 card" id="photos">
+                          <div className="card-header">
+                            <h2 className="card-title">Photos</h2>
+                          </div>
+                          <div className="card-content">
+                            <Swiper
+                              slidesPerView={5}
+                              spaceBetween={20}
+                              pagination={{
+                                clickable: true
+                              }}
+                              navigation={true}>
+                              {requestedGood.images.map((image, idx) => (
+                                <SwiperSlide key={idx} onClick={(ev) => setShowLightbox(ev.target.src)}>
+                                  <img className="object-scale-down rounded cursor-pointer" src={image} />
+                                </SwiperSlide>
+                              ))}
+                            </Swiper>
+                            {showLightbox && <Lightbox image={showLightbox} onClose={() => setShowLightbox('')} />}
+                          </div>
                         </section>
 
-                        <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="details">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Description</h2>
-                          <p>{requestedGood.description || 'Aucune description'}</p>
+                        <section className="object-center min-w-0 p-0 md:col-span-2 card" id="description">
+                          <div className="card-header">
+                            <h2 className="card-title">Description</h2>
+                          </div>
+                          <div className="card-content">
+                            <p>{requestedGood.description || 'Aucune description'}</p>
+                          </div>
                         </section>
 
-                        <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="details">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Détails</h2>
-
-                          <div className="grid grid-cols-4 gap-x-5">
-                            <div className="details h-14">
-                              <div className="details-icon">
-                                <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
-                                  <FontAwesomeIcon icon={faHome} fixedWidth />
+                        <section className="object-center min-w-0 p-0 md:col-span-2 card" id="details">
+                          <div className="card-header">
+                            <h2 className="card-title">Détails</h2>
+                          </div>
+                          <div className="card-content">
+                            <div className="grid grid-cols-4 gap-x-5">
+                              <div className="details h-14">
+                                <div className="details-icon">
+                                  <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
+                                    <FontAwesomeIcon icon={faHome} fixedWidth />
+                                  </div>
                                 </div>
+                                <div className="details-value">{requestedGood.surface} m2</div>
+                                <div className="details-units">Surface habitable</div>
                               </div>
-                              <div className="details-value">{requestedGood.surface} m2</div>
-                              <div className="details-units">Surface habitable</div>
-                            </div>
 
-                            <div className="details h-14">
-                              <div className="details-icon">
-                                <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
-                                  <FontAwesomeIcon icon={faExpand} fixedWidth />
+                              <div className="details h-14">
+                                <div className="details-icon">
+                                  <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
+                                    <FontAwesomeIcon icon={faExpand} fixedWidth />
+                                  </div>
                                 </div>
+                                <div className="details-value">{requestedGood.rooms}</div>
+                                <div className="details-units">Pièces</div>
                               </div>
-                              <div className="details-value">{requestedGood.rooms}</div>
-                              <div className="details-units">Pièces</div>
-                            </div>
 
-                            <div className="details h-14">
-                              <div className="details-icon">
-                                <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
-                                  <FontAwesomeIcon icon={faLayerGroup} fixedWidth />
+                              <div className="details h-14">
+                                <div className="details-icon">
+                                  <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
+                                    <FontAwesomeIcon icon={faLayerGroup} fixedWidth />
+                                  </div>
                                 </div>
+                                <div className="details-value">{requestedGood.floors}</div>
+                                <div className="details-units">Etages</div>
                               </div>
-                              <div className="details-value">{requestedGood.floors}</div>
-                              <div className="details-units">Etages</div>
                             </div>
                           </div>
                         </section>
 
-                        <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="equipments">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Equipements</h2>
+                        <section className="object-center min-w-0 p-0 md:col-span-2 card" id="equipments">
+                          <div className="card-header">
+                            <h2 className="card-title">Equipements</h2>
+                          </div>
 
-                          <ul className="tags-list">
-                            {requestedGood.equipments.map((equipment) => {
-                              return (
-                                <li key={equipment}>
-                                  <span>{equipment}</span>
-                                </li>
-                              );
-                            })}
-                          </ul>
+                          <div className="card-content">
+                            <ul className="tags-list">
+                              {requestedGood.equipments.map((equipment) => {
+                                return (
+                                  <li key={equipment}>
+                                    <span>{equipment}</span>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
                         </section>
 
-                        <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="requests">
-                          <h2 className="mb-5 text-xl text-ternary-dark">Demandes</h2>
-
-                          <div className="flex-table">
+                        <section className="object-center min-w-0 p-0 md:col-span-2 card" id="requests">
+                          <div className="card-header">
+                            <h2 className="card-title">Demandes</h2>
+                          </div>
+                          <div className="flex-table table-stripped">
                             <div className="table-row header">
                               <div className="table-cell">Date</div>
                               <div className="table-cell">Demandeur</div>
@@ -331,32 +332,64 @@ function Goods({ isNewGood = false }) {
                             })}
                           </div>
                         </section>
+
+                        <section className="object-center card">
+                          <div className="card-header">
+                            <h2 className="card-title">Finances</h2>
+                          </div>
+                          <div className="p-4">
+                            <ChartFinances />
+                          </div>
+                        </section>
+
+                        <section className="object-center card">
+                          <div className="card-header">
+                            <h2 className="card-title">Vues</h2>
+                          </div>
+                          <div className="p-4">
+                            <ChartViewsByGood good={requestedGood.id} />
+                          </div>
+                        </section>
                       </div>
-                    </>
-                  )}
+                    </div>
+                  </>
+                )}
 
-                  {isNewGood && (
-                    <>
-                      <h1 className="my-6 text-2xl font-semibold text-secondary">Nouveau Logement</h1>
-                      <div className="">
-                        <div className="grid grid-cols-1 gap-y-10">
-                          <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="description">
-                            <h2 className="mb-5 text-xl text-ternary-dark">Description</h2>
-                            <div>
-                              <form>
-                                <label className="block">
-                                  <textarea
-                                    placeholder="Ajouter une description"
-                                    className="block w-full p-2 bg-white border-2 border-gray-300 rounded-md resize-none focus:outline-none focus:border-secondary-light"></textarea>
-                                  <small className="text-gray-400">500 caractères maxi</small>
-                                </label>
-                              </form>
-                            </div>
-                          </section>
+                {isNewGood && (
+                  <>
+                    <div className="main_title">
+                      <div className="container grid mx-auto">
+                        <h1 className="mt-6 mb-2 text-4xl font-bold text-white">Nouveau Logement</h1>
+                      </div>
 
-                          <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="details">
-                            <h2 className="mb-5 text-xl text-ternary-dark">Détails</h2>
+                      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-primary"></div>
+                      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
+                    </div>
+                    <div className="container grid mx-auto">
+                      <div className="grid gap-6 mb-8">
+                        <section className="object-center min-w-0 p-0 card" id="form-description">
+                          <div className="card-header">
+                            <h2 className="card-title">Description</h2>
+                          </div>
 
+                          <div className="card-content">
+                            <form>
+                              <label className="block">
+                                <textarea
+                                  placeholder="Ajouter une description"
+                                  className="block w-full p-2 bg-white border-2 border-gray-300 rounded-md resize-none focus:outline-none focus:border-secondary-light"></textarea>
+                                <small className="text-gray-400">500 caractères maxi</small>
+                              </label>
+                            </form>
+                          </div>
+                        </section>
+
+                        <section className="object-center min-w-0 p-0 card" id="form-details">
+                          <div className="card-header">
+                            <h2 className="card-title">Détails</h2>
+                          </div>
+
+                          <div className="card-content">
                             <div className="grid grid-cols-4 gap-x-5" id="details-list">
                               {newGood.surface !== 0 && (
                                 <div className="details h-14">
@@ -421,11 +454,15 @@ function Goods({ isNewGood = false }) {
                                 </button>
                               </div>
                             </form>
-                          </section>
+                          </div>
+                        </section>
 
-                          <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="equipments">
-                            <h2 className="mb-5 text-xl text-ternary-dark">Equipements</h2>
+                        <section className="object-center min-w-0 p-0 card" id="form-equipments">
+                          <div className="card-header">
+                            <h2 className="card-title">Equipements</h2>
+                          </div>
 
+                          <div className="card-content">
                             <ul className="tags-list">
                               {newGood.equipments.map((equipment, i) => {
                                 return (
@@ -456,10 +493,15 @@ function Goods({ isNewGood = false }) {
                                 </button>
                               </div>
                             </form>
-                          </section>
+                          </div>
+                        </section>
 
-                          <section className="p-5 bg-white border-2 rounded-md border-ternary-light" id="photos">
-                            <h2 className="mb-5 text-xl text-ternary-dark">Photos</h2>
+                        <section className="object-center min-w-0 p-0 card" id="form-photos">
+                          <div className="card-header">
+                            <h2 className="card-title">Photos</h2>
+                          </div>
+
+                          <div className="card-content">
                             <div className="grid grid-cols-2 gap-6">
                               <div className="flex flex-col justify-center gap-3 p-20 text-center border-2 border-dashed rounded bg-ternary-lighter border-ternary flex-nowrap">
                                 <span>
@@ -472,7 +514,7 @@ function Goods({ isNewGood = false }) {
                                 <ul className="grid grid-flow-row gap-6">
                                   <li className="grid grid-cols-fileupload">
                                     <div>
-                                      <FontAwesomeIcon icon={faImage} className="text-3xl text-gray-200" />
+                                      <FontAwesomeIcon icon={faImage} className="text-3xl text-white" />
                                     </div>
                                     <div className="grid grid-rows-progress">
                                       <div className="flex justify-between text-sm font-semibold font-inter">
@@ -513,31 +555,40 @@ function Goods({ isNewGood = false }) {
                                 </ul>
                               </div>
                             </div>
-                          </section>
+                          </div>
+                        </section>
 
-                          <section className="">
-                            <button
-                              className="px-4 py-2 text-lg font-medium text-white border-2 border-transparent rounded bg-ternary hover:bg-ternary-dark"
-                              type="button"
-                              onClick={() => {
-                                newGood.id = goods.length + 1;
-                                newGood.name = `Logement #0${newGood.id}`;
-                                setGoods([...goods, newGood]);
-                                setNewGood(emptyGood);
-                              }}>
-                              Ajouter le logement
-                            </button>
-                          </section>
-                        </div>
+                        <section className="">
+                          <button
+                            className="px-4 py-2 text-lg font-medium text-white border-2 border-transparent rounded bg-ternary hover:bg-ternary-dark"
+                            type="button"
+                            onClick={() => {
+                              newGood.id = goods.length + 1;
+                              newGood.name = `Logement #0${newGood.id}`;
+                              setGoods([...goods, newGood]);
+                              setNewGood(emptyGood);
+                            }}>
+                            Ajouter le logement
+                          </button>
+                        </section>
                       </div>
-                    </>
-                  )}
+                    </div>
+                  </>
+                )}
 
-                  {!requestedGood && !isNewGood && (
-                    <>
-                      <h1 className="mt-6 mb-2 text-4xl font-bold text-gray-200">Dashboard</h1>
-                      <Breadcrumbs />
+                {!requestedGood && !isNewGood && (
+                  <>
+                    <div className="main_title">
+                      <div className="container grid mx-auto">
+                        <h1 className="mt-6 mb-2 text-4xl font-bold text-white">Dashboard</h1>
+                        <Breadcrumbs />
+                      </div>
 
+                      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-primary"></div>
+                      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
+                    </div>
+
+                    <div className="container grid mx-auto">
                       <div className="mt-4">
                         <div className="flex gap-6 flex-nowrap">
                           <div className="w-full sm:w-1/2 xl:w-1/3">
@@ -604,7 +655,7 @@ function Goods({ isNewGood = false }) {
                       </div>
 
                       <div className="grid gap-6 mb-8 md:grid-cols-2 ">
-                        <div className="object-center min-w-0 col-span-2 p-0 card">
+                        <section className="object-center min-w-0 col-span-2 p-0 card">
                           <div className="card-header">
                             <h2 className="card-title">Communications</h2>
                           </div>
@@ -712,38 +763,38 @@ function Goods({ isNewGood = false }) {
                               <button className="btn">Voir tout</button>
                             </div>
                           </div>
-                        </div>
+                        </section>
 
-                        <div className="object-center card">
+                        <section className="object-center card">
                           <div className="card-header">
                             <h2 className="card-title">Trafic</h2>
                           </div>
                           <div className="p-4">
                             <ChartTrafic />
                           </div>
-                        </div>
+                        </section>
 
-                        <div className="object-center card ">
+                        <section className="object-center card ">
                           <div className="card-header">
                             <h2 className="card-title">Finances</h2>
                           </div>
                           <div className="p-4">
                             <ChartFinances />
                           </div>
-                        </div>
+                        </section>
 
-                        <div className="object-center col-span-2 card">
+                        <section className="object-center col-span-2 card">
                           <div className="card-header">
                             <h2 className="card-title">Vues par logement</h2>
                           </div>
                           <div className="p-4">
                             <ChartViewsByGood />
                           </div>
-                        </div>
+                        </section>
                       </div>
-                    </>
-                  )}
-                </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </main>

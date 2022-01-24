@@ -1,16 +1,19 @@
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo_white from './img/logo_white.svg';
 
 function Footer() {
   return (
     <footer className="">
-      <div className="relative px-4 sm:px-6 md:px-8 bg-primary h-1"></div>
-      <div className="relative px-4 sm:px-6 md:px-8 bg-secondary h-1"></div>
+      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-primary"></div>
+      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
       <div className="px-4 py-3 sm:px-6 md:px-8 bg-primary text-primary-light">
         <div className="container mx-auto">
           <img className="my-2 [height:48px]" src={logo_white} alt="ImmoStep" />
           <div className="flex flex-row flex-wrap justify-between">
             <div className="py-3">
-              <h5 className="uppercase text-white">Propriétaires</h5>
+              <h5 className="text-white uppercase">Propriétaires</h5>
               <ul>
                 <li className="m-1">
                   <a href="/">Publier un bien</a>
@@ -25,7 +28,7 @@ function Footer() {
             </div>
 
             <div className="py-3">
-              <h5 className="uppercase text-white">Locataires</h5>
+              <h5 className="text-white uppercase">Locataires</h5>
               <ul>
                 <li className="m-1">
                   <a href="/">Rechercher un logement</a>
@@ -40,7 +43,7 @@ function Footer() {
             </div>
 
             <div className="py-3">
-              <h5 className="uppercase text-white">Informations</h5>
+              <h5 className="text-white uppercase">Informations</h5>
               <ul>
                 <li className="m-1">
                   <a href="/">Mentions légales</a>
@@ -59,12 +62,14 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className="bg-primary-dark text-primary-light text-sm py-5 px-4 sm:px-6 md:px-8">
+      <div className="px-4 py-5 text-sm bg-primary-dark text-primary-light sm:px-6 md:px-8">
         <div className="container mx-auto">
-          <div className="flex justify-between flex-wrap">
+          <div className="flex flex-wrap justify-between">
             <div>
-              Fait avec <i className="fas fa-heart"></i> & <i className="fas fa-coffee"></i> par{' '}
-              <a href="https://github.com/MartialSeron">@MartialSeron</a>
+              Fait avec <FontAwesomeIcon icon={faHeart} /> &amp; <FontAwesomeIcon icon={faCoffee} /> <i className="fas fa-coffee"></i> par{' '}
+              <a target="_blank" href="https://github.com/MartialSeron" rel="noreferrer">
+                @MartialSeron
+              </a>
             </div>
             <div>&copy; ImmoStep</div>
           </div>

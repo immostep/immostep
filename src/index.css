@@ -33,7 +33,7 @@
   }
 
   .btn {
-    @apply px-3 py-1 text-base font-medium text-gray-500 border border-transparent rounded bg-gray-200 hover:bg-gray-300;
+    @apply px-3 py-1 text-base font-medium border border-transparent rounded text-primary bg-white hover:bg-gray-200;
   }
 
   .btn-lg {
@@ -103,7 +103,11 @@
   }
 
   .card-title {
-    @apply text-lg font-bold text-secondary-dark;
+    @apply text-2xl font-semibold text-secondary-dark border-b-2 border-b-ternary-light;
+  }
+
+  .card-content {
+    @apply p-5;
   }
 }
 

@@ -4,7 +4,7 @@ import PopupLoginForm from './PopupLoginForm';
 import logo_color from './img/logo_color.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
-import userImg from './img/stephane-plaza.jpg';
+import userImg from './img/2.jpg';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 function HeaderBar({ isFluid = false, user = {}, noLogo = false, noSearchField = false }) {
@@ -16,8 +16,11 @@ function HeaderBar({ isFluid = false, user = {}, noLogo = false, noSearchField =
   }, [user]);
 
   return (
-    <header className="relative flex items-center justify-between h-16 bg-white border-b-0 border-ternary-light flex-nowrap">
-      <nav id="header" className={`top-0 z-30 w-full bg-white text-primary ${isFluid ? 'mx-10' : 'container mx-auto'}`}>
+    <header
+      className={`relative flex items-center justify-between h-16  flex-nowrap ${
+        isFluid ? 'px-10 bg-secondary-dark' : 'container mx-auto bg-white'
+      }`}>
+      <nav id="header" className={`top-0 z-30 w-full text-primary ${isFluid ? 'mx-10' : 'container mx-auto'}`}>
         <div className="flex flex-wrap items-center justify-between w-full mx-auto mt-0">
           {!noLogo && (
             <div className="flex">
@@ -36,9 +39,9 @@ function HeaderBar({ isFluid = false, user = {}, noLogo = false, noSearchField =
                 <input
                   type="text"
                   placeholder="Rechercher..."
-                  className="w-full h-10 pr-5 bg-gray-100 border-2 border-gray-100 rounded-md hover:border-gray-300 pl-14"
+                  className="w-full h-10 pr-5 border-2 rounded-md placeholder-secondary-lighter border-secondary-light bg-secondary-light hover:border-gray-300 pl-14"
                 />
-                <button type="submit" className="absolute top-0 left-0 pt-2 pl-6">
+                <button type="submit" className="absolute top-0 left-0 pt-2 pl-6 text-secondary-lighter">
                   <FontAwesomeIcon icon={faSearch} />
                 </button>
               </form>
@@ -68,7 +71,7 @@ function HeaderBar({ isFluid = false, user = {}, noLogo = false, noSearchField =
               <ul className="items-center justify-end flex-1 list-reset lg:flex">
                 <button
                   type="button"
-                  className="w-10 h-10 text-2xl bg-white rounded-full text-primary-light hover:text-primary hover:bg-gray-100 focus:outline-none">
+                  className="w-10 h-10 text-2xl rounded-full text-secondary-lighter bg-secondary hover:text-primary hover:bg-gray-100 focus:outline-none">
                   <span className="sr-only">View notifications</span>
                   <FontAwesomeIcon icon={faBell} />
                 </button>

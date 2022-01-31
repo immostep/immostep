@@ -11,15 +11,8 @@
     "rooms": 4,
     "views": 243,
     "messages": 0,
-    "images": [
-      "/img/goods/001.jpg"
-    ],
-    "equipments": [
-      "garage inclus",
-      "balcon",
-      "antenne satellite",
-      "2 salles de bain"
-    ],
+    "images": ["/img/goods/001.jpg"],
+    "equipments": ["garage inclus", "balcon", "antenne satellite", "2 salles de bain"],
     "requests": [
       {
         "from": "Georges Lucas",
@@ -27,7 +20,7 @@
         "status": "En attente",
         "date": "22 oct. 2021",
         "rating": 5,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Jim Carrey",
@@ -35,7 +28,7 @@
         "status": "En attente",
         "date": "17 oct. 2021",
         "rating": 3,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Silvester Stalone",
@@ -43,7 +36,7 @@
         "status": "En attente",
         "date": "17 oct. 2021",
         "rating": 2,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Brad Pitt",
@@ -51,7 +44,7 @@
         "status": "Refusé",
         "date": "10 oct. 2021",
         "rating": 1,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       }
     ]
   },
@@ -67,15 +60,8 @@
     "rooms": 4,
     "views": 1254,
     "messages": 1,
-    "images": [
-      "/img/goods/002.jpg"
-    ],
-    "equipments": [
-      "garage inclus",
-      "balcon",
-      "antenne satellite",
-      "2 salles de bain"
-    ],
+    "images": ["/img/goods/002.jpg"],
+    "equipments": ["garage inclus", "balcon", "antenne satellite", "2 salles de bain"],
     "requests": [
       {
         "from": "Georges Lucas",
@@ -83,7 +69,7 @@
         "status": "En attente",
         "date": "22 oct. 2021",
         "rating": 5,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Jim Carrey",
@@ -91,7 +77,7 @@
         "status": "En attente",
         "date": "17 oct. 2021",
         "rating": 3,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Silvester Stalone",
@@ -99,7 +85,7 @@
         "status": "En attente",
         "date": "17 oct. 2021",
         "rating": 2,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Brad Pitt",
@@ -107,7 +93,7 @@
         "status": "Refusé",
         "date": "10 oct. 2021",
         "rating": 1,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       }
     ]
   },
@@ -135,13 +121,89 @@
       "/img/goods/003 (7).jpg",
       "/img/goods/003 (8).jpg"
     ],
+    "documents": {
+      "invoices": [
+        {
+          "filename": "Facture 01.pdf",
+          "size": 256000,
+          "amount": 2774.31,
+          "type": "électricité",
+          "date": "2021-12-01T00:00:00.000Z"
+        },
+        {
+          "filename": "smtp_direct.pdf",
+          "size": 82949,
+          "amount": "285.38",
+          "type": "chauffage",
+          "date": "2021-12-01T00:00:00.000Z"
+        },
+        {
+          "filename": "streamline_white.pdf",
+          "size": 81150,
+          "amount": "746.23",
+          "type": "électricité",
+          "date": "2021-12-01T00:00:00.000Z"
+        },
+        {
+          "filename": "national_xss_cyprus.pdf",
+          "size": 18018,
+          "amount": "658.79",
+          "type": "électricité",
+          "date": "2021-12-01T00:00:00.000Z"
+        },
+        {
+          "filename": "courts_generic.pdf",
+          "size": 53453,
+          "amount": "527.62",
+          "type": "entretien",
+          "date": "2021-12-01T00:00:00.000Z"
+        },
+        {
+          "filename": "program_lithuania_innovative.pdf",
+          "size": 99912,
+          "amount": "389.85",
+          "type": "électricité",
+          "date": "2021-12-01T00:00:00.000Z"
+        },
+        {
+          "filename": "ergonomic_loan.pdf",
+          "size": 87969,
+          "amount": "885.32",
+          "type": "eau",
+          "date": "2021-12-01T00:00:00.000Z"
+        },
+        {
+          "filename": "strategy_mission_critical_secured.pdf",
+          "size": 50643,
+          "amount": "322.67",
+          "type": "électricité",
+          "date": "2021-12-01T00:00:00.000Z"
+        },
+        {
+          "filename": "account_hat_purple.pdf",
+          "size": 95156,
+          "amount": "936.30",
+          "type": "électricité",
+          "date": "2021-12-01T00:00:00.000Z"
+        },
+        {
+          "filename": "sleek_functionality_frozen.pdf",
+          "size": 45609,
+          "amount": "502.53",
+          "type": "électricité",
+          "date": "2021-12-01T00:00:00.000Z"
+        },
+        {
+          "filename": "generate_cotton_producer.pdf",
+          "size": 44230,
+          "amount": "716.61",
+          "type": "électricité",
+          "date": "2021-12-01T00:00:00.000Z"
+        }
+      ]
+    },
     "occupiedSince": "1er janvier 2020",
-    "equipments": [
-      "garage inclus",
-      "balcon",
-      "antenne satellite",
-      "2 salles de bain"
-    ],
+    "equipments": ["garage inclus", "balcon", "antenne satellite", "2 salles de bain"],
     "requests": [
       {
         "from": "Georges Lucas",
@@ -149,7 +211,7 @@
         "status": "En attente",
         "date": "22 oct. 2021",
         "rating": 5,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Jim Carrey",
@@ -157,7 +219,7 @@
         "status": "En attente",
         "date": "17 oct. 2021",
         "rating": 3,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Silvester Stalone",
@@ -165,7 +227,7 @@
         "status": "En attente",
         "date": "17 oct. 2021",
         "rating": 2,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Brad Pitt",
@@ -173,7 +235,7 @@
         "status": "Refusé",
         "date": "10 oct. 2021",
         "rating": 1,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       }
     ]
   },
@@ -189,16 +251,9 @@
     "rooms": 4,
     "views": 243,
     "messages": 0,
-    "images": [
-      "/img/goods/004.jpg"
-    ],
+    "images": ["/img/goods/004.jpg"],
     "documents": 4,
-    "equipments": [
-      "garage inclus",
-      "balcon",
-      "antenne satellite",
-      "2 salles de bain"
-    ],
+    "equipments": ["garage inclus", "balcon", "antenne satellite", "2 salles de bain"],
     "requests": [
       {
         "from": "Georges Lucas",
@@ -206,7 +261,7 @@
         "status": "En attente",
         "date": "22 oct. 2021",
         "rating": 5,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Jim Carrey",
@@ -214,7 +269,7 @@
         "status": "En attente",
         "date": "17 oct. 2021",
         "rating": 3,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Silvester Stalone",
@@ -222,7 +277,7 @@
         "status": "En attente",
         "date": "17 oct. 2021",
         "rating": 2,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       },
       {
         "from": "Brad Pitt",
@@ -230,7 +285,7 @@
         "status": "Refusé",
         "date": "10 oct. 2021",
         "rating": 1,
-        "content" : "Bla bla bla"
+        "content": "Bla bla bla"
       }
     ]
   }

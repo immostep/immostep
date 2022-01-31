@@ -146,6 +146,8 @@ ul.tags-list > li {
   @apply flex flex-row flex-nowrap;
 }
 
+/* TABS */
+
 .tabs-wrapper {
   @apply container h-10 mx-auto mb-8;
   margin-top: -56px;

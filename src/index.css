@@ -33,7 +33,10 @@
   }
 
   .btn {
-    @apply px-3 py-1 text-base font-medium border border-transparent rounded text-primary bg-white hover:bg-gray-200;
+    @apply px-3 py-1 text-base font-medium border border-transparent rounded text-gray-600 bg-gray-200 hover:bg-gray-400;
+  }
+  .btn-md {
+    @apply px-4 py-2;
   }
 
   .btn-lg {
@@ -43,12 +46,15 @@
   .btn-primary {
     @apply text-white bg-primary hover:bg-primary-dark;
   }
+
   .btn-secondary {
     @apply text-white bg-secondary hover:bg-secondary-dark;
   }
+
   .btn-ternary {
     @apply text-white bg-ternary hover:bg-ternary-dark;
   }
+
   .btn-group {
   }
 
@@ -62,6 +68,11 @@
     text-transform: uppercase;
     padding: 5px 10px;
     min-width: 19px;
+  }
+
+  .badge-sm {
+    font-size: 0.7em;
+    padding: 2px 5px;
   }
 
   .badge-pill {
@@ -108,6 +119,36 @@
 
   .card-content {
     @apply p-5;
+  }
+
+  .pagination {
+    @apply container flex justify-center mx-auto my-10;
+  }
+
+  .pagination ul {
+    @apply flex border border-primary-lighter rounded;
+  }
+
+  .pagination ul > li {
+    @apply text-sm  text-primary-light bg-white border-l border-primary-lighter hover:bg-gray-100;
+  }
+  .pagination ul > li button[disabled] {
+    @apply text-primary-lighter;
+  }
+
+  .pagination ul > li:first-child {
+    @apply border-l-0 rounded-l;
+  }
+  .pagination ul > li:last-child {
+    @apply rounded-r;
+  }
+
+  .pagination ul > li.active {
+    @apply bg-primary-lighter;
+  }
+
+  .pagination ul > li button {
+    @apply py-1 px-2;
   }
 }
 

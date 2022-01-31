@@ -22,21 +22,16 @@ import {
   faEllipsisV,
   faClock
 } from '@fortawesome/free-solid-svg-icons';
-import { faChartBar, faHourglass } from '@fortawesome/free-regular-svg-icons';
+import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import DropdownOptions from './DropdownOptions';
-import SwiperCore, { Pagination, Navigation } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import Lightbox from 'react-awesome-lightbox';
 import 'react-awesome-lightbox/build/style.css';
 import dataGoods from './sources/goods.json';
-import Ratings from './Ratings';
 import HeaderBar from './HeaderBar';
 import Footer from './Footer';
 import ConfirmModal from './ConfirmModal';
-import SimpleModal from './SimpleModal';
 import logo_color from './img/logo_color.svg';
 import avatar1 from './img/1.jpg';
 import avatar2 from './img/2.jpg';
@@ -48,13 +43,9 @@ import ChartViewsByGood from './ChartViewsByGood';
 import Breadcrumbs from './Breadcrumbs';
 import DropdownDocuments from './DropdownDocuments';
 import Card from './Card';
-
-SwiperCore.use([Pagination, Navigation]);
-
-const listStatus = {
-  'En attente': { icon: faHourglass, className: 'text-blue-500' },
-  Refusé: { icon: faTimes, className: 'text-red-600' }
-};
+import GoodDetails from './GoodDetails';
+import GoodDocuments from './GoodDocuments';
+import { Tab } from '@headlessui/react';
 
 const emptyGood = {
   name: '',
@@ -81,7 +72,6 @@ function Goods({ isNewGood = false }) {
     value: ''
   });
   const [formEquipments, setFormEquipments] = useState({ value: '' });
-  const [showLightbox, setShowLightbox] = useState('');
 
   let { id: requestedGoodId } = useParams();
 
@@ -103,10 +93,14 @@ function Goods({ isNewGood = false }) {
     });
   }
 
+  // function changeTab(tabId) {
+  //   setActiveTab(tabId);
+  // }
+
   const requestedGood = goods.find((g) => g.id === +requestedGoodId);
 
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
-  const [showRequestContentModal, setShowRequestContentModal] = useState(null);
+  // const [activeTab, setActiveTab] = useState('details');
 
   return (
     <>
@@ -200,134 +194,20 @@ function Goods({ isNewGood = false }) {
                       <div className="z-10 h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
                     </div>
                     <div className="tabs-wrapper">
-                      <ul className="tabs">
-                        <li className="tab active">Détails</li>
-                        <li className="tab">Documents</li>
-                      </ul>
-                    </div>
-                    <div className="container grid mx-auto">
-                      <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
-                        <Card title="Photos" id="photos" className="md:col-span-2">
-                          <Swiper
-                            slidesPerView={5}
-                            spaceBetween={20}
-                            pagination={{
-                              clickable: true
-                            }}
-                            navigation={true}>
-                            {requestedGood.images.map((image, idx) => (
-                              <SwiperSlide key={idx} onClick={(ev) => setShowLightbox(ev.target.src)}>
-                                <img className="object-scale-down rounded cursor-pointer" src={image} />
-                              </SwiperSlide>
-                            ))}
-                          </Swiper>
-                          {showLightbox && <Lightbox image={showLightbox} onClose={() => setShowLightbox('')} />}
-                        </Card>
-
-                        <Card title="Description" id="description" className="md:col-span-2">
-                          <p>{requestedGood.description || 'Aucune description'}</p>
-                        </Card>
-
-                        <Card title="Détails" id="details" className="md:col-span-2">
-                          <div className="grid grid-cols-4 gap-x-5">
-                            <div className="details h-14">
-                              <div className="details-icon">
-                                <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
-                                  <FontAwesomeIcon icon={faHome} fixedWidth />
-                                </div>
-                              </div>
-                              <div className="details-value">{requestedGood.surface} m2</div>
-                              <div className="details-units">Surface habitable</div>
-                            </div>
-
-                            <div className="details h-14">
-                              <div className="details-icon">
-                                <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
-                                  <FontAwesomeIcon icon={faExpand} fixedWidth />
-                                </div>
-                              </div>
-                              <div className="details-value">{requestedGood.rooms}</div>
-                              <div className="details-units">Pièces</div>
-                            </div>
-
-                            <div className="details h-14">
-                              <div className="details-icon">
-                                <div className="p-2 text-3xl rounded-md bg-secondary-lighter text-secondary">
-                                  <FontAwesomeIcon icon={faLayerGroup} fixedWidth />
-                                </div>
-                              </div>
-                              <div className="details-value">{requestedGood.floors}</div>
-                              <div className="details-units">Etages</div>
-                            </div>
-                          </div>
-                        </Card>
-
-                        <Card title="Equipements" id="equipments" className="md:col-span-2">
-                          <ul className="tags-list">
-                            {requestedGood.equipments.map((equipment) => {
-                              return (
-                                <li key={equipment}>
-                                  <span>{equipment}</span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </Card>
-
-                        <Card title="Demandes" id="requests" noContent className="md:col-span-2">
-                          <div className="flex-table table-stripped">
-                            <div className="table-row header">
-                              <div className="table-cell">Date</div>
-                              <div className="table-cell">Demandeur</div>
-                              <div className="table-cell">Statut</div>
-                              <div className="table-cell">Note</div>
-                              <div className="table-cell">&nbsp;</div>
-                            </div>
-
-                            {requestedGood.requests.map((request, i) => {
-                              return (
-                                <React.Fragment key={i}>
-                                  <SimpleModal
-                                    showModal={showRequestContentModal === i}
-                                    onClose={() => {
-                                      setShowRequestContentModal(null);
-                                    }}
-                                    title={request.from}
-                                    content={request.content}
-                                  />
-                                  <div
-                                    className={`table-row ${!request.read && 'font-bold'}`}
-                                    onClick={() => {
-                                      setShowRequestContentModal(i);
-                                    }}>
-                                    <div className="table-cell">{request.date}</div>
-                                    <div className="table-cell">{request.from}</div>
-                                    <div className={`table-cell ${listStatus[request.status].className}`}>
-                                      <FontAwesomeIcon icon={listStatus[request.status].icon} fixedWidth /> {request.status}
-                                    </div>
-                                    <div className="table-cell">
-                                      <Ratings rate={request.rating} />
-                                    </div>
-                                    <div className="table-cell"></div>
-                                  </div>
-                                </React.Fragment>
-                              );
-                            })}
-                          </div>
-                        </Card>
-
-                        <Card title="Finances" id="chart-finances" noContent>
-                          <div className="p-4">
-                            <ChartFinances />
-                          </div>
-                        </Card>
-
-                        <Card title="Vues" id="chart-finances" noContent>
-                          <div className="p-4">
-                            <ChartViewsByGood good={requestedGood.id} />
-                          </div>
-                        </Card>
-                      </div>
+                      <Tab.Group>
+                        <Tab.List className="tabs">
+                          <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Détails</Tab>
+                          <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Documents</Tab>
+                        </Tab.List>
+                        <Tab.Panels>
+                          <Tab.Panel>
+                            <GoodDetails requestedGood={requestedGood} />
+                          </Tab.Panel>
+                          <Tab.Panel>
+                            <GoodDocuments requestedGood={requestedGood} />
+                          </Tab.Panel>
+                        </Tab.Panels>
+                      </Tab.Group>
                     </div>
                   </>
                 )}

@@ -145,3 +145,25 @@ ul.tags-list > li {
 .slideshow {
   @apply flex flex-row flex-nowrap;
 }
+
+.tabs-wrapper {
+  @apply container h-10 mx-auto mb-8;
+  margin-top: -56px;
+  z-index: 20;
+}
+
+.tabs {
+  @apply flex items-center justify-start my-4 gap-2;
+}
+
+.tab {
+  @apply px-4 py-2 cursor-pointer bg-ternary text-ternary-light rounded-t;
+}
+
+.tab:hover {
+  @apply bg-ternary-dark;
+}
+
+.tab.active {
+  @apply bg-gray-100 text-secondary font-semibold;
+}

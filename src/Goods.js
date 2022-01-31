@@ -47,6 +47,7 @@ import ChartFinances from './ChartFinances';
 import ChartViewsByGood from './ChartViewsByGood';
 import Breadcrumbs from './Breadcrumbs';
 import DropdownDocuments from './DropdownDocuments';
+import Card from './Card';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -200,11 +201,7 @@ function Goods({ isNewGood = false }) {
                     </div>
                     <div className="container grid mx-auto">
                       <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
-                        <section className="object-center min-w-0 p-0 md:col-span-2 card" id="photos">
-                          <div className="card-header">
-                            <h2 className="card-title">Photos</h2>
-                          </div>
-                          <div className="card-content">
+                        <Card title="Photos" id="photos" className="md:col-span-2">
                             <Swiper
                               slidesPerView={5}
                               spaceBetween={20}
@@ -219,23 +216,13 @@ function Goods({ isNewGood = false }) {
                               ))}
                             </Swiper>
                             {showLightbox && <Lightbox image={showLightbox} onClose={() => setShowLightbox('')} />}
-                          </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center min-w-0 p-0 md:col-span-2 card" id="description">
-                          <div className="card-header">
-                            <h2 className="card-title">Description</h2>
-                          </div>
-                          <div className="card-content">
+                        <Card title="Description" id="description" className="md:col-span-2">
                             <p>{requestedGood.description || 'Aucune description'}</p>
-                          </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center min-w-0 p-0 md:col-span-2 card" id="details">
-                          <div className="card-header">
-                            <h2 className="card-title">Détails</h2>
-                          </div>
-                          <div className="card-content">
+                        <Card title="Détails" id="details" className="md:col-span-2">
                             <div className="grid grid-cols-4 gap-x-5">
                               <div className="details h-14">
                                 <div className="details-icon">
@@ -267,15 +254,9 @@ function Goods({ isNewGood = false }) {
                                 <div className="details-units">Etages</div>
                               </div>
                             </div>
-                          </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center min-w-0 p-0 md:col-span-2 card" id="equipments">
-                          <div className="card-header">
-                            <h2 className="card-title">Equipements</h2>
-                          </div>
-
-                          <div className="card-content">
+                        <Card title="Equipements" id="equipments" className="md:col-span-2">
                             <ul className="tags-list">
                               {requestedGood.equipments.map((equipment) => {
                                 return (
@@ -285,13 +266,9 @@ function Goods({ isNewGood = false }) {
                                 );
                               })}
                             </ul>
-                          </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center min-w-0 p-0 md:col-span-2 card" id="requests">
-                          <div className="card-header">
-                            <h2 className="card-title">Demandes</h2>
-                          </div>
+                        <Card title="Demandes" id="requests" noContent className="md:col-span-2">
                           <div className="flex-table table-stripped">
                             <div className="table-row header">
                               <div className="table-cell">Date</div>
@@ -331,25 +308,19 @@ function Goods({ isNewGood = false }) {
                               );
                             })}
                           </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center card">
-                          <div className="card-header">
-                            <h2 className="card-title">Finances</h2>
-                          </div>
+                        <Card title="Finances" id="chart-finances" noContent>
                           <div className="p-4">
                             <ChartFinances />
                           </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center card">
-                          <div className="card-header">
-                            <h2 className="card-title">Vues</h2>
-                          </div>
+                        <Card title="Vues" id="chart-finances" noContent>
                           <div className="p-4">
                             <ChartViewsByGood good={requestedGood.id} />
                           </div>
-                        </section>
+                        </Card>
                       </div>
                     </div>
                   </>
@@ -362,17 +333,12 @@ function Goods({ isNewGood = false }) {
                         <h1 className="mt-6 mb-2 text-4xl font-bold text-white">Nouveau Logement</h1>
                       </div>
 
-                      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-primary"></div>
-                      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
+                      <div className="h-1 px-4 sm:px-6 md:px-8 bg-primary"></div>
+                      <div className="h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
                     </div>
                     <div className="container grid mx-auto">
                       <div className="grid gap-6 mb-8">
-                        <section className="object-center min-w-0 p-0 card" id="form-description">
-                          <div className="card-header">
-                            <h2 className="card-title">Description</h2>
-                          </div>
-
-                          <div className="card-content">
+                        <Card title="Description" id="form-description">
                             <form>
                               <label className="block">
                                 <textarea
@@ -381,15 +347,9 @@ function Goods({ isNewGood = false }) {
                                 <small className="text-gray-400">500 caractères maxi</small>
                               </label>
                             </form>
-                          </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center min-w-0 p-0 card" id="form-details">
-                          <div className="card-header">
-                            <h2 className="card-title">Détails</h2>
-                          </div>
-
-                          <div className="card-content">
+                        <Card title="Détails" id="form-details">
                             <div className="grid grid-cols-4 gap-x-5" id="details-list">
                               {newGood.surface !== 0 && (
                                 <div className="details h-14">
@@ -454,15 +414,9 @@ function Goods({ isNewGood = false }) {
                                 </button>
                               </div>
                             </form>
-                          </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center min-w-0 p-0 card" id="form-equipments">
-                          <div className="card-header">
-                            <h2 className="card-title">Equipements</h2>
-                          </div>
-
-                          <div className="card-content">
+                        <Card title="Equipements" id="form-equipments">
                             <ul className="tags-list">
                               {newGood.equipments.map((equipment, i) => {
                                 return (
@@ -493,15 +447,9 @@ function Goods({ isNewGood = false }) {
                                 </button>
                               </div>
                             </form>
-                          </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center min-w-0 p-0 card" id="form-photos">
-                          <div className="card-header">
-                            <h2 className="card-title">Photos</h2>
-                          </div>
-
-                          <div className="card-content">
+                        <Card title="Photos" id="form-photos">
                             <div className="grid grid-cols-2 gap-6">
                               <div className="flex flex-col justify-center gap-3 p-20 text-center border-2 border-dashed rounded bg-ternary-lighter border-ternary flex-nowrap">
                                 <span>
@@ -555,10 +503,20 @@ function Goods({ isNewGood = false }) {
                                 </ul>
                               </div>
                             </div>
-                          </div>
-                        </section>
+                        </Card>
 
-                        <section className="">
+                        <Card title="Description" id="form-description">
+                          <form>
+                            <label className="block">
+                              <textarea
+                                placeholder="Ajouter une description"
+                                className="block w-full p-2 bg-white border-2 border-gray-300 rounded-md resize-none focus:outline-none focus:border-secondary-light"></textarea>
+                              <small className="text-gray-400">500 caractères maxi</small>
+                            </label>
+                          </form>
+                        </Card>
+
+                        <section>
                           <button
                             className="px-4 py-2 text-lg font-medium text-white border-2 border-transparent rounded bg-ternary hover:bg-ternary-dark"
                             type="button"
@@ -584,8 +542,8 @@ function Goods({ isNewGood = false }) {
                         <Breadcrumbs />
                       </div>
 
-                      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-primary"></div>
-                      <div className="relative h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
+                      <div className="h-1 px-4 sm:px-6 md:px-8 bg-primary"></div>
+                      <div className="h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
                     </div>
 
                     <div className="container grid mx-auto">
@@ -655,11 +613,7 @@ function Goods({ isNewGood = false }) {
                       </div>
 
                       <div className="grid gap-6 mb-8 md:grid-cols-2 ">
-                        <section className="object-center min-w-0 col-span-2 p-0 card">
-                          <div className="card-header">
-                            <h2 className="card-title">Communications</h2>
-                          </div>
-                          <div className="">
+                        <Card title="Communications" id="communications" className="md:col-span-2">
                             <table className="items-center w-full bg-transparent border-collapse [font-size:.88rem]">
                               <thead>
                                 <tr className="align-bottom">
@@ -757,40 +711,25 @@ function Goods({ isNewGood = false }) {
                                 </tr>
                               </tbody>
                             </table>
-                          </div>
+
                           <div className="px-4 py-2">
                             <div className="flex flex-row-reverse">
                               <button className="btn">Voir tout</button>
                             </div>
                           </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center card">
-                          <div className="card-header">
-                            <h2 className="card-title">Trafic</h2>
-                          </div>
-                          <div className="p-4">
+                        <Card title="Trafic" id="chart-trafic">
                             <ChartTrafic />
-                          </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center card ">
-                          <div className="card-header">
-                            <h2 className="card-title">Finances</h2>
-                          </div>
-                          <div className="p-4">
+                        <Card title="Finances" id="chart-finances">
                             <ChartFinances />
-                          </div>
-                        </section>
+                        </Card>
 
-                        <section className="object-center col-span-2 card">
-                          <div className="card-header">
-                            <h2 className="card-title">Vues par logement</h2>
-                          </div>
-                          <div className="p-4">
+                        <Card title="Vues par logement" id="chart-views" className="md:col-span-2">
                             <ChartViewsByGood />
-                          </div>
-                        </section>
+                        </Card>
                       </div>
                     </div>
                   </>

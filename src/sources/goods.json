@@ -5,7 +5,8 @@
     "location": {
       "city": "Cheviré-le-Rouge"
     },
-    "status": "Publiée",
+    "adStatus": 1,
+    "status": 2,
     "floors": 2,
     "surface": 200,
     "rooms": 4,
@@ -54,7 +55,8 @@
     "location": {
       "city": "Angers"
     },
-    "status": "Publiée",
+    "adStatus": 1,
+    "status": 2,
     "floors": 2,
     "surface": 200,
     "rooms": 4,
@@ -103,7 +105,8 @@
     "location": {
       "city": "Seiches-sur-le-Loir"
     },
-    "status": "Publiée",
+    "adStatus": 1,
+    "status": 2,
     "description": "T3 dernier étage avec ascenseur quartier caserne Desjardins, cuisine aménagée et équipée ouverte sur salon-séjour. 2 chambres avec placards. Salle de bain avec baignoire et douche. Stationnement privatif en sous-sol et cave. dont 6.48 % honoraires TTC à la charge de l'acquéreur. Copropriété de 85 lots (Pas de procédure en cours). Charges annuelles : 1320 euros.",
     "floors": 2,
     "surface": 200,
@@ -245,7 +248,8 @@
     "location": {
       "city": "Le Mans"
     },
-    "status": "Non publiée",
+    "adStatus": 2,
+    "status": 2,
     "floors": 2,
     "surface": 200,
     "rooms": 4,

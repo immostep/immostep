@@ -50,7 +50,7 @@ function GoodDetails({ requestedGood }) {
           <p>{requestedGood.description || 'Aucune description'}</p>
         </Card>
 
-        <Card title="Détails" id="details" className="md:col-span-2">
+        <Card title="Attributs" id="details" className="md:col-span-2">
           <div className="grid grid-cols-4 gap-x-5">
             <div className="details h-14">
               <div className="details-icon">

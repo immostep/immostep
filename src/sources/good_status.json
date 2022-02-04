@@ -1,0 +1,10 @@
+{
+  "1": {
+    "label": "Occupé",
+    "className": "text-white bg-teal-500"
+  },
+  "2": {
+    "label": "Inoccupé",
+    "className": "text-white bg-pink-500"
+  }
+}

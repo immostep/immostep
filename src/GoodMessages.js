@@ -13,7 +13,7 @@ const docTypes = {
   chauffage: 'badge-danger'
 };
 
-function GoodDocuments({ requestedGood }) {
+function GoodMessages({ requestedGood }) {
   const inputFileRef = useRef(null);
   const [currentInvoicesPage, setCurrentInvoicesPage] = useState(1);
   const [fileName, setFileName] = useState();
@@ -106,8 +106,8 @@ function GoodDocuments({ requestedGood }) {
   );
 }
 
-export default GoodDocuments;
+export default GoodMessages;
 
-GoodDocuments.propTypes = {
+GoodMessages.propTypes = {
   requestedGood: PropTypes.object
 };

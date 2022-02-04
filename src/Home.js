@@ -13,9 +13,7 @@ function Home() {
             <span className="block text-primary">Je recherche</span>
             <span className="block text-secondary">un logement</span>
           </h1>
-          <Link
-            className="px-5 py-3 text-base font-medium text-white border border-transparent rounded-sm bg-ternary hover:bg-ternary-dark"
-            to="/search">
+          <Link className="btn btn-lg btn-ternary" to="/search">
             Voir les offres
           </Link>
         </div>
@@ -26,9 +24,7 @@ function Home() {
             <span className="block text-ternary">mon bien immobilier</span>
           </h1>
 
-          <button
-            type="button"
-            className="px-5 py-3 text-base font-medium text-white border border-transparent rounded-sm bg-secondary hover:bg-secondary-dark">
+          <button type="button" className="btn btn-lg btn-secondary">
             S&apos;inscrire
           </button>
         </div>

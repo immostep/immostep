@@ -58,9 +58,21 @@ La commande va ouvrir directement le navigateur sur [http://localhost:3000](http
 
 Appuyez sur <kbd>Ctrl</kbd> + <kbd>c</kbd> dans le terminal pour arrêter l'application
 
-# Releases
+# Releases.
 
-- [version 0.1.0](https://github.com/immostep/immostep/releases/tag/0.1.0)
++ [version 0.3.0](https://github.com/immostep/immostep/releases/tag/0.2.0)
+
+  - Side menu collpsible
+  - Ajout onglets
+  - Ajout pages de gestion des documents et des messages
+
++ [version 0.2.0](https://github.com/immostep/immostep/releases/tag/0.2.0)
+  
+  - Refonte page dashboard
+  - Ajout boutons de génération de documents
+
++ [version 0.1.0](https://github.com/immostep/immostep/releases/tag/0.1.0)
+
   - page d'accueil
   - page de recherche de biens
   - page d'administation du propriétaire

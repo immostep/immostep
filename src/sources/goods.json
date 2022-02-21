@@ -11,7 +11,7 @@
     "surface": 200,
     "rooms": 4,
     "views": 243,
-    "messages": 0,
+    "messages": [],
     "images": ["/img/goods/001.jpg"],
     "equipments": ["garage inclus", "balcon", "antenne satellite", "2 salles de bain"],
     "requests": [
@@ -61,7 +61,7 @@
     "surface": 200,
     "rooms": 4,
     "views": 1254,
-    "messages": 1,
+    "messages": [],
     "images": ["/img/goods/002.jpg"],
     "equipments": ["garage inclus", "balcon", "antenne satellite", "2 salles de bain"],
     "requests": [
@@ -112,7 +112,141 @@
     "surface": 200,
     "rooms": 4,
     "views": 243,
-    "messages": 0,
+    "messages": [
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      },
+      {
+        "subject": "Candidature de M. Dupont Frédéric",
+        "type": 1,
+        "attachments": [{}, {}, {}],
+        "sender": "Dupont Frédéric",
+        "date": "2021-12-01T00:00:00.000Z"
+      }
+    ],
     "images": [
       "/img/goods/003.jpg",
       "/img/goods/003 (1).jpg",
@@ -254,7 +388,7 @@
     "surface": 200,
     "rooms": 4,
     "views": 243,
-    "messages": 0,
+    "messages": [],
     "images": ["/img/goods/004.jpg"],
     "documents": 4,
     "equipments": ["garage inclus", "balcon", "antenne satellite", "2 salles de bain"],

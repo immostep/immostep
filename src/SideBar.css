@@ -1,66 +1,107 @@
-/* Position and sizing of burger button */
-.bm-burger-button {
+.side-menu__wrapper {
   position: fixed;
-  width: 36px;
-  height: 30px;
-  left: 36px;
-  top: 17px;
-}
-
-/* Color/shape of burger icon bars */
-.bm-burger-bars {
-  @apply bg-ternary;
-}
-
-/* Color/shape of burger icon bars on hover*/
-.bm-burger-bars-hover {
-  @apply bg-ternary-dark;
-}
-
-/* Position and sizing of clickable cross button */
-.bm-cross-button {
-  height: 24px;
-  width: 24px;
-}
-
-/* Color/shape of close button cross */
-.bm-cross {
-  background: #bdc3c7;
-}
-
-/*
-Sidebar wrapper styles
-Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
-*/
-.bm-menu-wrap {
-  position: fixed;
+  width: 0px;
   height: 100%;
-}
-
-/* General sidebar styles */
-.bm-menu {
   @apply bg-gray-100;
-  padding: 2.5em 1.5em 0;
+  padding: 2.5em 1em 0;
   font-size: 1.15em;
+  z-index: 20;
+  transition: width 300ms cubic-bezier(0.2, 0, 0, 1) 0s;
+  @apply border-r-primary border-r-2;
 }
 
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: #373a47;
+.side-menu__wrapper.open {
+  width: 490px;
+}
+.side-menu__wrapper .side-menu {
+  position: relative;
+  height: 100%;
+  overflow: hidden auto;
 }
 
-/* Wrapper for item list */
-.bm-item-list {
-  color: #b8b7ad;
-  padding: 0.8em;
+.side-menu {
 }
 
-/* Individual item */
-.bm-item {
-  display: inline-block;
+.side-menu__close-btn {
+  position: absolute;
+  right: 9px;
+  top: 8px;
+  font-size: 1.5em;
+  font-weight: 800;
 }
 
-/* Styling of overlay */
-.bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
+.good {
+  @apply relative m-2 bg-white border-2 rounded-md cursor-pointer border-secondary-light;
+  @apply transition duration-200 ease-in-out;
+  width: 415px;
+}
+
+.good a.good-btn {
+  @apply relative overflow-hidden rounded;
+}
+
+.good:hover {
+  @apply border-black;
+}
+
+.good.active {
+  @apply border-secondary hover:border-black;
+}
+
+.good .good__image {
+  @apply h-28;
+  filter: grayscale(100%);
+}
+
+.good .good__image img {
+  @apply object-cover object-center w-40 rounded aspect-auto;
+  @apply [clip-path:polygon(55%_0,100%_0,100%_100%,0%_100%)];
+  @apply transition duration-200 ease-in-out;
+  opacity: 0.4;
+  transform: scale(1.25);
+}
+
+.good.active::after {
+  content: '';
+  @apply absolute w-2 h-2 rounded-full bg-secondary;
+  right: -13px;
+  top: 50%;
+}
+
+.good.active .good__image,
+.good:hover .good__image {
+  filter: grayscale(0);
+}
+
+.good.active .good__image img {
+  opacity: 1;
+}
+
+.good:hover .good__image img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.good .good__content {
+  @apply flex flex-col flex-1 mt-3 ml-5 gap-y-1;
+  z-index: 10;
+}
+
+.add-good {
+  @apply text-center border-dashed hover:text-gray-600 hover:border-gray-600;
+  @apply text-secondary;
+  @apply p-2 m-2;
+}
+
+.side-menu::-webkit-scrollbar {
+  width: 4px;
+  cursor: pointer;
+}
+.side-menu::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+  cursor: pointer;
+}
+.side-menu::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  @apply bg-primary-lighter;
 }

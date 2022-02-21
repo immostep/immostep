@@ -46,6 +46,7 @@ import GoodDetails from './GoodDetails';
 import GoodDocuments from './GoodDocuments';
 import { Tab } from '@headlessui/react';
 import SideBar from './SideBar';
+import GoodMessages from './GoodMessages';
 
 const emptyGood = {
   name: '',
@@ -58,7 +59,7 @@ const emptyGood = {
   surface: 0,
   rooms: 0,
   views: 0,
-  messages: 0,
+  messages: [],
   images: [],
   documents: 0,
   requests: []
@@ -93,6 +94,10 @@ function Goods({ isNewGood = false }) {
     });
   }
 
+  function handleToggleMenu() {
+    setIsSideMenuOpen(!isSideMenuOpen);
+  }
+
   // function changeTab(tabId) {
   //   setActiveTab(tabId);
   // }
@@ -100,6 +105,7 @@ function Goods({ isNewGood = false }) {
   const requestedGood = goods.find((g) => g.id === +requestedGoodId);
 
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   // const [activeTab, setActiveTab] = useState('details');
 
   return (
@@ -115,7 +121,8 @@ function Goods({ isNewGood = false }) {
         title="Suppression du logement"
         content="Êtes-vous sûr de vouloir supprimer ce logement ?"
       />
-      <SideBar goods={goods} requestedGoodId={requestedGoodId} />
+      <SideBar goods={goods} requestedGoodId={+requestedGoodId} onClickToggleMenu={handleToggleMenu} isOpen={isSideMenuOpen} />
+      {isSideMenuOpen && <div className="overlay"></div>}
       <div className="bg-gray-100" id="outer-container">
         <HeaderBar isFluid inverse user={{ id: 1, name: 'Martial Séron' }} />
         <main className="" id="page-wrap">
@@ -151,11 +158,15 @@ function Goods({ isNewGood = false }) {
                   <Tab.Group>
                     <Tab.List className="tabs">
                       <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Détails</Tab>
+                      <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Messages</Tab>
                       <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Documents</Tab>
                     </Tab.List>
                     <Tab.Panels>
                       <Tab.Panel>
                         <GoodDetails requestedGood={requestedGood} />
+                      </Tab.Panel>
+                      <Tab.Panel>
+                        <GoodMessages requestedGood={requestedGood} />
                       </Tab.Panel>
                       <Tab.Panel>
                         <GoodDocuments requestedGood={requestedGood} />

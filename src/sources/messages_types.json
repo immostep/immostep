@@ -1,0 +1,10 @@
+{
+  "1": {
+    "label": "Candidature",
+    "className": "text-white bg-teal-500"
+  },
+  "2": {
+    "label": "Signalement",
+    "className": "text-white bg-pink-500"
+  }
+}

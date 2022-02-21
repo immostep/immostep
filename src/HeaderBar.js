@@ -19,7 +19,7 @@ function HeaderBar({ isFluid = false, inverse = false, user = {}, noLogo = false
   return (
     <header className={`${isFluid ? ' bg-secondary-dark' : ' bg-white'}`}>
       <div className="container relative flex items-center justify-between h-16 mx-auto flex-nowrap ">
-        <nav id="header" className={`top-0 z-30 w-full text-primary`}>
+        <nav id="header" className={`top-0 z-5 w-full text-primary`}>
           <div className="flex flex-wrap items-center justify-between w-full mx-auto mt-0">
             {!noLogo && (
               <div>
@@ -73,7 +73,7 @@ function HeaderBar({ isFluid = false, inverse = false, user = {}, noLogo = false
             </div>
 
             <div
-              className="z-20 hidden w-full mt-2 text-black bg-gray-100 grow md:items-center md:w-auto md:flex md:mt-0 md:bg-transparent"
+              className="hidden w-full mt-2 text-black bg-gray-100  grow md:items-center md:w-auto md:flex md:mt-0 md:bg-transparent"
               id="nav-content">
               {!isLoggedIn && (
                 <ul className="items-center justify-end flex-1 list-reset md:flex">

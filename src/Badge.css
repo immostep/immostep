@@ -1,0 +1,11 @@
+.badge {
+  @apply inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none rounded-full;
+}
+
+.tab.active > .badge {
+  @apply text-red-100 bg-red-600;
+}
+
+.tab > .badge {
+  @apply bg-red-100 text-red-600;
+}

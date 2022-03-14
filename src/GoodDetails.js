@@ -11,9 +11,10 @@ import SwiperCore, { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Lightbox from 'react-awesome-lightbox';
 
-import { faHourglass } from '@fortawesome/free-regular-svg-icons';
+import { faFileAlt, faHourglass } from '@fortawesome/free-regular-svg-icons';
 
-import { faExpand, faHome, faLayerGroup, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEuroSign, faExpand, faHome, faLayerGroup, faTimes } from '@fortawesome/free-solid-svg-icons';
+import Tile from './Tile';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -22,6 +23,27 @@ const listStatus = {
   Refusé: { icon: faTimes, className: 'text-red-600' }
 };
 
+const actions = [
+  {
+    label: 'Bail de location',
+    to: '/lease',
+    icon: <FontAwesomeIcon icon={faFileAlt} fixedWidth size="2x" />,
+    status: [2]
+  },
+  {
+    label: 'Quittance de loyer',
+    to: '/receipt',
+    icon: <FontAwesomeIcon icon={faEuroSign} fixedWidth size="2x" />,
+    status: [1]
+  },
+  {
+    label: 'Etat des lieux',
+    to: '/inventory',
+    icon: <FontAwesomeIcon icon={faCheck} fixedWidth size="2x" />,
+    status: [1, 2]
+  }
+];
+
 function GoodDetails({ requestedGood }) {
   const [showLightbox, setShowLightbox] = useState('');
   const [showRequestContentModal, setShowRequestContentModal] = useState(null);
@@ -29,6 +51,21 @@ function GoodDetails({ requestedGood }) {
   return (
     <div className="container grid mx-auto">
       <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
+        <Card title="Générer" id="actions" className="md:col-span-2">
+          <div className="tiles">
+            {actions.map((action, idx) => {
+              if (action.status.includes(requestedGood.status)) {
+                return (
+                  <Tile variant="secondary" to={action.to} key={idx} icon={action.icon}>
+                    {action.label}
+                  </Tile>
+                );
+              }
+              return null;
+            })}
+          </div>
+        </Card>
+
         <Card title="Photos" id="photos" className="md:col-span-2">
           <Swiper
             slidesPerView={5}

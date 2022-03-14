@@ -1,0 +1,25 @@
+.tiles {
+  @apply flex flex-row gap-2;
+}
+
+.tile {
+  @apply flex flex-col border-2 flex-nowrap justify-evenly items-center rounded;
+  width: 100px;
+  height: 100px;
+}
+
+.tile.primary {
+  @apply border-primary bg-primary-lighter text-primary hover:bg-primary hover:text-primary-lighter;
+}
+
+.tile.secondary {
+  @apply border-secondary bg-secondary-lighter text-secondary hover:bg-secondary hover:text-secondary-lighter;
+}
+
+.tile.ternary {
+  @apply border-ternary bg-ternary-lighter text-ternary hover:bg-ternary hover:text-ternary-lighter;
+}
+
+.tile-content {
+  @apply text-center;
+}

@@ -55,8 +55,8 @@
     "location": {
       "city": "Angers"
     },
-    "adStatus": 1,
-    "status": 2,
+    "adStatus": 2,
+    "status": 1,
     "floors": 2,
     "surface": 200,
     "rooms": 4,
@@ -117,6 +117,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 0,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -124,6 +125,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 0,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -131,6 +133,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -138,6 +141,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -145,6 +149,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -152,6 +157,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -159,6 +165,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -166,6 +173,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -173,6 +181,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -180,6 +189,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -187,6 +197,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -194,6 +205,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -201,6 +213,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -208,6 +221,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -215,6 +229,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -222,6 +237,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -229,6 +245,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -236,6 +253,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       },
@@ -243,6 +261,7 @@
         "subject": "Candidature de M. Dupont Frédéric",
         "type": 1,
         "attachments": [{}, {}, {}],
+        "read": 1,
         "sender": "Dupont Frédéric",
         "date": "2021-12-01T00:00:00.000Z"
       }

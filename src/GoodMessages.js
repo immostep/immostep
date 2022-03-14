@@ -31,7 +31,7 @@ function GoodMessages({ requestedGood }) {
           <table className="items-center w-full bg-transparent border-collapse [font-size:.88rem]">
             <tbody>
               {requestedGood.messages.slice((currentMessagesPage - 1) * limitMessages, currentMessagesPage * limitMessages).map((message, idx) => (
-                <tr key={`message-${idx}`} className="even:bg-white odd:bg-gray-100">
+                <tr key={`message-${idx}`} className={`even:bg-white odd:bg-gray-100 ${message.read ? '' : 'font-black'}`}>
                   <td className="p-4 text-left align-middle">
                     <input className="form-check-input" type="checkbox" />
                     <span className="ml-5">{message.subject}</span>

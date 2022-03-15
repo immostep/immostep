@@ -181,6 +181,70 @@ function GoodInventory() {
             </button>
           </div>
         </Card>
+
+        <Card title="Chauffage" id="chauffage" className="md:col-span-2">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
+            <div className="form-component">
+              <label>Type</label>
+              <select placeholder="Type" className="form-select">
+                <option></option>
+                <option value="in">Electrique</option>
+                <option value="out">Gaz</option>
+                <option value="out">Fioul</option>
+              </select>
+            </div>
+            <div className="form-component self-center text-center">
+              <label className="inline-flex items-center">
+                <input className="form-radio h-5 w-5 text-secondary" type="radio" name="collectif" value="true" />{' '}
+                <span className="ml-2 text-gray-700">Collectif</span>
+              </label>
+            </div>
+            <div className="form-component self-center text-center">
+              <label className="inline-flex items-center">
+                <input className="form-radio h-5 w-5 text-secondary" type="radio" name="collectif" value="false" />{' '}
+                <span className="ml-2 text-gray-700">Individuel</span>
+              </label>
+            </div>
+            <div className="form-component col-start-1">
+              <label>Nombre de chaudières</label>
+              <input className="form-input" value="" type="text" onChange={handleFormChange} />
+            </div>
+            <div className="form-component">
+              <label>Nombre de radiateurs</label>
+              <input className="form-input" value="" type="text" onChange={handleFormChange} />
+            </div>
+          </div>
+        </Card>
+
+        <Card title="Eau chaude sanitaire" id="eau_chaude_sanitaire" className="md:col-span-2">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
+            <div className="form-component">
+              <label>Type</label>
+              <select placeholder="Type" className="form-select">
+                <option></option>
+                <option value="in">Electrique</option>
+                <option value="out">Gaz</option>
+                <option value="out">Fioul</option>
+              </select>
+            </div>
+            <div className="form-component self-center text-center">
+              <label className="inline-flex items-center">
+                <input className="form-radio h-5 w-5 text-secondary" type="radio" name="collectif" value="true" />{' '}
+                <span className="ml-2 text-gray-700">Collectif</span>
+              </label>
+            </div>
+            <div className="form-component self-center text-center">
+              <label className="inline-flex items-center">
+                <input className="form-radio h-5 w-5 text-secondary" type="radio" name="collectif" value="false" />{' '}
+                <span className="ml-2 text-gray-700">Individuel</span>
+              </label>
+            </div>
+            <div className="form-component col-start-1">
+              <label>Nombre de chauffe eau</label>
+              <input className="form-input" value="" type="text" onChange={handleFormChange} />
+            </div>
+          </div>
+        </Card>
       </div>
     </form>
   );

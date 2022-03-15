@@ -166,3 +166,56 @@ html {
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
     Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
+
+/* .form-component {
+  @apply;
+} */
+
+.form-input {
+  @apply w-full px-4 py-2 text-lg font-normal transition ease-in-out bg-white border-2 border-gray-300 rounded focus:outline-none focus:border-secondary-light;
+}
+
+.form-textarea {
+  @apply w-full p-2 bg-white border-2 border-gray-300 rounded-md resize-none focus:outline-none focus:border-secondary-light;
+}
+
+.form-select {
+  @apply w-full px-4 py-2 text-lg font-normal transition ease-in-out bg-white border-2 border-gray-300 rounded focus:outline-none focus:border-secondary-light;
+  @apply appearance-none bg-clip-padding bg-no-repeat;
+}
+
+.form-fieldset {
+  @apply py-3 px-6 mx-3 border-2 border-secondary-light border-solid rounded mb-6;
+}
+
+.form-fieldset > legend {
+  @apply px-4 text-secondary-dark font-semibold;
+}
+
+.form-fieldset .form-component {
+  @apply mx-3;
+}
+
+.form-fieldset.dropdown {
+  @apply pt-7;
+}
+
+.list {
+  @apply appearance-none shadow;
+}
+
+.list > .list-item {
+  @apply hidden;
+}
+
+.list.open > .list-item {
+  @apply block;
+}
+
+.list-item {
+  @apply px-5 py-2;
+}
+
+.list-item:hover {
+  @apply bg-secondary-lighter cursor-pointer;
+}

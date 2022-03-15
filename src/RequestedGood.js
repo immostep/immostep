@@ -8,6 +8,7 @@ import adStatus from './sources/ad_status.json';
 import goodStatus from './sources/good_status.json';
 import DropdownOptions from './DropdownOptions';
 import Breadcrumbs from './Breadcrumbs';
+import GoodInventory from './GoodInventory';
 
 function RequestedGood({ requestedGood }) {
   return (
@@ -44,6 +45,7 @@ function RequestedGood({ requestedGood }) {
               Messages <Badge val={String(requestedGood.messages.filter((m) => !m.read).length)} />
             </Tab>
             <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Documents</Tab>
+            <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Etat des lieux</Tab>
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
@@ -54,6 +56,9 @@ function RequestedGood({ requestedGood }) {
             </Tab.Panel>
             <Tab.Panel>
               <GoodDocuments requestedGood={requestedGood} />
+            </Tab.Panel>
+            <Tab.Panel>
+              <GoodInventory requestedGood={requestedGood} />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>

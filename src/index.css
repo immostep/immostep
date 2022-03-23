@@ -185,7 +185,7 @@ html {
 }
 
 .form-fieldset {
-  @apply py-3 px-6 mx-3 border-2 border-secondary-light border-solid rounded mb-6;
+  @apply pt-3 px-6 pb-7 mx-3 border-2 border-secondary-light border-solid rounded mb-6;
 }
 
 .form-fieldset > legend {

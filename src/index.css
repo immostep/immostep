@@ -26,6 +26,11 @@
 }
 
 @layer components {
+  html {
+    font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+      Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  }
+
   .form-select {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
     background-position: right 0.75rem center;
@@ -35,6 +40,7 @@
   .btn {
     @apply px-3 py-1 text-base font-medium border border-transparent rounded text-gray-600 bg-gray-200 hover:bg-gray-400;
   }
+
   .btn-md {
     @apply px-4 py-2;
   }
@@ -51,8 +57,16 @@
     @apply text-white bg-secondary hover:bg-secondary-dark;
   }
 
+  .btn-secondary.inverse {
+    @apply bg-transparent border-secondary  hover:bg-secondary-dark;
+  }
+
   .btn-ternary {
     @apply text-white bg-ternary hover:bg-ternary-dark;
+  }
+
+  .btn-ternary.inverse {
+    @apply bg-transparent text-ternary bg-ternary-lighter  hover:bg-ternary hover:text-white;
   }
 
   .btn-group {
@@ -160,62 +174,53 @@
   .form-check-input:checked[type='checkbox'] {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
   }
-}
 
-html {
-  font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-}
+  .form-input {
+    @apply w-full px-4 py-2 text-lg font-normal transition ease-in-out bg-white border-2 border-gray-300 rounded focus:outline-none focus:border-secondary-light;
+  }
 
-/* .form-component {
-  @apply;
-} */
+  .form-textarea {
+    @apply w-full p-2 bg-white border-2 border-gray-300 rounded-md resize-none focus:outline-none focus:border-secondary-light;
+  }
 
-.form-input {
-  @apply w-full px-4 py-2 text-lg font-normal transition ease-in-out bg-white border-2 border-gray-300 rounded focus:outline-none focus:border-secondary-light;
-}
+  .form-select {
+    @apply w-full px-4 py-2 text-lg font-normal transition ease-in-out bg-white border-2 border-gray-300 rounded focus:outline-none focus:border-secondary-light;
+    @apply appearance-none bg-clip-padding bg-no-repeat;
+  }
 
-.form-textarea {
-  @apply w-full p-2 bg-white border-2 border-gray-300 rounded-md resize-none focus:outline-none focus:border-secondary-light;
-}
+  .form-fieldset {
+    @apply pt-3 px-6 pb-7 mx-3 border-2 border-secondary-light border-solid rounded mb-6;
+  }
 
-.form-select {
-  @apply w-full px-4 py-2 text-lg font-normal transition ease-in-out bg-white border-2 border-gray-300 rounded focus:outline-none focus:border-secondary-light;
-  @apply appearance-none bg-clip-padding bg-no-repeat;
-}
+  .form-fieldset > legend {
+    @apply px-4 text-secondary-dark font-semibold;
+  }
 
-.form-fieldset {
-  @apply pt-3 px-6 pb-7 mx-3 border-2 border-secondary-light border-solid rounded mb-6;
-}
+  .form-component {
+    @apply mx-3;
+  }
 
-.form-fieldset > legend {
-  @apply px-4 text-secondary-dark font-semibold;
-}
+  .form-fieldset.dropdown {
+    @apply pt-7;
+  }
 
-.form-fieldset .form-component {
-  @apply mx-3;
-}
+  .list {
+    @apply appearance-none shadow;
+  }
 
-.form-fieldset.dropdown {
-  @apply pt-7;
-}
+  .list > .list-item {
+    @apply hidden;
+  }
 
-.list {
-  @apply appearance-none shadow;
-}
+  .list.open > .list-item {
+    @apply block;
+  }
 
-.list > .list-item {
-  @apply hidden;
-}
+  .list-item {
+    @apply px-5 py-2;
+  }
 
-.list.open > .list-item {
-  @apply block;
-}
-
-.list-item {
-  @apply px-5 py-2;
-}
-
-.list-item:hover {
-  @apply bg-secondary-lighter cursor-pointer;
+  .list-item:hover {
+    @apply bg-secondary-lighter cursor-pointer;
+  }
 }

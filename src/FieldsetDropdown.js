@@ -1,25 +1,21 @@
 import PropTypes from 'prop-types';
 
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
-function FieldsetDropdown({ options = [], onClickOptions }) {
+function FieldsetDropdown({ options = [], value, onChange }) {
   const [listOpen, setListOpen] = useState(false);
-  const [selected, setSelected] = useState('Choisir...');
 
-  function handleListClick(ev) {
-    console.log(ev.target);
-    setSelected(ev.target.textContent);
+  const handleBtnClick = () => setListOpen(!listOpen);
+
+  const handleListClick = (ev) => {
     setListOpen(false);
-    onClickOptions(ev.target.textContent);
-  }
+    onChange(ev.target.textContent);
+  };
 
   return (
     <div className="absolute bg-white -top-3 min-w-fit">
-      <button
-        className="flex items-center px-3 py-1 space-x-2 font-semibold leading-5 text-secondary-dark"
-        type="button"
-        onClick={() => setListOpen(!listOpen)}>
-        {selected}
+      <button className="flex items-center px-3 py-1 space-x-2 font-semibold leading-5 text-secondary-dark" type="button" onClick={handleBtnClick}>
+        {value || 'Choisir...'}
         <svg width="6" height="3" className="ml-2 overflow-visible">
           <path d="M0 0L3 3L6 0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
         </svg>
@@ -35,9 +31,10 @@ function FieldsetDropdown({ options = [], onClickOptions }) {
   );
 }
 
-export default FieldsetDropdown;
+export default memo(FieldsetDropdown);
 
 FieldsetDropdown.propTypes = {
   options: PropTypes.array,
-  onClickOptions: PropTypes.func
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired
 };

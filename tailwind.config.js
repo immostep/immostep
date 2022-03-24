@@ -52,7 +52,8 @@ module.exports = {
         },
         ternary: {
           lighter: '#faf8f7',
-          light: '#EDE5DF',
+          // light: '#EDE5DF',
+          light: '#d4c1b3',
           DEFAULT: '#AB8367',
           dark: '#916B50'
         },

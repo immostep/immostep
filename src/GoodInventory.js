@@ -1,7 +1,11 @@
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { useState, Fragment } from 'react';
+import { useState } from 'react';
 import Card from './Card';
+import ConfirmButton from './ConfirmButton';
 import FieldsetDropdown from './FieldsetDropdown';
+import { v4 as uuidv4 } from 'uuid';
 
 function GoodInventory() {
   const [form, setForm] = useState({
@@ -30,36 +34,36 @@ function GoodInventory() {
     pieces: []
   });
 
-  const emptyLocataire = {
-    nom: { value: '' },
-    prenom: { value: '' },
-    email: { value: '' },
-    telephone: { value: '' }
-  };
-
-  const emptyCompteur = {
-    numero: { value: '', hidden: true },
-    releveHP: { value: '', hidden: true },
-    releveHC: { value: '', hidden: true },
-    releve: { value: '', hidden: true },
-    releveEauChaude: { value: '', hidden: true },
-    releveEauFroide: { value: '', hidden: true }
-  };
-
-  const emptyCle = {
-    type: { value: '' },
-    nombre: { value: '' },
-    comment: { value: '' }
-  };
-  const emptyPiece = {
-    type: { value: '' },
-    elements: []
-  };
-
-  const emptyElement = {
-    type: { value: '' },
-    etat: { value: '' },
-    comment: { value: '' }
+  const empty = {
+    locataires: {
+      nom: { value: '' },
+      prenom: { value: '' },
+      email: { value: '' },
+      telephone: { value: '' }
+    },
+    compteurs: {
+      type: { value: '', hidden: false },
+      numero: { value: '', hidden: true },
+      releveHP: { value: '', hidden: true },
+      releveHC: { value: '', hidden: true },
+      releve: { value: '', hidden: true },
+      releveEauChaude: { value: '', hidden: true },
+      releveEauFroide: { value: '', hidden: true }
+    },
+    cles: {
+      type: { value: '' },
+      nombre: { value: '' },
+      comment: { value: '' }
+    },
+    pieces: {
+      type: { value: '' },
+      elements: []
+    },
+    elements: {
+      type: { value: '' },
+      etat: { value: '' },
+      comment: { value: '' }
+    }
   };
 
   function resolvePath(object, path, defaultValue) {
@@ -69,13 +73,20 @@ function GoodInventory() {
       .reduce((o, p) => (o ? o[p] : defaultValue), object);
   }
 
+  const handleFieldsetChange = (path) => {
+    return (value) => {
+      const f = { ...form };
+      resolvePath(f, path).value = value;
+      setForm({ ...f });
+    };
+  };
+
   function handleSubmitForm(ev) {
     ev.preventDefault();
     setForm({});
   }
 
   function handleFormChange(ev, collection, idx) {
-    console.log(ev.target);
     ev.preventDefault();
     let f;
     if (collection && form[collection] && idx) {
@@ -85,8 +96,6 @@ function GoodInventory() {
     } else {
       f = { ...form, [ev.target.name]: { value: ev.target.value } };
     }
-
-    console.log(f);
 
     f.dateEntree.hidden = !['in', 'out'].includes(f.typeEtatLieux?.value);
     f.dateSortie.hidden = !['out'].includes(f.typeEtatLieux?.value);
@@ -102,6 +111,40 @@ function GoodInventory() {
     }
     resolvePath(f, ev.target.name).value = value;
     setForm({ ...f });
+  }
+
+  function handleRemoveFromCollection(collection, idx) {
+    return () => {
+      const col = [...form[collection]];
+      col.splice(idx, 1);
+      setForm({ ...form, [collection]: col });
+    };
+  }
+
+  function handleRemoveFromSubCollection(collection, idx, subCollection, sidx) {
+    return () => {
+      const col = [...form[collection]];
+      col[idx][subCollection].splice(sidx, 1);
+      setForm({ ...form, [collection]: col });
+    };
+  }
+
+  function handleAddToCollection(collection) {
+    return () => {
+      const col = [...form[collection]];
+      col.push({ ...empty[collection], id: uuidv4() });
+      setForm({ ...form, [collection]: col });
+    };
+  }
+
+  function handleAddElement(pidx) {
+    return () => {
+      const f = { ...form };
+      const { elements } = f.pieces[pidx];
+      elements.push({ ...empty.elements, id: uuidv4() });
+      f.pieces[pidx].elements = elements;
+      setForm({ ...form, pieces: f.pieces });
+    };
   }
 
   return (
@@ -125,7 +168,6 @@ function GoodInventory() {
             </div>
           </div>
         </div>
-
         <Card title="Informations générales" id="informations_generales" className="md:col-span-2">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
             <div className="form-component lg:col-span-2">
@@ -151,7 +193,6 @@ function GoodInventory() {
             </div>
           </div>
         </Card>
-
         <Card title="Le bailleur (ou son mandataire)" id="bailleur" className="md:col-span-2">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-12">
             <div className="form-component">
@@ -174,10 +215,9 @@ function GoodInventory() {
             </div>
           </div>
         </Card>
-
         <Card title="Les locataires" id="locataires" className="md:col-span-2">
           {form.locataires.map((locataire, idx) => (
-            <fieldset key={`loc-${idx}`} className="form-fieldset ">
+            <fieldset key={locataire.id} className="form-fieldset ">
               <legend>{`#${String(idx + 1).padStart(2, '0')}`}</legend>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div className="form-component">
@@ -220,31 +260,33 @@ function GoodInventory() {
                     onChange={handleFormChangeValue}
                   />
                 </div>
+
+                <div className="form-component ml-3 col-start-1 flex flex-col items-end col-span-2">
+                  <ConfirmButton
+                    className="btn btn-lg btn-ternary inverse flex gap-3 items-center"
+                    onConfirm={handleRemoveFromCollection('locataires', idx)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                    Supprimer le locataire
+                  </ConfirmButton>
+                </div>
               </div>
             </fieldset>
           ))}
-          <div className="form-component ml-3">
-            <button
-              type="button"
-              className="btn btn-lg btn-secondary"
-              onClick={() => {
-                const { locataires } = form;
-                locataires.push({ ...emptyLocataire });
-                setForm({ ...form, locataires });
-              }}>
+          <div className="form-component ml-12">
+            <button type="button" className="btn btn-lg btn-secondary" onClick={handleAddToCollection('locataires')}>
               Ajouter un locataire
             </button>
           </div>
         </Card>
-
         <Card title="Compteurs" id="compteurs" className="md:col-span-2">
           {form.compteurs.map((compteur, idx) => (
-            <fieldset key={`com-${idx}`} className="relative form-fieldset dropdown">
+            <fieldset key={compteur.id} className="relative form-fieldset dropdown">
               <FieldsetDropdown
                 options={['Electricité', 'Eau', 'Gaz']}
-                onClickOptions={(selected) => {
-                  console.log(selected);
+                value={compteur.type.value}
+                onChange={(selected) => {
                   const f = { ...form };
+                  f.compteurs[idx].type.value = selected;
                   f.compteurs[idx].numero = { hidden: !['Electricité', 'Gaz'].includes(selected) };
                   f.compteurs[idx].releveHP = { hidden: !['Electricité'].includes(selected) };
                   f.compteurs[idx].releveHC = { hidden: !['Electricité'].includes(selected) };
@@ -317,23 +359,24 @@ function GoodInventory() {
                     onChange={handleFormChangeValue}
                   />
                 </div>
+
+                <div className="form-component ml-3 col-start-1 flex flex-col items-end col-span-2">
+                  <ConfirmButton
+                    className="btn btn-lg btn-ternary inverse flex gap-3 items-center"
+                    onConfirm={handleRemoveFromCollection('compteurs', idx)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                    Supprimer le compteur
+                  </ConfirmButton>
+                </div>
               </div>
             </fieldset>
           ))}
-          <div className="form-component ml-3">
-            <button
-              type="button"
-              className="btn btn-lg btn-secondary"
-              onClick={() => {
-                const { compteurs } = form;
-                compteurs.push({ ...emptyCompteur });
-                setForm({ ...form, compteurs });
-              }}>
+          <div className="form-component ml-12">
+            <button type="button" className="btn btn-lg btn-secondary" onClick={handleAddToCollection('compteurs')}>
               Ajouter un compteur
             </button>
           </div>
         </Card>
-
         <Card title="Chauffage" id="chauffage" className="md:col-span-2">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
             <div className="form-component">
@@ -381,7 +424,6 @@ function GoodInventory() {
             </div>
           </div>
         </Card>
-
         <Card title="Eau chaude sanitaire" id="eau_chaude_sanitaire" className="md:col-span-2">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
             <div className="form-component">
@@ -419,12 +461,11 @@ function GoodInventory() {
             </div>
           </div>
         </Card>
-
         <Card title="Clés" id="cles" className="md:col-span-2">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
             {form.cles.map((cle, idx) => (
-              <Fragment key={idx}>
-                <div className="form-component">
+              <div key={cle.id} className="flex justify-between col-span-4">
+                <div className="form-component flex-grow">
                   <label>Type de clé</label>
                   <select className="form-select" value={cle.type.value} name={`cles[${idx}].type`} onChange={handleFormChangeValue}>
                     <option></option>
@@ -436,7 +477,7 @@ function GoodInventory() {
                   </select>
                 </div>
 
-                <div className="form-component">
+                <div className="form-component flex-grow">
                   <label>Nombre</label>
                   <input
                     className="form-input"
@@ -447,7 +488,7 @@ function GoodInventory() {
                   />
                 </div>
 
-                <div className="form-component col-span-2">
+                <div className="form-component  flex-grow">
                   <label>Commentaires</label>
                   <input
                     className="form-input"
@@ -457,32 +498,37 @@ function GoodInventory() {
                     onChange={handleFormChangeValue}
                   />
                 </div>
-              </Fragment>
+                <div className="form-component self-end ml-3 col-start-4 flex flex-col items-end">
+                  <ConfirmButton
+                    key={idx}
+                    className="btn btn-lg btn-ternary inverse flex gap-3 items-center h-12"
+                    onConfirm={handleRemoveFromCollection('cles', idx)}
+                    showConfirmText={false}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </ConfirmButton>
+                </div>
+              </div>
             ))}
 
             <div className="form-component">
-              <button
-                type="button"
-                className="btn btn-lg btn-secondary"
-                onClick={() => {
-                  const { cles } = form;
-                  cles.push({ ...emptyCle });
-                  setForm({ ...form, cles });
-                }}>
+              <button type="button" className="btn btn-lg btn-secondary" onClick={handleAddToCollection('cles')}>
                 Ajouter un jeu de clés
               </button>
             </div>
           </div>
         </Card>
-
         <Card title="&Eacute;tat des pièces" id="etat_des_pieces" className="md:col-span-2">
           {form.pieces.map((piece, pidx) => (
-            <fieldset key={`piece-${pidx}`} className="relative form-fieldset dropdown">
-              <FieldsetDropdown options={['Entrée', 'Séjour - salle à manger', 'Cuisine', 'Salle de bain', 'Chambre', 'Toilettes', 'Couloir']} />
+            <fieldset key={piece.id} className="relative form-fieldset dropdown">
+              <FieldsetDropdown
+                options={['Entrée', 'Séjour - salle à manger', 'Cuisine', 'Salle de bain', 'Chambre', 'Toilettes', 'Couloir']}
+                value={piece.type.value}
+                onChange={handleFieldsetChange(`pieces[${pidx}].type`)}
+              />
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
                 {piece.elements.map((element, eidx) => (
-                  <Fragment key={eidx}>
-                    <div className="form-component">
+                  <div key={element.id} className="flex justify-between col-span-4">
+                    <div className="form-component flex-grow">
                       <label>&Eacute;lément</label>
                       <select
                         className="form-select"
@@ -501,7 +547,7 @@ function GoodInventory() {
                       </select>
                     </div>
 
-                    <div className="form-component">
+                    <div className="form-component flex-grow">
                       <label>&Eacute;tat</label>
                       <select
                         className="form-select"
@@ -516,7 +562,7 @@ function GoodInventory() {
                       </select>
                     </div>
 
-                    <div className="form-component col-span-2">
+                    <div className="form-component flex-grow">
                       <label>Commentaires</label>
                       <input
                         className="form-input"
@@ -526,34 +572,36 @@ function GoodInventory() {
                         onChange={handleFormChangeValue}
                       />
                     </div>
-                  </Fragment>
+
+                    <div className="form-component self-end ml-3 col-start-4 flex flex-col items-end">
+                      <ConfirmButton
+                        className="btn btn-lg btn-ternary inverse flex gap-3 items-center h-12"
+                        onConfirm={handleRemoveFromSubCollection('pieces', pidx, 'elements', eidx)}
+                        showConfirmText={false}>
+                        <FontAwesomeIcon icon={faTrash} />
+                      </ConfirmButton>
+                    </div>
+                  </div>
                 ))}
-                <div className="form-component">
-                  <button
-                    type="button"
-                    className="btn btn-lg btn-secondary"
-                    onClick={() => {
-                      const f = { ...form };
-                      const { elements } = f.pieces[pidx];
-                      elements.push({ ...emptyElement });
-                      f.pieces[pidx].elements = elements;
-                      setForm({ ...form, pieces: f.pieces });
-                    }}>
+                <div className="form-component col-start-1">
+                  <button type="button" className="btn btn-lg btn-secondary" onClick={handleAddElement(pidx)}>
                     Ajouter un élément
                   </button>
+                </div>
+
+                <div className="form-component ml-3 col-start-4 flex flex-col items-end col-span-2">
+                  <ConfirmButton
+                    className="btn btn-lg btn-ternary inverse flex gap-3 items-center"
+                    onConfirm={handleRemoveFromCollection('pieces', pidx)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                    Supprimer la pièce
+                  </ConfirmButton>
                 </div>
               </div>
             </fieldset>
           ))}
-          <div className="form-component ml-3">
-            <button
-              type="button"
-              className="btn btn-lg btn-secondary"
-              onClick={() => {
-                const { pieces } = form;
-                pieces.push({ ...emptyPiece });
-                setForm({ ...form, pieces });
-              }}>
+          <div className="form-component ml-12">
+            <button type="button" className="btn btn-lg btn-secondary" onClick={handleAddToCollection('pieces')}>
               Ajouter une pièce
             </button>
           </div>

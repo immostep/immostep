@@ -1,5 +1,7 @@
 :root {
   --swiper-theme-color: #e6f4fd;
+  --swiper-navigation-color: #fff;
+  --swiper-pagination-color: #fff;
   --swiper-pagination-bullet-inactive-color: #fff;
   --swiper-pagination-bullet-inactive-opacity: 0.5;
 }

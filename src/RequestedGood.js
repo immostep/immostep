@@ -9,8 +9,21 @@ import goodStatus from './sources/good_status.json';
 import DropdownOptions from './DropdownOptions';
 import Breadcrumbs from './Breadcrumbs';
 import GoodInventory from './GoodInventory';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useCallback, useState } from 'react';
 
 function RequestedGood({ requestedGood }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [showInventory, setShowInventory] = useState(false);
+
+  const handleClickTile = useCallback((to) => {
+    if (to === '/inventory') {
+      setShowInventory(true);
+      setSelectedIndex(3);
+    }
+  }, []);
+
   return (
     <>
       <div className="main_title">
@@ -38,18 +51,29 @@ function RequestedGood({ requestedGood }) {
         <div className="z-10 h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
       </div>
       <div className="tabs-wrapper">
-        <Tab.Group>
+        <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
           <Tab.List className="tabs">
             <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Détails</Tab>
             <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>
               Messages <Badge val={String(requestedGood.messages.filter((m) => !m.read).length)} />
             </Tab>
             <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Documents</Tab>
-            <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Etat des lieux</Tab>
+            {showInventory && (
+              <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>
+                Etat des lieux{' '}
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  onClick={() => {
+                    setSelectedIndex(0);
+                    setShowInventory(false);
+                  }}
+                />
+              </Tab>
+            )}
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              <GoodDetails requestedGood={requestedGood} />
+              <GoodDetails requestedGood={requestedGood} onClickTile={handleClickTile} />
             </Tab.Panel>
             <Tab.Panel>
               <GoodMessages requestedGood={requestedGood} />
@@ -57,9 +81,11 @@ function RequestedGood({ requestedGood }) {
             <Tab.Panel>
               <GoodDocuments requestedGood={requestedGood} />
             </Tab.Panel>
-            <Tab.Panel>
-              <GoodInventory requestedGood={requestedGood} />
-            </Tab.Panel>
+            {showInventory && (
+              <Tab.Panel>
+                <GoodInventory requestedGood={requestedGood} />
+              </Tab.Panel>
+            )}
           </Tab.Panels>
         </Tab.Group>
       </div>

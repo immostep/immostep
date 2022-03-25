@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import './Tile.css';
 
-function Tile({ icon, children, to, variant = 'primary' }) {
+function Tile({ icon, children, variant = 'primary', ...props }) {
   return (
-    <Link to={to} className={`tile ${variant}`}>
+    <div className={`tile ${variant}`} {...props}>
       {icon}
       <div className="tile-content">{children}</div>
-    </Link>
+    </div>
   );
 }
 
@@ -15,7 +14,6 @@ export default Tile;
 
 Tile.propTypes = {
   icon: PropTypes.string,
-  to: PropTypes.string,
   children: PropTypes.string,
   variant: PropTypes.oneOf('primary', 'secondary', 'ternary')
 };

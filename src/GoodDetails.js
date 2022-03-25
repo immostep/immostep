@@ -44,7 +44,7 @@ const actions = [
   }
 ];
 
-function GoodDetails({ requestedGood }) {
+function GoodDetails({ requestedGood, onClickTile }) {
   const [showLightbox, setShowLightbox] = useState('');
   const [showRequestContentModal, setShowRequestContentModal] = useState(null);
 
@@ -56,7 +56,7 @@ function GoodDetails({ requestedGood }) {
             {actions.map((action, idx) => {
               if (action.status.includes(requestedGood.status)) {
                 return (
-                  <Tile variant="secondary" to={action.to} key={idx} icon={action.icon}>
+                  <Tile variant="secondary" key={idx} icon={action.icon} onClick={() => onClickTile(action.to)}>
                     {action.label}
                   </Tile>
                 );
@@ -194,5 +194,6 @@ function GoodDetails({ requestedGood }) {
 export default GoodDetails;
 
 GoodDetails.propTypes = {
-  requestedGood: PropTypes.object
+  requestedGood: PropTypes.object,
+  onClickTile: PropTypes.func
 };

@@ -24,6 +24,11 @@ function RequestedGood({ requestedGood }) {
     }
   }, []);
 
+  function handleCloseInventoryTab() {
+    setSelectedIndex(0);
+    setShowInventory(false);
+  }
+
   return (
     <>
       <div className="main_title">
@@ -60,14 +65,7 @@ function RequestedGood({ requestedGood }) {
             <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>Documents</Tab>
             {showInventory && (
               <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>
-                Etat des lieux{' '}
-                <FontAwesomeIcon
-                  icon={faTimes}
-                  onClick={() => {
-                    setSelectedIndex(0);
-                    setShowInventory(false);
-                  }}
-                />
+                Etat des lieux <FontAwesomeIcon icon={faTimes} onClick={handleCloseInventoryTab} />
               </Tab>
             )}
           </Tab.List>
@@ -83,7 +81,7 @@ function RequestedGood({ requestedGood }) {
             </Tab.Panel>
             {showInventory && (
               <Tab.Panel>
-                <GoodInventory requestedGood={requestedGood} />
+                <GoodInventory requestedGood={requestedGood} onSubmitInventory={handleCloseInventoryTab} />
               </Tab.Panel>
             )}
           </Tab.Panels>

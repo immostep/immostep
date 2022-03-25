@@ -7,7 +7,7 @@ import ConfirmButton from './ConfirmButton';
 import FieldsetDropdown from './FieldsetDropdown';
 import { v4 as uuidv4 } from 'uuid';
 
-function GoodInventory() {
+function GoodInventory({ onSubmitInventory }) {
   const [form, setForm] = useState({
     typeEtatLieux: { hidden: false, value: '' },
     dateEntree: { hidden: true },
@@ -84,6 +84,7 @@ function GoodInventory() {
   function handleSubmitForm(ev) {
     ev.preventDefault();
     setForm({});
+    onSubmitInventory();
   }
 
   function handleFormChange(ev, collection, idx) {
@@ -606,6 +607,10 @@ function GoodInventory() {
             </button>
           </div>
         </Card>
+
+        <button type="submit" className="btn btn-lg btn-secondary">
+          Valider l&apos;état des lieux
+        </button>
       </div>
     </form>
   );
@@ -614,5 +619,5 @@ function GoodInventory() {
 export default GoodInventory;
 
 GoodInventory.propTypes = {
-  rate: PropTypes.number
+  onSubmitInventory: PropTypes.func
 };

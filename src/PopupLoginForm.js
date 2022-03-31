@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 
 function PopupLoginForm({ onClickCloseButton }) {
   return (
-    <div className="[height:500px] [width:500px] absolute top-10 right-10">
-      <div className=" pin flex items-center">
-        <div className=" pin bg-black opacity-75 z-10"></div>
-
-        <div className="relative mx-6 md:mx-auto w-full z-20 m-8">
+    <div className="absolute w-full px-6 lg:px-0">
+      <div className="flex items-center justify-center">
+        <div className="relative z-20 w-full md:w-4/5 lg:w-1/2 xl:w-2/5">
           <div className="shadow-lg bg-white border-2 border-ternary rounded p-8">
             <div className="flex justify-end mb-6">
               <button>

@@ -8,12 +8,12 @@ export const TERNARY = 'ternary';
 
 function Testimonial({ userImg, variant = PRIMARY, name, children }) {
   return (
-    <div className="">
-      <div className="rounded flex flex-col bg-white">
-        <div className={`p-4 bg-${variant} rounded-t`}>
+    <div className={`rounded border-2 border-${variant}`}>
+      <div className=" flex flex-col bg-white">
+        <div className={`p-4 bg-${variant}`}>
           <FontAwesomeIcon icon={faQuoteLeft} size="3x" className="font-medium leading-6 text-white" />
         </div>
-        <div className={`p-4 flex flex-row  gap-6 items-center justify-between border-2 border-${variant}`}>
+        <div className={`p-4 flex flex-row  gap-6 items-center justify-between `}>
           <div className="flex flex-col flex-shrink-0">
             <img className="w-20 h-20 rounded-full" src={userImg} alt="" />
             <span className="text-primary">{name}</span>

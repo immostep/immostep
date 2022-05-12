@@ -154,20 +154,19 @@ function Home() {
             Ce que disent nos clients
           </h1>
           <section>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 auto-rows-[1fr]">
               <Testimonial name="Sylvie" userImg={userImg1} variant={PRIMARY}>
-                La meilleur platemforme de gestion immobilère que j&apos;ai pu tester. Terminé pourmoi les agences immobilère. Maitenant je gère tout
-                seul et en quelques clics.
+                La meilleur platemforme de gestion immobilère que j&apos;ai pu tester. Terminé pour moi les agences immobilères. Maitenant je gère
+                tout seul et en quelques clics.
               </Testimonial>
 
               <Testimonial name="Julien" userImg={userImg2} variant={SECONDARY}>
-                La meilleur platemforme de gestion immobilère que j&apos;ai pu tester. Terminé pourmoi les agences immobilère. Maitenant je gère tout
-                seul et en quelques clics.
+                J&apos;utilise Immosteps pour gérer tous mes logements. Tout est automatique et la gestion des locataires est un bonheur!
               </Testimonial>
 
               <Testimonial name="Marc" userImg={userImg3} variant={TERNARY}>
-                La meilleur platemforme de gestion immobilère que j&apos;ai pu tester. Terminé pourmoi les agences immobilère. Maitenant je gère tout
-                seul et en quelques clics.
+                Fonctionne parfaitement. J&apos;adore la facilité d&apos;utilisation de l&apos;application. Mon logement ne reste plus sans locataire
+                plus de quelques jours.
               </Testimonial>
             </div>
           </section>

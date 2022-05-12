@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-import HeaderBar from './HeaderBar';
 import Footer from './Footer';
 import SearchBar from './SearchBar';
 import Sponso from './Sponso';
@@ -10,6 +9,7 @@ import img002 from './img/goods/002.jpg';
 import img003 from './img/goods/003.jpg';
 import img004 from './img/goods/004.jpg';
 import ResultCard from './ResultCard';
+import Header from './Header';
 
 function Row() {
   return (
@@ -32,7 +32,7 @@ function Search() {
 
   return (
     <>
-      <HeaderBar noSearchField />
+      <Header />
       <main className="my-5">
         <div className="container lg:mx-auto lg:py-10">
           <h1 className="font-extrabold tracking-tight text-center">

@@ -16,7 +16,12 @@ function ConfirmButton({ onConfirm, children, timeout = 3000, showConfirmText = 
     }, timeout);
   };
 
-  useEffect(() => setAskConfirm(false), []);
+  useEffect(() => {
+    setAskConfirm(false);
+    return () => {
+      clearTimeout(tid);
+    };
+  }, []);
 
   function handleClickConfirmButton() {
     clearTimeout(tid);

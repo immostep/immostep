@@ -3,6 +3,10 @@ import './Home.css';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
 import Header from './Header';
+import userImg1 from './img/1.jpg';
+import userImg2 from './img/2.jpg';
+import userImg3 from './img/3.jpg';
+import Testimonial, { PRIMARY, SECONDARY, TERNARY } from './Testimonial';
 
 function Home() {
   return (
@@ -35,8 +39,9 @@ function Home() {
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="lg:text-center">
             <p className="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-secondary sm:text-4xl">Simplifiez vous l&apos;immobilier</p>
-            <p className="max-w-2xl mt-4 text-xl text-gray-500 lg:mx-auto">
-              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam.
+            <p className="max-w-3xl mt-4 text-xl text-gray-500 lg:mx-auto">
+              Immosteps est la premi&egrave;re plateforme immobili&egrave;re permettant la mise en relation, la g&eacute;n&eacute;ration automatique
+              de documents ainsi que la gestion de votre bien.
             </p>
           </div>
 
@@ -53,8 +58,8 @@ function Home() {
                   <p className="ml-16 text-lg font-medium leading-6 text-gray-900">Gagnez du temps</p>
                 </dt>
                 <dd className="mt-2 ml-16 text-base text-gray-500">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate
-                  blanditiis ratione.
+                  Le dépot de dossier locatif par le locataire vous permettra d&apos;accéder à toutes les informations pour pré-selectionner vos
+                  candidatures en un rien de temps.
                 </dd>
               </div>
 
@@ -74,8 +79,8 @@ function Home() {
                   <p className="ml-16 text-lg font-medium leading-6 text-gray-900">Fini la paperasse</p>
                 </dt>
                 <dd className="mt-2 ml-16 text-base text-gray-500">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate
-                  blanditiis ratione.
+                  Le bail, l&apos;état des lieux et les quittances sont générés automatiquement sur notre plateforme à partir de modèles validés par
+                  un notaire.
                 </dd>
               </div>
 
@@ -95,8 +100,8 @@ function Home() {
                   <p className="ml-16 text-lg font-medium leading-6 text-gray-900">Ne vous ruinez plus</p>
                 </dt>
                 <dd className="mt-2 ml-16 text-base text-gray-500">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate
-                  blanditiis ratione.
+                  La consultation et le dépot d&apos;annonces sont gratuits sur notre plateforme. Envie d&apos;aller plus loin ? Le forfait premium
+                  vous donnera toutes les clés pour piloter votre bien pour seulement 5€/mois/bien.
                 </dd>
               </div>
 
@@ -108,11 +113,11 @@ function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <p className="ml-16 text-lg font-medium leading-6 text-gray-900">Vérifiez la réputation de vos contacts</p>
+                  <p className="ml-16 text-lg font-medium leading-6 text-gray-900">Une plateforme de confiance</p>
                 </dt>
                 <dd className="mt-2 ml-16 text-base text-gray-500">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate
-                  blanditiis ratione.
+                  Les propriétaires peuvent recommander les locataires grâce à un système de points. Permettez aux locataires de trouver plus
+                  facilement un nouveau bien et bénéficier d&apos;un nouvel indicateur de confiance.
                 </dd>
               </div>
             </dl>
@@ -124,11 +129,12 @@ function Home() {
         <div className="grid grid-col-1 md:grid-cols-2">
           <div className="px-4 pt-24 mx-auto text-center sm:px-6 md:px-8 md:py-24 lg:text-left">
             <h1 className="mt-0 mb-8 text-5xl font-extrabold leading-none tracking-tight text-white sm:text-6xl lg:text-7xl sm:mt-7 sm:mb-10">
-              Titre inspirant
+              Qui sommes nous ?
             </h1>
             <p className="my-3 text-base text-white sm:my-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-              At nulla eaque in voluptate exercitationem? Rem accusamus quasi sit enim nesciunt cum necessitatibus sint aut ipsum voluptas sit
-              consequatur inventore aut quia dolor et quia quas
+              L&apos;idée de ce projet prend son origine dans l&apos;expérience vécue par chacun des membres de cette équipe. La difficulté et les
+              refus rencontrés lors de la recherche de logements pendant notre vie étudiante et durant notre vie professionnelle nous a confronté à la
+              réalité du marché de la location.
             </p>
             <button
               type="button"
@@ -145,12 +151,26 @@ function Home() {
       <div className="bg-white">
         <div className="container px-4 py-24 mx-auto text-center sm:px-6 md:px-8">
           <h1 className="mt-0 mb-8 text-4xl font-extrabold leading-none tracking-tight text-primary sm:text-5xl lg:text-6xl sm:mt-7 sm:mb-10">
-            Titre inspirant
+            Ce que disent nos clients
           </h1>
-          <p className="max-w-2xl mx-auto my-3 text-base text-primary sm:my-5 sm:text-lg md:mt-5 md:text-xl">
-            At nulla eaque in voluptate exercitationem? Rem accusamus quasi sit enim nesciunt cum necessitatibus sint aut ipsum voluptas sit
-            consequatur inventore aut quia dolor et quia quas
-          </p>
+          <section>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <Testimonial name="Sylvie" userImg={userImg1} variant={PRIMARY}>
+                La meilleur platemforme de gestion immobilère que j&apos;ai pu tester. Terminé pourmoi les agences immobilère. Maitenant je gère tout
+                seul et en quelques clics.
+              </Testimonial>
+
+              <Testimonial name="Julien" userImg={userImg2} variant={SECONDARY}>
+                La meilleur platemforme de gestion immobilère que j&apos;ai pu tester. Terminé pourmoi les agences immobilère. Maitenant je gère tout
+                seul et en quelques clics.
+              </Testimonial>
+
+              <Testimonial name="Marc" userImg={userImg3} variant={TERNARY}>
+                La meilleur platemforme de gestion immobilère que j&apos;ai pu tester. Terminé pourmoi les agences immobilère. Maitenant je gère tout
+                seul et en quelques clics.
+              </Testimonial>
+            </div>
+          </section>
         </div>
       </div>
 

@@ -229,6 +229,6 @@
   }
 
   .thumb-overlay {
-    @apply cursor-pointer opacity-0 hover:opacity-75 rounded absolute top-0 left-0 right-0 bottom-0 w-full h-full z-50 overflow-hidden bg-gray-700 flex items-center justify-center;
+    @apply cursor-pointer opacity-0 hover:opacity-75 rounded absolute top-0 left-0 right-0 bottom-0 w-full h-full z-10 overflow-hidden bg-gray-700 flex items-center justify-center;
   }
 }

@@ -58,7 +58,7 @@
   }
 
   .btn-secondary.inverse {
-    @apply bg-transparent border-secondary  hover:bg-secondary-dark;
+    @apply bg-secondary-lighter border-secondary-lighter text-secondary  hover:bg-secondary hover:text-white;
   }
 
   .btn-ternary {
@@ -222,5 +222,13 @@
 
   .list-item:hover {
     @apply bg-secondary-lighter cursor-pointer;
+  }
+
+  .thumb {
+    @apply bg-white border-2 border-gray-300 rounded object-scale-down h-16 w-16  overflow-hidden;
+  }
+
+  .thumb-overlay {
+    @apply cursor-pointer opacity-0 hover:opacity-75 rounded absolute top-0 left-0 right-0 bottom-0 w-full h-full z-50 overflow-hidden bg-gray-700 flex items-center justify-center;
   }
 }

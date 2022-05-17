@@ -1,15 +1,22 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCloudArrowUp, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from './Card';
 import ConfirmButton from './ConfirmButton';
 import FieldsetDropdown from './FieldsetDropdown';
+import Thumb from './Thumb';
 import { v4 as uuidv4 } from 'uuid';
+
+function useArrayRef() {
+  const refs = {};
+  return [refs, (pidx, eidx) => (el) => el && (refs[`${pidx}_${eidx}`] = el)];
+}
 
 function GoodInventory({ onSubmitInventory }) {
   const [form, setForm] = useState({
     typeEtatLieux: { hidden: false, value: '' },
+    typeLogement: { hidden: false, value: '' },
     dateEntree: { hidden: true },
     dateSortie: { hidden: true },
     chauffage: {
@@ -62,7 +69,8 @@ function GoodInventory({ onSubmitInventory }) {
     elements: {
       type: { value: '' },
       etat: { value: '' },
-      comment: { value: '' }
+      comment: { value: '' },
+      pictures: []
     }
   };
 
@@ -130,6 +138,33 @@ function GoodInventory({ onSubmitInventory }) {
     };
   }
 
+  function handleUploadPictures(collection, idx, subCollection, sidx) {
+    return (ev) => {
+      if (ev.target.files && ev.target.files.length > 0) {
+        const { files } = ev.target;
+        console.log({ files });
+        const col = [...form[collection]];
+        const nbFiles = files.length;
+        [...Array(nbFiles)].forEach((_, fidx) => {
+          const file = files.item(fidx);
+          if (!col[idx][subCollection][sidx].pictures.find((pic) => pic.name === file.name)) {
+            col[idx][subCollection][sidx].pictures.push(file);
+          }
+        });
+
+        setForm({ ...form, [collection]: col });
+      }
+    };
+  }
+
+  function handleDeletePicture(collection, idx, subCollection, sidx, picidx) {
+    return () => {
+      const col = [...form[collection]];
+      col[idx][subCollection][sidx].pictures.splice(picidx, 1);
+      setForm({ ...form, [collection]: col });
+    };
+  }
+
   function handleAddToCollection(collection) {
     return () => {
       const col = [...form[collection]];
@@ -148,10 +183,27 @@ function GoodInventory({ onSubmitInventory }) {
     };
   }
 
+  // const inputFileRefs = useRef([]);
+  // inputFileRefs.current = form.pieces.map((p, pidx) => {
+  //   return p.elements.map((e, eidx) => inputFileRefs.current[pidx][eidx] ?? createRef());
+  // });
+
+  const [elements, ref] = useArrayRef();
+
+  useEffect(() => {
+    console.log(elements);
+  });
+
+  // function inputFileRefs(pidx, eidx) {
+  //   const ref = inputFileRefs.current[pidx][eidx] ?? createRef();
+  //   inputFileRefs.current[pidx][eidx] = ref;
+  //   return ref;
+  // }
+
   return (
     <form onSubmit={handleSubmitForm}>
       <div className="grid gap-y-6 mb-8">
-        <div className="bg-ternary-lighter border-2 border-ternary-light border-t-4 border-t-ternary rounded text-primary-dark px-4 py-3">
+        <div className="bg-ternary-lighter border-2 border-ternary-light border-t-4 border-t-ternary rounded text-primary-dark px-4 py-3 col-span-2">
           <div className="flex">
             <div className="py-1">
               <svg className="fill-current h-6 w-6 text-ternary mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -186,6 +238,14 @@ function GoodInventory({ onSubmitInventory }) {
             <div className="form-component" hidden={form.dateSortie.hidden}>
               <label>Date sortie</label>
               <input className="form-input" type="date" name="dateSortie" value={form.dateSortie.value} onChange={handleFormChangeValue} />
+            </div>
+            <div className="form-component lg:col-span-2 col-start-1">
+              <label>Type de logement</label>
+              <select className="form-select" name="typeLogement" value={form.typeLogement.value} onChange={handleFormChange}>
+                <option></option>
+                <option value="house">Maison</option>
+                <option value="flat">Appartement</option>
+              </select>
             </div>
             <div className="form-component lg:col-span-4">
               <label>Adresse du logement</label>
@@ -528,63 +588,95 @@ function GoodInventory({ onSubmitInventory }) {
               />
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
                 {piece.elements.map((element, eidx) => (
-                  <div key={element.id} className="flex justify-between col-span-4">
-                    <div className="form-component flex-grow">
-                      <label>&Eacute;lément</label>
-                      <select
-                        className="form-select"
-                        value={element.type.value}
-                        name={`pieces[${pidx}].elements[${eidx}].type`}
-                        onChange={handleFormChangeValue}>
-                        <option></option>
-                        <option value="imm">Porte</option>
-                        <option value="entr">Mur</option>
-                        <option value="port">Sol</option>
-                        <option value="vitr">Vitrage</option>
-                        <option value="plaf">Plafond</option>
-                        <option value="ecl">Eclairage</option>
-                        <option value="inter">Interrupteurs</option>
-                        <option value="prise">Prises électriques</option>
-                      </select>
-                    </div>
+                  <div key={element.id} className="col-span-4">
+                    <div className="flex justify-between ">
+                      <div className="form-component flex-grow">
+                        <label>&Eacute;lément</label>
+                        <select
+                          className="form-select"
+                          value={element.type.value}
+                          name={`pieces[${pidx}].elements[${eidx}].type`}
+                          onChange={handleFormChangeValue}>
+                          <option></option>
+                          <option value="imm">Porte</option>
+                          <option value="entr">Mur</option>
+                          <option value="port">Sol</option>
+                          <option value="vitr">Vitrage</option>
+                          <option value="plaf">Plafond</option>
+                          <option value="ecl">Eclairage</option>
+                          <option value="inter">Interrupteurs</option>
+                          <option value="prise">Prises électriques</option>
+                          <option value="Sonnette">Sonnette</option>
+                          <option value="Interphone">Interphone</option>
+                          <option value="portail">portail électrique</option>
+                          <option value="VMC">VMC</option>
+                          <option value="détecteur de fumées">détecteur de fumées</option>
+                        </select>
+                      </div>
 
-                    <div className="form-component flex-grow">
-                      <label>&Eacute;tat</label>
-                      <select
-                        className="form-select"
-                        value={element.etat.value}
-                        name={`pieces[${pidx}].elements[${eidx}].etat`}
-                        onChange={handleFormChangeValue}>
-                        <option></option>
-                        <option value="t">Très bon état</option>
-                        <option value="b">Bon état</option>
-                        <option value="p">&Eacute;tat passable</option>
-                        <option value="m">Mauvais état</option>
-                      </select>
-                    </div>
+                      <div className="form-component flex-grow">
+                        <label>&Eacute;tat</label>
+                        <select
+                          className="form-select"
+                          value={element.etat.value}
+                          name={`pieces[${pidx}].elements[${eidx}].etat`}
+                          onChange={handleFormChangeValue}>
+                          <option></option>
+                          <option value="t">Très bon état</option>
+                          <option value="b">Bon état</option>
+                          <option value="p">&Eacute;tat passable</option>
+                          <option value="m">Mauvais état</option>
+                        </select>
+                      </div>
 
-                    <div className="form-component flex-grow">
-                      <label>Commentaires</label>
-                      <input
-                        className="form-input"
-                        type="text"
-                        value={element.comment.value}
-                        name={`pieces[${pidx}].elements[${eidx}].comment`}
-                        onChange={handleFormChangeValue}
-                      />
-                    </div>
+                      <div className="form-component flex-grow">
+                        <label>Commentaires</label>
+                        <input
+                          className="form-input"
+                          type="text"
+                          value={element.comment.value}
+                          name={`pieces[${pidx}].elements[${eidx}].comment`}
+                          onChange={handleFormChangeValue}
+                        />
+                      </div>
 
-                    <div className="form-component self-end ml-3 col-start-4 flex flex-col items-end">
-                      <ConfirmButton
-                        className="btn btn-lg btn-ternary inverse flex gap-3 items-center h-12"
-                        onConfirm={handleRemoveFromSubCollection('pieces', pidx, 'elements', eidx)}
-                        showConfirmText={false}>
-                        <FontAwesomeIcon icon={faTrash} />
-                      </ConfirmButton>
+                      <div className="form-component self-end ml-3 col-start-4 flex flex-col items-end">
+                        <ConfirmButton
+                          className="btn btn-lg btn-ternary inverse flex gap-3 items-center h-12"
+                          onConfirm={handleRemoveFromSubCollection('pieces', pidx, 'elements', eidx)}
+                          showConfirmText={false}>
+                          <FontAwesomeIcon icon={faTrash} fixedWidth />
+                        </ConfirmButton>
+                      </div>
+
+                      <div className="form-component self-end ml-3 col-start-4 flex flex-col items-end">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            elements[`${pidx}_${eidx}`].click();
+                          }}
+                          className="btn btn-lg btn-secondary inverse flex gap-3 items-center h-12">
+                          <FontAwesomeIcon icon={faCloudArrowUp} fixedWidth className=" fa-lg" />
+                        </button>
+
+                        <input
+                          ref={ref(pidx, eidx)}
+                          accept="image/*"
+                          onChange={handleUploadPictures('pieces', pidx, 'elements', eidx)}
+                          type="file"
+                          multiple
+                          className="hidden"
+                        />
+                      </div>
+                    </div>
+                    <div className="px-3 mt-2 flex justify-start gap-1 flex-wrap">
+                      {element.pictures.map((picture, picidx) => (
+                        <Thumb file={picture} onClick={handleDeletePicture('pieces', pidx, 'elements', eidx, picidx)} key={picidx} />
+                      ))}
                     </div>
                   </div>
                 ))}
-                <div className="form-component col-start-1">
+                <div className="form-component col-start-1 col-span-4">
                   <button type="button" className="btn btn-lg btn-secondary" onClick={handleAddElement(pidx)}>
                     Ajouter un élément
                   </button>
@@ -607,6 +699,51 @@ function GoodInventory({ onSubmitInventory }) {
             </button>
           </div>
         </Card>
+
+        <div className="bg-ternary-lighter border-2 border-ternary-light border-t-4 border-t-ternary rounded text-primary-dark px-4 py-3 col-span-2">
+          <div className="flex">
+            <div className="py-1">
+              <svg className="fill-current h-6 w-6 text-ternary mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+              </svg>
+            </div>
+            <div>
+              <p className="font-bold text-xl">En cas d&apos;absence d&apos;état des lieux par négligence du propriétaire et du locataire</p>
+              <p className="mb-2">
+                Le locataire est considéré comme ayant reçu le logement en bon état de réparations locatives. Il devra le rendre en bon état de
+                réparations locatives, sauf s&apos;il peut prouver du mauvais état initial du logement. La preuve peut être apportée, par exemple, au
+                moyen de photographies réalisées par un huissier (démarche payante).
+              </p>
+              <p className="mb-2">
+                Pour les autres réparations (travaux à la charge du bailleur ou vétusté des lieux), c&apos;est au propriétaire de démontrer
+                qu&apos;elles sont imputables au locataire.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-ternary-lighter border-2 border-ternary-light border-t-4 border-t-ternary rounded text-primary-dark px-4 py-3 col-span-2">
+          <div className="flex">
+            <div className="py-1">
+              <svg className="fill-current h-6 w-6 text-ternary mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+              </svg>
+            </div>
+            <div>
+              <p className="font-bold text-xl">En cas de litige inférieur à 5.000€</p>
+              <p className="mb-2">
+                Si vous ne parvenez pas à vous parler, vous pouvez envoyer un courrier recommandé avec accusé de réception. Le courrier doit décrire
+                les faits le plus précisément possible. Il faut y joindre des documents pour appuyer votre propos (textes de loi, règlement, factures,
+                photos...).
+              </p>
+              <p className="mb-2">Conciliation (obligatoire)</p>
+              <p className="mb-2">
+                Si vous n&apos;obtenez pas gain de cause avec le courrier recommandé, vous devez engager une conciliation auprès d&apos;un
+                conciliateur de justice ou de la commission départementale de conciliation.
+              </p>
+              <p className="mb-2">Cette démarche est gratuite.</p>
+            </div>
+          </div>
+        </div>
 
         <button type="submit" className="btn btn-lg btn-secondary">
           Valider l&apos;état des lieux

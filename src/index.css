@@ -231,4 +231,25 @@
   .thumb-overlay {
     @apply cursor-pointer opacity-0 hover:opacity-75 rounded absolute top-0 left-0 right-0 bottom-0 w-full h-full z-10 overflow-hidden bg-gray-700 flex items-center justify-center;
   }
+
+  .form-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    display: inline-block;
+    vertical-align: middle;
+    background-origin: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    flex-shrink: 0;
+    height: 1em;
+    width: 1em;
+    color: #4299e1;
+    background-color: #fff;
+    @apply border-2 border-gray-300 rounded;
+  }
 }

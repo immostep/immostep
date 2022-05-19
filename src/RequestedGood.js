@@ -12,14 +12,20 @@ import GoodInventory from './GoodInventory';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useCallback, useState } from 'react';
+import GoodLease from './GoodLease';
 
 function RequestedGood({ requestedGood }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [showInventory, setShowInventory] = useState(false);
+  const [showLease, setShowLease] = useState(false);
 
   const handleClickTile = useCallback((to) => {
     if (to === '/inventory') {
       setShowInventory(true);
+      setSelectedIndex(3);
+    }
+    if (to === '/lease') {
+      setShowLease(true);
       setSelectedIndex(3);
     }
   }, []);
@@ -27,6 +33,10 @@ function RequestedGood({ requestedGood }) {
   function handleCloseInventoryTab() {
     setSelectedIndex(0);
     setShowInventory(false);
+  }
+  function handleCloseLeaseTab() {
+    setSelectedIndex(0);
+    setShowLease(false);
   }
 
   return (
@@ -68,6 +78,11 @@ function RequestedGood({ requestedGood }) {
                 Etat des lieux <FontAwesomeIcon icon={faTimes} onClick={handleCloseInventoryTab} />
               </Tab>
             )}
+            {showLease && (
+              <Tab className={({ selected }) => (selected ? 'tab active' : 'tab')}>
+                Bail de location <FontAwesomeIcon icon={faTimes} onClick={handleCloseLeaseTab} />
+              </Tab>
+            )}
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
@@ -82,6 +97,11 @@ function RequestedGood({ requestedGood }) {
             {showInventory && (
               <Tab.Panel>
                 <GoodInventory requestedGood={requestedGood} onSubmitInventory={handleCloseInventoryTab} />
+              </Tab.Panel>
+            )}
+            {showLease && (
+              <Tab.Panel>
+                <GoodLease requestedGood={requestedGood} onSubmitLease={handleCloseLeaseTab} />
               </Tab.Panel>
             )}
           </Tab.Panels>

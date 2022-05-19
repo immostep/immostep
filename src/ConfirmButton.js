@@ -21,7 +21,7 @@ function ConfirmButton({ onConfirm, children, timeout = 3000, showConfirmText = 
     return () => {
       clearTimeout(tid);
     };
-  }, []);
+  }, [tid]);
 
   function handleClickConfirmButton() {
     clearTimeout(tid);
@@ -53,5 +53,5 @@ ConfirmButton.propTypes = {
   timeout: PropTypes.number,
   showConfirmText: PropTypes.bool,
   confirmText: PropTypes.string,
-  children: PropTypes.any
+  children: PropTypes.any,
 };

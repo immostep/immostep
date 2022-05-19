@@ -1,11 +1,11 @@
-import { faCloudArrowUp, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import Card from './Card';
 import ConfirmButton from './ConfirmButton';
 import FieldsetDropdown from './FieldsetDropdown';
 import Thumb from './Thumb';
+import { faCloudArrowUp, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { v4 as uuidv4 } from 'uuid';
 
 function useArrayRef() {

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 function Card({ title, children, noContent = false, className }) {
   return (
-    <section className={`${className} object-center min-w-0 p-0 card`} id="details">
+    <section className={`${className} object-center min-w-0 p-0 card`}>
       {title && (
         <div className="card-header">
           <h2 className="card-title">{title}</h2>
@@ -19,5 +19,5 @@ Card.propTypes = {
   title: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.any,
-  noContent: PropTypes.bool
+  noContent: PropTypes.bool,
 };

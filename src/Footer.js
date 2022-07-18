@@ -10,7 +10,7 @@ function Footer() {
       <div className="h-1 px-4 sm:px-6 md:px-8 bg-secondary"></div>
       <div className="px-4 py-3 sm:px-6 md:px-8 bg-primary text-primary-light">
         <div className="container mx-auto">
-          <img className="my-2 [height:48px]" src={logo_white} alt="ImmoStep" />
+          <img className="my-2 [height:48px]" src={logo_white} alt="ImmoSteps" />
           <div className="flex flex-row flex-wrap justify-between">
             <div className="py-3">
               <h5 className="text-white uppercase">Propriétaires</h5>
@@ -71,7 +71,7 @@ function Footer() {
                 @MartialSeron
               </a>
             </div>
-            <div>&copy; ImmoStep</div>
+            <div>&copy; ImmoSteps</div>
           </div>
         </div>
       </div>

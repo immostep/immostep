@@ -36,7 +36,7 @@ export default function SideBar({ requestedGoodId, goods, isOpen = false, onClic
             </ul>
           </div>
           <div className="good__image">
-            <img src={good.images[0]} alt="ImmoStep" />
+            <img src={good.images[0]} alt="ImmoSteps" />
           </div>
         </Link>
       </div>
@@ -65,5 +65,5 @@ SideBar.propTypes = {
   requestedGoodId: PropTypes.number,
   goods: PropTypes.array,
   isOpen: PropTypes.bool,
-  onClickToggleMenu: PropTypes.func
+  onClickToggleMenu: PropTypes.func,
 };

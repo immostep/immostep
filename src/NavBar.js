@@ -6,7 +6,7 @@ const NavBar = ({ onClickConnection }) => {
     <nav className="bg-white px-2 sm:p-0 py-2.5">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <a href="/" className="flex items-center">
-          <img src={logo_color} className="mr-3 h-12 sm:h-16" alt="Immostep Logo" />
+          <img src={logo_color} className="mr-3 h-12 sm:h-16" alt="Immosteps Logo" />
         </a>
 
         <div className="block w-auto">
@@ -26,5 +26,5 @@ const NavBar = ({ onClickConnection }) => {
 export default NavBar;
 
 NavBar.propTypes = {
-  onClickConnection: PropTypes.func
+  onClickConnection: PropTypes.func,
 };

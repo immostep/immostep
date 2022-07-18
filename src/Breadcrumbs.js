@@ -10,7 +10,7 @@ function Breadcrumbs() {
         <li className="inline-flex items-center">
           <img src={logo_white_notext} className="w-3 h-3 mr-2" />
           <Link to="/" className="text-sm font-medium text-gray-200 hover:text-white">
-            ImmoStep
+            ImmoSteps
           </Link>
         </li>
         <li className="inline-flex items-center">

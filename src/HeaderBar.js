@@ -29,7 +29,7 @@ function HeaderBar({ isFluid = false, inverse = false, user = {}, noLogo = false
             {!noLogo && (
               <div>
                 <a className="no-underline hover:no-underline" href="/">
-                  <img src={inverse ? logo_white : logo_color} className="[height:64px] aspect-auto" alt="ImmoStep" />
+                  <img src={inverse ? logo_white : logo_color} className="[height:64px] aspect-auto" alt="ImmoSteps" />
                 </a>
               </div>
             )}
@@ -170,5 +170,5 @@ HeaderBar.propTypes = {
   noLogo: PropTypes.bool,
   noSearchField: PropTypes.bool,
   inverse: PropTypes.bool,
-  user: PropTypes.object
+  user: PropTypes.object,
 };

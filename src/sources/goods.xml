@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <row>
+    <id>1</id>
+    <name>Logement #01</name>
+    <location>
+      <city>Cheviré-le-Rouge</city>
+    </location>
+    <adStatus>1</adStatus>
+    <status>2</status>
+    <floors>2</floors>
+    <surface>200</surface>
+    <rooms>4</rooms>
+    <views>243</views>
+    <messages />
+    <images>/img/goods/001.jpg</images>
+    <equipments>garage inclus</equipments>
+    <equipments>balcon</equipments>
+    <equipments>antenne satellite</equipments>
+    <equipments>2 salles de bain</equipments>
+    <requests>
+      <from>Georges Lucas</from>
+      <read>false</read>
+      <status>En attente</status>
+      <date>22 oct. 2021</date>
+      <rating>5</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Jim Carrey</from>
+      <read>false</read>
+      <status>En attente</status>
+      <date>17 oct. 2021</date>
+      <rating>3</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Silvester Stalone</from>
+      <read>true</read>
+      <status>En attente</status>
+      <date>17 oct. 2021</date>
+      <rating>2</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Brad Pitt</from>
+      <read>true</read>
+      <status>Refusé</status>
+      <date>10 oct. 2021</date>
+      <rating>1</rating>
+      <content>Bla bla bla</content>
+    </requests>
+  </row>
+  <row>
+    <id>2</id>
+    <name>Logement #02</name>
+    <location>
+      <city>Angers</city>
+    </location>
+    <adStatus>2</adStatus>
+    <status>1</status>
+    <floors>2</floors>
+    <surface>200</surface>
+    <rooms>4</rooms>
+    <views>1254</views>
+    <messages />
+    <images>/img/goods/002.jpg</images>
+    <equipments>garage inclus</equipments>
+    <equipments>balcon</equipments>
+    <equipments>antenne satellite</equipments>
+    <equipments>2 salles de bain</equipments>
+    <requests>
+      <from>Georges Lucas</from>
+      <read>false</read>
+      <status>En attente</status>
+      <date>22 oct. 2021</date>
+      <rating>5</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Jim Carrey</from>
+      <read>false</read>
+      <status>En attente</status>
+      <date>17 oct. 2021</date>
+      <rating>3</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Silvester Stalone</from>
+      <read>true</read>
+      <status>En attente</status>
+      <date>17 oct. 2021</date>
+      <rating>2</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Brad Pitt</from>
+      <read>true</read>
+      <status>Refusé</status>
+      <date>10 oct. 2021</date>
+      <rating>1</rating>
+      <content>Bla bla bla</content>
+    </requests>
+  </row>
+  <row>
+    <id>3</id>
+    <name>Logement #03</name>
+    <location>
+      <city>Seiches-sur-le-Loir</city>
+    </location>
+    <adStatus>1</adStatus>
+    <status>2</status>
+    <description>T3 dernier étage avec ascenseur quartier caserne Desjardins, cuisine aménagée et équipée ouverte sur salon-séjour. 2 chambres avec placards. Salle de bain avec baignoire et douche. Stationnement privatif en sous-sol et cave. dont 6.48 % honoraires TTC à la charge de l&#x27;acquéreur. Copropriété de 85 lots (Pas de procédure en cours). Charges annuelles : 1320 euros.</description>
+    <floors>2</floors>
+    <surface>200</surface>
+    <rooms>4</rooms>
+    <views>243</views>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>0</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>0</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <messages>
+      <subject>Candidature de M. Dupont Frédéric</subject>
+      <type>1</type>
+      <attachments></attachments>
+      <attachments></attachments>
+      <attachments></attachments>
+      <read>1</read>
+      <sender>Dupont Frédéric</sender>
+      <date>2021-12-01T00:00:00.000Z</date>
+    </messages>
+    <images>/img/goods/003.jpg</images>
+    <images>/img/goods/003 (1).jpg</images>
+    <images>/img/goods/003 (2).jpg</images>
+    <images>/img/goods/003 (3).jpg</images>
+    <images>/img/goods/003 (4).jpg</images>
+    <images>/img/goods/003 (5).jpg</images>
+    <images>/img/goods/003 (6).jpg</images>
+    <images>/img/goods/003 (7).jpg</images>
+    <images>/img/goods/003 (8).jpg</images>
+    <documents>
+      <invoices>
+        <filename>Facture 01.pdf</filename>
+        <size>256000</size>
+        <amount>2774.31</amount>
+        <type>électricité</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+      <invoices>
+        <filename>smtp_direct.pdf</filename>
+        <size>82949</size>
+        <amount>285.38</amount>
+        <type>chauffage</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+      <invoices>
+        <filename>streamline_white.pdf</filename>
+        <size>81150</size>
+        <amount>746.23</amount>
+        <type>électricité</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+      <invoices>
+        <filename>national_xss_cyprus.pdf</filename>
+        <size>18018</size>
+        <amount>658.79</amount>
+        <type>électricité</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+      <invoices>
+        <filename>courts_generic.pdf</filename>
+        <size>53453</size>
+        <amount>527.62</amount>
+        <type>entretien</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+      <invoices>
+        <filename>program_lithuania_innovative.pdf</filename>
+        <size>99912</size>
+        <amount>389.85</amount>
+        <type>électricité</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+      <invoices>
+        <filename>ergonomic_loan.pdf</filename>
+        <size>87969</size>
+        <amount>885.32</amount>
+        <type>eau</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+      <invoices>
+        <filename>strategy_mission_critical_secured.pdf</filename>
+        <size>50643</size>
+        <amount>322.67</amount>
+        <type>électricité</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+      <invoices>
+        <filename>account_hat_purple.pdf</filename>
+        <size>95156</size>
+        <amount>936.30</amount>
+        <type>électricité</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+      <invoices>
+        <filename>sleek_functionality_frozen.pdf</filename>
+        <size>45609</size>
+        <amount>502.53</amount>
+        <type>électricité</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+      <invoices>
+        <filename>generate_cotton_producer.pdf</filename>
+        <size>44230</size>
+        <amount>716.61</amount>
+        <type>électricité</type>
+        <date>2021-12-01T00:00:00.000Z</date>
+      </invoices>
+    </documents>
+    <occupiedSince>1er janvier 2020</occupiedSince>
+    <equipments>garage inclus</equipments>
+    <equipments>balcon</equipments>
+    <equipments>antenne satellite</equipments>
+    <equipments>2 salles de bain</equipments>
+    <requests>
+      <from>Georges Lucas</from>
+      <read>false</read>
+      <status>En attente</status>
+      <date>22 oct. 2021</date>
+      <rating>5</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Jim Carrey</from>
+      <read>false</read>
+      <status>En attente</status>
+      <date>17 oct. 2021</date>
+      <rating>3</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Silvester Stalone</from>
+      <read>true</read>
+      <status>En attente</status>
+      <date>17 oct. 2021</date>
+      <rating>2</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Brad Pitt</from>
+      <read>true</read>
+      <status>Refusé</status>
+      <date>10 oct. 2021</date>
+      <rating>1</rating>
+      <content>Bla bla bla</content>
+    </requests>
+  </row>
+  <row>
+    <id>4</id>
+    <name>Logement #04</name>
+    <location>
+      <city>Le Mans</city>
+    </location>
+    <adStatus>2</adStatus>
+    <status>2</status>
+    <floors>2</floors>
+    <surface>200</surface>
+    <rooms>4</rooms>
+    <views>243</views>
+    <messages />
+    <images>/img/goods/004.jpg</images>
+    <documents>4</documents>
+    <equipments>garage inclus</equipments>
+    <equipments>balcon</equipments>
+    <equipments>antenne satellite</equipments>
+    <equipments>2 salles de bain</equipments>
+    <requests>
+      <from>Georges Lucas</from>
+      <read>false</read>
+      <status>En attente</status>
+      <date>22 oct. 2021</date>
+      <rating>5</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Jim Carrey</from>
+      <read>false</read>
+      <status>En attente</status>
+      <date>17 oct. 2021</date>
+      <rating>3</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Silvester Stalone</from>
+      <read>true</read>
+      <status>En attente</status>
+      <date>17 oct. 2021</date>
+      <rating>2</rating>
+      <content>Bla bla bla</content>
+    </requests>
+    <requests>
+      <from>Brad Pitt</from>
+      <read>true</read>
+      <status>Refusé</status>
+      <date>10 oct. 2021</date>
+      <rating>1</rating>
+      <content>Bla bla bla</content>
+    </requests>
+  </row>
+</root>

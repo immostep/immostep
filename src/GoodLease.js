@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import Card from './Card';
 import { v4 as uuidv4 } from 'uuid';
+import dataIRL from './sources/irl.json';
+import dataClauses from './sources/clauses.json';
+import periodesConstruction from './sources/periodesConstruction.json';
 import ConfirmButton from './ConfirmButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FieldsetDropdown from './FieldsetDropdown';
 
 function resolvePath(object, path, defaultValue) {
   return path
@@ -17,38 +21,87 @@ function GoodLease({ onSubmitLease }) {
   const [minDureeBail, setMinDureeBail] = useState(3);
   const [isDureeBailIllegal, setIsDureeBailIllegal] = useState(false);
   const [form, setForm] = useState({
-    logementMeuble: { value: null },
-    bailEtudiant: { value: null },
-    typeLogement: { value: null },
-    priseEffetContrat: { value: null },
+    logementMeuble: { value: false },
+    bailEtudiant: { value: false },
+    typeHabitat: { value: 'collectif' },
+    typeLogement: { value: 'flat' },
+    regimeJuridique: { value: 'co' },
+    priseEffetContrat: { value: '2022-07-22' },
     dureeBail: { value: minDureeBail },
     dureeBailType: { value: 'y' },
-    surfaceHabitable: { value: null },
-    nombrePieces: { value: null },
+    surfaceHabitable: { value: '62' },
+    nombrePieces: { value: '3' },
+    periodeConstruction: { value: '5_2005' },
+    adresseLogement: { value: '25 rue Charles de Gaulle, Apt 5, 42000 Saint-Étienne' },
     bailleur: {
-      nom: { value: null },
-      prenom: { value: null },
-      details: { value: null },
+      nom: { value: 'Dupont' },
+      prenom: { value: 'Jean' },
+      adresse: { value: '10 rue de la Paix, 75001 Paris' },
+      details: { value: '' },
     },
-    locataires: [],
+    locataires: [
+      {
+        nom: { value: 'Parker' },
+        prenom: { value: 'Peter' },
+        email: { value: 'peter.parker@spider.web' },
+        telephone: { value: '0612345678' },
+      },
+    ],
     accessoires: {
-      cave: { value: false, numero: { value: null } },
-      garage: { value: false, numero: { value: null }, adresse: { value: null } },
-      parking: { value: false, numero: { value: null }, adresse: { value: null } },
-      jardin: { value: false, surface: { value: null } },
-      terasse: { value: false, surface: { value: null } },
-      communs: { value: false, precisions: { value: null } },
-      equipements: { value: false, precisions: { value: null } },
-      autres: { value: false, precisions: { value: null } },
+      cave: { value: true, numero: { value: '5' } },
+      garage: { value: true, numero: { value: '10' }, adresse: { value: '25 rue Charles de Gaulle, 42000 Saint-Étienne' } },
+      parking: { value: false, numero: { value: '' }, adresse: { value: '' } },
+      jardin: { value: false, surface: { value: '' } },
+      terasse: { value: false, surface: { value: '' } },
+      communs: { value: false, precisions: { value: '' } },
+      equipements: { value: false, precisions: { value: '' } },
+      autres: { value: false, precisions: { value: '' } },
     },
+
+    chauffage: { value: 'i', options: { value: 'tantiemes' }, precisions: { value: '' } },
+    eauChaude: { value: 'i', options: { value: 'tantiemes' }, precisions: { value: '' } },
+    loyerMensuel: { value: '625' },
+    depotGarantie: { value: '500' },
+    loyerEncadre: { value: false },
+    loyerMensuelDeReference: { value: '' },
+    loyerMensuelDeReferenceMajore: { value: '' },
+    typeCharges: { value: 'provision' },
+    montantCharges: { value: '55' },
+    timestreReference: { value: 'T2 2022' },
+    dateRevisionLoyer: { value: 'date_anniv_bail' },
+    zoneTendue: { value: false },
+    dateDepartPrecedentLocataire: { value: '2022-07-01' },
+    datePaimentLoyer: { value: '5' },
+    termePaimentLoyer: { value: 'a_echoir' },
+
+    clauses: [
+      {
+        type: {
+          value: 'Clause résolutoire',
+        },
+        value:
+          "Il est prévu que le bail sera résilié immédiatement et de plein droit dans les cas suivants, si bon semble au bailleur :\n    1) deux mois après un commandement demeuré infructueux à défaut de paiement du loyer ou des charges (qu'il s'agisse des provisions ou de la régularisation annuelle) aux termes convenus ou à défaut de versement du dépôt de garantie\n    2) un mois après un commandement demeuré infructueux à défaut d'assurance des risques locatifs par le locataire\n    3) troubles de voisinage...",
+        id: '459f2dbd-ae76-465a-871b-3003751a2a2a',
+      },
+      {
+        type: { value: 'Visites pour relouer' },
+        value:
+          "Une fois le congé envoyé par l'une ou l'autre des parties, le locataire s'oblige à laisser visiter le bien en sa présence ou non, à raison de 5 créneaux par semaine, de 2 heures en jours ouvrables entre 8h et 20h. Pour chaque semaine, le locataire devra communiquer au bailleur, 2 jours à l'avance, les créneaux et les modalités de récupération des clefs en son absence le cas échéant.",
+        id: '43361cc8-ece3-45e2-ae03-023a0e2798a1',
+      },
+    ],
   });
 
   const empty = {
     locataires: {
-      nom: { value: null },
-      prenom: { value: null },
-      email: { value: null },
-      telephone: { value: null },
+      nom: { value: '' },
+      prenom: { value: '' },
+      email: { value: '' },
+      telephone: { value: '' },
+    },
+    clauses: {
+      type: { value: '' },
+      value: '',
     },
   };
 
@@ -70,7 +123,8 @@ function GoodLease({ onSubmitLease }) {
   function handleFormChangeValue(ev) {
     const f = { ...form };
     let { value } = ev.target;
-    if (ev.target.type === 'radio') {
+
+    if (ev.target.type === 'radio' && !isNaN(ev.target.value)) {
       value = !!parseInt(ev.target.value || '0', 10);
     }
 
@@ -105,6 +159,7 @@ function GoodLease({ onSubmitLease }) {
   }
 
   return (
+    <>
     <form onSubmit={handleSubmitForm}>
       <div className="grid gap-y-6 mb-8">
         <Card title="Le bailleur (ou son mandataire)" id="bailleur" className="md:col-span-2">
@@ -115,7 +170,23 @@ function GoodLease({ onSubmitLease }) {
             </div>
             <div className="form-component">
               <label>Prénom</label>
-              <input className="form-input" type="text" name="bailleur.prenom" value={form.bailleur.prenom.value} onChange={handleFormChangeValue} />
+                <input
+                  className="form-input"
+                  type="text"
+                  name="bailleur.prenom"
+                  value={form.bailleur.prenom.value}
+                  onChange={handleFormChangeValue}
+                />
+              </div>
+              <div className="form-component lg:col-span-2">
+                <label>Adresse</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="bailleur.adresse"
+                  value={form.bailleur.adresse.value}
+                  onChange={handleFormChangeValue}
+                />
             </div>
             <div className="form-component lg:col-span-2">
               <label>Détails sur le mandataire le cas échéant</label>
@@ -196,7 +267,21 @@ function GoodLease({ onSubmitLease }) {
 
         <Card title="Description du logement" id="description_logement" className="md:col-span-2">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
-            <div className="form-component lg:col-span-2 col-start-1">
+              <div className="form-component">
+                <label>Régime juridique</label>
+                <select required className="form-select" name="typeHabitat" value={form.regimeJuridique.value} onChange={handleFormChangeValue}>
+                  <option value="mono">Monopropriété</option>
+                  <option value="co">Copropriété</option>
+                </select>
+              </div>
+              <div className="form-component">
+                <label>Type d'habitat</label>
+                <select required className="form-select" name="typeHabitat" value={form.typeHabitat.value} onChange={handleFormChangeValue}>
+                  <option value="collectif">Collectif</option>
+                  <option value="individuel">Individuel</option>
+                </select>
+              </div>
+              <div className="form-component md:col-span-2 md:col-start-1">
               <label>Type de logement</label>
               <select required className="form-select" name="typeLogement" value={form.typeLogement.value} onChange={handleFormChangeValue}>
                 <option></option>
@@ -214,6 +299,7 @@ function GoodLease({ onSubmitLease }) {
                     className="form-checkbox h-5 w-5 text-secondary"
                     type="checkbox"
                     checked={!!form.logementMeuble.value}
+                      value=""
                     onChange={() => {
                       const f = { ...form };
                       if (f.logementMeuble.value && ['9m', '1y'].includes(form.dureeBail.value)) {
@@ -232,10 +318,11 @@ function GoodLease({ onSubmitLease }) {
                       className="form-checkbox h-5 w-5 text-secondary"
                       type="checkbox"
                       checked={!!form.bailEtudiant.value}
+                        value=""
                       onChange={() => {
                         const f = { ...form };
                         if (f.bailEtudiant.value && form.dureeBail.value === '9m') {
-                          form.dureeBail.value = null;
+                            f.dureeBail.value = null;
                         }
                         setForm({ ...f, bailEtudiant: { value: !f.bailEtudiant.value } });
                       }}
@@ -271,19 +358,30 @@ function GoodLease({ onSubmitLease }) {
 
             <div className="form-component lg:col-span-2 col-start-1">
               <label>Période de construction du logement</label>
-              <select required className="form-select" name="typeLogement" value={form.typeLogement.value} onChange={handleFormChangeValue}>
+                <select
+                  required
+                  className="form-select"
+                  name="periodeConstruction"
+                  value={form.periodeConstruction.value}
+                  onChange={handleFormChangeValue}>
                 <option></option>
-                <option value="1949">avant 1949</option>
-                <option value="1949_1974">entre 1949 et 1974</option>
-                <option value="1975_1989">entre 1975 et 1989</option>
-                <option value="1990_2005">entre 1990 et 2005</option>
-                <option value="2005">après 2005</option>
+                  {Object.entries(periodesConstruction).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
               </select>
             </div>
 
             <div className="form-component lg:col-span-4">
               <label>Adresse du logement</label>
-              <textarea maxLength={500} required className="form-textarea"></textarea>
+                <textarea
+                  maxLength={500}
+                  required
+                  className="form-textarea"
+                  name="adresseLogement"
+                  value={form.adresseLogement.value}
+                  onChange={handleFormChangeValue}></textarea>
               <small className="text-gray-400">500 caractères maxi</small>
             </div>
           </div>
@@ -299,6 +397,7 @@ function GoodLease({ onSubmitLease }) {
                   name="accessoires.cave"
                   checked={!!form.accessoires.cave.value}
                   onChange={handleFormChangeValue}
+                    value=""
                 />{' '}
                 <span className="ml-2 text-gray-700">Cave</span>
               </label>
@@ -325,11 +424,13 @@ function GoodLease({ onSubmitLease }) {
                   name="accessoires.garage"
                   checked={!!form.accessoires.garage.value}
                   onChange={handleFormChangeValue}
+                    value=""
                 />{' '}
                 <span className="ml-2 text-gray-700">Garage</span>
               </label>
             </div>
             {form.accessoires.garage.value && (
+                <>
               <div className="form-component">
                 <label>Numéro du garage</label>
                 <input
@@ -341,6 +442,187 @@ function GoodLease({ onSubmitLease }) {
                   onChange={handleFormChangeValue}
                 />
               </div>
+                  <div className="form-component col-span-2">
+                    <label>Adresse du garage</label>
+                    <input
+                      className="form-input"
+                      type="text"
+                      min={1}
+                      name="accessoires.garage.adresse"
+                      value={form.accessoires.garage.adresse.value}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+                </>
+              )}
+
+              <div className="form-component col-start-1 items-center mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoires.parking"
+                    checked={!!form.accessoires.parking.value}
+                    onChange={handleFormChangeValue}
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Parking</span>
+                </label>
+              </div>
+
+              {form.accessoires.parking.value && (
+                <>
+                  <div className="form-component">
+                    <label>Numéro du parking</label>
+                    <input
+                      className="form-input"
+                      type="number"
+                      min={1}
+                      name="accessoires.parking.numero"
+                      value={form.accessoires.parking.numero.value}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+                  <div className="form-component col-span-2">
+                    <label>Adresse du parking</label>
+                    <input
+                      className="form-input"
+                      type="number"
+                      min={1}
+                      name="accessoires.parking.adresse"
+                      value={form.accessoires.parking.adresse.value}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+                </>
+              )}
+
+              <div className="form-component col-start-1 items-center  mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoires.jardin"
+                    checked={!!form.accessoires.jardin.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Jardin</span>
+                </label>
+              </div>
+              {form.accessoires.jardin.value && (
+                <div className="form-component">
+                  <label>Surface du jardin</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    min={1}
+                    name="accessoires.jardin.surface"
+                    value={form.accessoires.jardin.surface.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
+              )}
+
+              <div className="form-component col-start-1 items-center  mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoires.terasse"
+                    checked={!!form.accessoires.terasse.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Terasse</span>
+                </label>
+              </div>
+              {form.accessoires.terasse.value && (
+                <div className="form-component">
+                  <label>Surface de la terasse</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    min={1}
+                    name="accessoires.terasse.surface"
+                    value={form.accessoires.terasse.surface.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
+              )}
+
+              <div className="form-component col-start-1 col-span-2 items-center  mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoires.equipements"
+                    checked={!!form.accessoires.equipements.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Equipements</span>
+                </label>
+              </div>
+              {form.accessoires.equipements.value && (
+                <div className="form-component col-start-1 col-span-2">
+                  <label>Précisez</label>
+                  <textarea
+                    className="form-input"
+                    name="accessoires.equipements.precisions"
+                    value={form.accessoires.equipements.precisions.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
+              )}
+
+              <div className="form-component col-start-1 col-span-2 items-center  mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoires.communs"
+                    checked={!!form.accessoires.communs.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Equipements et locaux accessoires à usage commun</span>
+                </label>
+              </div>
+              {form.accessoires.communs.value && (
+                <div className="form-component col-start-1 col-span-2">
+                  <label>Précisez</label>
+                  <textarea
+                    className="form-input"
+                    name="accessoires.communs.precisions"
+                    value={form.accessoires.communs.precisions.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
+              )}
+
+              <div className="form-component col-start-1 col-span-2 items-center  mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoires.autres"
+                    checked={!!form.accessoires.autres.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Autres</span>
+                </label>
+              </div>
+              {form.accessoires.autres.value && (
+                <div className="form-component col-start-1 col-span-2">
+                  <label>Précisez</label>
+                  <textarea
+                    className="form-input"
+                    name="accessoires.autres.precisions"
+                    value={form.accessoires.autres.precisions.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
             )}
           </div>
         </Card>
@@ -379,8 +661,31 @@ function GoodLease({ onSubmitLease }) {
                     <option value="y">Années</option>
                     <option value="m">Mois</option>
                   </select>
+                  </div>
                 </div>
               </div>
+
+              <div className="form-component">
+                <label>Paiement du loyer</label>
+                <select required className="form-select" name="datePaimentLoyer" value={form.datePaimentLoyer.value} onChange={handleFormChangeValue}>
+                  <option value="1">le 1er du mois</option>
+                  {[...Array(30)].map((v, idx) => (
+                    <option key={idx} value={idx + 2}>{`le ${idx + 2} du mois`}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-component">
+                <label>&nbsp;</label>
+                <select
+                  required
+                  className="form-select"
+                  name="termePaimentLoyer"
+                  value={form.termePaimentLoyer.value}
+                  onChange={handleFormChangeValue}>
+                  <option value="a_echoir">à échoir</option>
+                  <option value="terme_echu">à terme échu</option>
+                </select>
             </div>
 
             {isDureeBailIllegal && (
@@ -393,9 +698,332 @@ function GoodLease({ onSubmitLease }) {
           </div>
         </Card>
 
+          <Card title="Modalité de production de chauffage" id="production_chauffage" className="md:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12 items-center" onChange={handleFormChangeValue}>
+              <div className="form-component items-center  mt-3">
+                <label className="inline-flex items-center">
+                  <input className="form-radio h-5 w-5 text-secondary" type="radio" name="chauffage" value="i" defaultChecked />{' '}
+                  <span className="ml-2 text-gray-700">Chauffage individuel</span>
+                </label>
+              </div>
+              <div className="form-component items-center  mt-3">
+                <label className="inline-flex items-center">
+                  <input className="form-radio h-5 w-5 text-secondary" type="radio" name="chauffage" value="c" />{' '}
+                  <span className="ml-2 text-gray-700">Chauffage collectif</span>
+                </label>
+              </div>
+            </div>
+
+            {form.chauffage.value === 'c' && (
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12 items-center" onChange={handleFormChangeValue}>
+                <div className="form-component items-center  mt-3">
+                  <label className="inline-flex items-center">
+                    <input className="form-radio h-5 w-5 text-secondary" type="radio" name="chauffage.options" value="tantiemes" />{' '}
+                    <span className="ml-2 text-gray-700">En fonction des tantièmes</span>
+                  </label>
+                </div>
+                <div className="form-component items-center  mt-3">
+                  <label className="inline-flex items-center">
+                    <input className="form-radio h-5 w-5 text-secondary" type="radio" name="chauffage.options" value="individuel" />{' '}
+                    <span className="ml-2 text-gray-700">Selon un compteur individuel</span>
+                  </label>
+                </div>
+                <div className="form-component items-center  mt-3">
+                  <label className="inline-flex items-center">
+                    <input className="form-radio h-5 w-5 text-secondary" type="radio" name="chauffage.options" value="autre" />{' '}
+                    <span className="ml-2 text-gray-700">Autre</span>
+                  </label>
+                </div>
+                {form.chauffage.options.value === 'autre' && (
+                  <div className="form-component lg:col-span-4">
+                    <label>Précisez</label>
+                    <textarea
+                      maxLength={500}
+                      className="form-textarea"
+                      name="chauffage.precisions"
+                      onChange={handleFormChangeValue}
+                      required></textarea>
+                    <small className="text-gray-400">500 caractères maxi</small>
+                  </div>
+                )}
+              </div>
+            )}
+          </Card>
+
+          <Card title="Modalité de production d'eau chaude sanitaire " id="production_eau_chaude" className="md:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12 items-center" onChange={handleFormChangeValue}>
+              <div className="form-component items-center  mt-3">
+                <label className="inline-flex items-center">
+                  <input className="form-radio h-5 w-5 text-secondary" type="radio" name="eauChaude" value="i" defaultChecked />{' '}
+                  <span className="ml-2 text-gray-700">Eau chaude individuelle</span>
+                </label>
+              </div>
+              <div className="form-component items-center  mt-3">
+                <label className="inline-flex items-center">
+                  <input className="form-radio h-5 w-5 text-secondary" type="radio" name="eauChaude" value="c" />{' '}
+                  <span className="ml-2 text-gray-700">Eau chaude collective</span>
+                </label>
+              </div>
+            </div>
+
+            {form.eauChaude.value === 'c' && (
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12 items-center" onChange={handleFormChangeValue}>
+                <div className="form-component items-center  mt-3">
+                  <label className="inline-flex items-center">
+                    <input className="form-radio h-5 w-5 text-secondary" type="radio" name="eauChaude.options" value="tantiemes" />{' '}
+                    <span className="ml-2 text-gray-700">En fonction des tantièmes</span>
+                  </label>
+                </div>
+                <div className="form-component items-center  mt-3">
+                  <label className="inline-flex items-center">
+                    <input className="form-radio h-5 w-5 text-secondary" type="radio" name="eauChaude.options" value="individuel" />{' '}
+                    <span className="ml-2 text-gray-700">Selon un compteur individuel</span>
+                  </label>
+                </div>
+                <div className="form-component items-center  mt-3">
+                  <label className="inline-flex items-center">
+                    <input className="form-radio h-5 w-5 text-secondary" type="radio" name="eauChaude.options" value="autre" />{' '}
+                    <span className="ml-2 text-gray-700">Autre</span>
+                  </label>
+                </div>
+                {form.eauChaude.options.value === 'autre' && (
+                  <div className="form-component lg:col-span-4">
+                    <label>Précisez</label>
+                    <textarea
+                      maxLength={500}
+                      className="form-textarea"
+                      name="eauChaude.precisions"
+                      onChange={handleFormChangeValue}
+                      required></textarea>
+                    <small className="text-gray-400">500 caractères maxi</small>
+                  </div>
+                )}
+              </div>
+            )}
+          </Card>
+
+          <Card title="Loyer" id="loyer" className="md:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
+              <div className="form-component md:col-span-2">
+                <label>Loyer mensuel hors charges</label>
+                <input
+                  className="form-input"
+                  type="number"
+                  required
+                  name="loyerMensuel"
+                  value={form.loyerMensuel.value}
+                  onChange={handleFormChangeValue}
+                />
+              </div>
+              <div className="form-component md:col-span-2">
+                <label>Dépôt de garantie</label>
+                <div className="relative">
+                  <input
+                    className="form-input"
+                    type="number"
+                    required
+                    name="depotGarantie"
+                    value={form.depotGarantie.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
+              </div>
+              <div className="form-component self-end mb-2 md:col-span-2">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="loyerEncadre"
+                    checked={!!form.loyerEncadre.value}
+                    onChange={(ev) => {
+                      const f = { ...form };
+                      if (ev.target.checked) {
+                        f.zoneTendue.value = true;
+                      }
+                      setForm({ ...f, loyerEncadre: { value: !f.loyerEncadre.value } });
+                    }}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Le logement est dans une zone où le loyer est encadré</span>
+                </label>
+              </div>
+              {form.loyerEncadre.value && (
+                <>
+                  <div className="form-component md:col-start-1 md:col-span-2">
+                    <label>Loyer mensuel de référence</label>
+                    <input
+                      className="form-input"
+                      type="number"
+                      required
+                      name="loyerMensuel"
+                      value={form.loyerMensuelDeReference.value}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+                  <div className="form-component md:col-span-2">
+                    <label>Loyer mensuel de référence majoré</label>
+                    <input
+                      className="form-input"
+                      type="number"
+                      required
+                      name="loyerMensuel"
+                      value={form.loyerMensuelDeReferenceMajore.value}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+                  <div className="form-component lg:col-span-4">
+                    <label>Complément de loyer</label>
+                    <textarea maxLength={500} required className="form-textarea"></textarea>
+                  </div>
+                </>
+              )}
+            </div>
+          </Card>
+
+          <Card title="Charges" id="charges" className="md:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
+              <div className="form-component lg:col-span-2">
+                <label>Type de charges</label>
+                <select required className="form-select" name="typeCharges" value={form.typeCharges.value} onChange={handleFormChangeValue}>
+                  <option value="provision">Provisions sur charges</option>
+                  <option value="sans_provision">Paiement périodique sans provisions</option>
+                  <option value="abs_charges">Absence de charges</option>
+                </select>
+                {form.typeCharges.value === 'provision' && <small className="text-gray-400">Avec régularisation annuelle.</small>}
+                {form.typeCharges.value === 'abs_charges' && (
+                  <small className="text-gray-400">Attention vous ne pourrez pas demander la taxe d'ordures ménagères au locataire.</small>
+                )}
+              </div>
+
+              {form.typeCharges.value === 'provision' && (
+                <div className="form-component md:col-span-2">
+                  <label>Montant mensuel des charges</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    required
+                    name="montantCharges"
+                    value={form.montantCharges.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
+              )}
+            </div>
+          </Card>
+
+          <Card title="Indexation du loyer" id="indexation_loyer" className="md:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
+              <div className="form-component lg:col-span-2">
+                <label>
+                  Trimestre de référence pour l'<abbr title="Indice de référence des loyers">IRL</abbr>
+                </label>
+                <select
+                  required
+                  className="form-select"
+                  name="timestreReference"
+                  value={form.timestreReference.value}
+                  onChange={handleFormChangeValue}>
+                  <option></option>
+                  {dataIRL.map((d) => (
+                    <option key={d.period} value={d.period}>{`${d.period} valeur ${d.value}`}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-component lg:col-span-2">
+                <label>Date de révision du loyer</label>
+                <select
+                  required
+                  className="form-select"
+                  name="dateRevisionLoyer"
+                  value={form.dateRevisionLoyer.value}
+                  onChange={handleFormChangeValue}>
+                  <option value="date_anniv_bail">Date d'annivarsaire du bail</option>
+                  <option value="1er_du_mois_suiv_anniv">1er jour du mois suivant l'annivarsaire</option>
+                  <option value="1er_janvier">1er janvier</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+
+              <div className="form-component self-end mb-2 md:col-span-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="zoneTendue"
+                    checked={!!form.zoneTendue.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">
+                    Le logement est en zone tendue l'évolution du loyer entre 2 locataires est plafonnée à l'IRL
+                  </span>
+                </label>
+                {form.loyerEncadre.value && !form.zoneTendue.value && (
+                  <small className="inline-block text-gray-400">En théorie les communes où le loyer est encadré sont forcément en zone tendue.</small>
+                )}
+              </div>
+
+              {form.typeCharges.value === 'provision' && (
+                <div className="form-component md:col-span-2 md:col-start-1">
+                  <label>Le précédent locataire a quitté le logement depuis</label>
+                  <input
+                    className="form-input"
+                    type="date"
+                    required
+                    name="dateDepartPrecedentLocataire"
+                    value={form.dateDepartPrecedentLocataire.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
+              )}
+            </div>
+          </Card>
+
+          <Card title="Clauses" id="clauses" className="md:col-span-2">
+            {form.clauses.map((clause, cidx) => (
+              <fieldset key={clause.id} className="relative form-fieldset dropdown">
+                <FieldsetDropdown
+                  options={dataClauses.map((c) => c.label)}
+                  value={clause.type.value}
+                  onChange={(selected) => {
+                    const f = { ...form };
+                    f.clauses[cidx].type.value = selected;
+                    f.clauses[cidx].value = dataClauses.find((c) => c.label === selected).value;
+                    setForm({ ...f });
+                  }}
+                />
+
+                <textarea
+                  maxLength={500}
+                  rows="10"
+                  className="form-textarea"
+                  name={`clauses[${cidx}].value`}
+                  value={form.clauses[cidx].value}
+                  onChange={handleFormChangeValue}></textarea>
+
+                <div className="form-component ml-3 col-start-4 flex flex-col items-end col-span-2">
+                  <ConfirmButton
+                    className="btn btn-lg btn-ternary inverse flex gap-3 items-center"
+                    onConfirm={handleRemoveFromCollection('clauses', cidx)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                    Supprimer la clause
+                  </ConfirmButton>
+                </div>
+              </fieldset>
+            ))}
+            <div className="form-component ml-12">
+              <button type="button" className="btn btn-lg btn-secondary" onClick={handleAddToCollection('clauses')}>
+                Ajouter une clause
+              </button>
+            </div>
+          </Card>
+
+          <div className="md:col-span-2 flex flex-row justify-between">
         <button type="submit" className="btn btn-lg btn-secondary">
           Valider le bail
         </button>
+          </div>
       </div>
     </form>
   );

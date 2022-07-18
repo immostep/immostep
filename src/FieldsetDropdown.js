@@ -13,7 +13,7 @@ function FieldsetDropdown({ options = [], value, onChange }) {
   };
 
   return (
-    <div className="absolute bg-white -top-3 min-w-fit z-50">
+    <div className="absolute bg-white -top-3 min-w-fit z-30">
       <button className="flex items-center px-3 py-1 space-x-2 font-semibold leading-5 text-secondary-dark" type="button" onClick={handleBtnClick}>
         {value || 'Choisir...'}
         <svg width="6" height="3" className="ml-2 overflow-visible">
@@ -36,5 +36,5 @@ export default memo(FieldsetDropdown);
 FieldsetDropdown.propTypes = {
   options: PropTypes.array,
   value: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };

@@ -34,6 +34,7 @@ function RequestedGood({ requestedGood }) {
     setSelectedIndex(0);
     setShowInventory(false);
   }
+
   function handleCloseLeaseTab() {
     setSelectedIndex(0);
     setShowLease(false);
@@ -114,5 +115,5 @@ function RequestedGood({ requestedGood }) {
 export default RequestedGood;
 
 RequestedGood.propTypes = {
-  requestedGood: PropTypes.object
+  requestedGood: PropTypes.object,
 };

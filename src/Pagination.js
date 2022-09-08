@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 
 function Pagination({ nbPage, pageActive, onClickPrev, onClickNext, onClickPage }) {
-  console.log('nbPage :', nbPage);
-
   return (
     <div className="pagination">
       <ul>
@@ -39,5 +37,5 @@ Pagination.propTypes = {
   pageActive: PropTypes.number,
   onClickPrev: PropTypes.func,
   onClickNext: PropTypes.func,
-  onClickPage: PropTypes.func
+  onClickPage: PropTypes.func,
 };

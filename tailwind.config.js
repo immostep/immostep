@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './node_modules/tw-elements/dist/js/**/*.js'],
   theme: {
     extend: {
       gridTemplateColumns: {
@@ -101,6 +101,7 @@ module.exports = {
     },
 
     require('tailwindcss'),
-    require('autoprefixer')
-  ]
+    require('autoprefixer'),
+    require('tw-elements/dist/plugin'),
+  ],
 };

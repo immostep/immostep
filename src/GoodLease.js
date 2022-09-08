@@ -5,10 +5,13 @@ import Card from './Card';
 import { v4 as uuidv4 } from 'uuid';
 import dataIRL from './sources/irl.json';
 import dataClauses from './sources/clauses.json';
+import dateRevisionLoyer from './sources/dateRevisionLoyer.json';
 import periodesConstruction from './sources/periodesConstruction.json';
 import ConfirmButton from './ConfirmButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FieldsetDropdown from './FieldsetDropdown';
+import PDFLease from './PDFLease';
+import ScollableModal from './ScollableModal';
 
 function resolvePath(object, path, defaultValue) {
   return path
@@ -20,6 +23,7 @@ function resolvePath(object, path, defaultValue) {
 function GoodLease({ onSubmitLease }) {
   const [minDureeBail, setMinDureeBail] = useState(3);
   const [isDureeBailIllegal, setIsDureeBailIllegal] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [form, setForm] = useState({
     logementMeuble: { value: false },
     bailEtudiant: { value: false },
@@ -47,12 +51,17 @@ function GoodLease({ onSubmitLease }) {
         telephone: { value: '0612345678' },
       },
     ],
-    accessoires: {
+    partiesNonHabitable: {
+      balcon: { value: false, surface: { value: '' } },
+      grenier: { value: false, surface: { value: '' } },
+      jardin: { value: false, surface: { value: '' } },
+      terasse: { value: false, surface: { value: '' } },
+    },
+    accessoiresPrivatifs: {
       cave: { value: true, numero: { value: '5' } },
       garage: { value: true, numero: { value: '10' }, adresse: { value: '25 rue Charles de Gaulle, 42000 Saint-Étienne' } },
       parking: { value: false, numero: { value: '' }, adresse: { value: '' } },
-      jardin: { value: false, surface: { value: '' } },
-      terasse: { value: false, surface: { value: '' } },
+
       communs: { value: false, precisions: { value: '' } },
       equipements: { value: false, precisions: { value: '' } },
       autres: { value: false, precisions: { value: '' } },
@@ -65,10 +74,11 @@ function GoodLease({ onSubmitLease }) {
     loyerEncadre: { value: false },
     loyerMensuelDeReference: { value: '' },
     loyerMensuelDeReferenceMajore: { value: '' },
+    complementLoyer: { value: '' },
     typeCharges: { value: 'provision' },
     montantCharges: { value: '55' },
     timestreReference: { value: 'T2 2022' },
-    dateRevisionLoyer: { value: 'date_anniv_bail' },
+    dateRevisionLoyer: { value: '1_date_anniv_bail' },
     zoneTendue: { value: false },
     dateDepartPrecedentLocataire: { value: '2022-07-01' },
     datePaimentLoyer: { value: '5' },
@@ -160,16 +170,25 @@ function GoodLease({ onSubmitLease }) {
 
   return (
     <>
-    <form onSubmit={handleSubmitForm}>
-      <div className="grid gap-y-6 mb-8">
-        <Card title="Le bailleur (ou son mandataire)" id="bailleur" className="md:col-span-2">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-12">
-            <div className="form-component">
-              <label>Nom</label>
-              <input className="form-input" type="text" name="bailleur.nom" value={form.bailleur.nom.value} onChange={handleFormChangeValue} />
-            </div>
-            <div className="form-component">
-              <label>Prénom</label>
+      <form onSubmit={handleSubmitForm}>
+        <button
+          type="button"
+          className="btn btn-lg btn-secondary"
+          onClick={() => {
+            setShowPreview(true);
+          }}>
+          Prévisualiser
+        </button>
+
+        <div className="grid gap-y-6 mb-8">
+          <Card title="Le bailleur (ou son mandataire)" id="bailleur" className="md:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-12">
+              <div className="form-component">
+                <label>Nom</label>
+                <input className="form-input" type="text" name="bailleur.nom" value={form.bailleur.nom.value} onChange={handleFormChangeValue} />
+              </div>
+              <div className="form-component">
+                <label>Prénom</label>
                 <input
                   className="form-input"
                   type="text"
@@ -187,86 +206,86 @@ function GoodLease({ onSubmitLease }) {
                   value={form.bailleur.adresse.value}
                   onChange={handleFormChangeValue}
                 />
-            </div>
-            <div className="form-component lg:col-span-2">
-              <label>Détails sur le mandataire le cas échéant</label>
-              <textarea
-                maxLength={500}
-                className="form-textarea"
-                name="bailleur.details"
-                value={form.bailleur.details.value}
-                onChange={handleFormChangeValue}></textarea>
-              <small className="text-gray-400">500 caractères maxi</small>
-            </div>
-          </div>
-        </Card>
-
-        <Card title="Les locataires" id="locataires" className="md:col-span-2">
-          {form.locataires.map((locataire, idx) => (
-            <fieldset key={locataire.id} className="form-fieldset ">
-              <legend>{`#${String(idx + 1).padStart(2, '0')}`}</legend>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <div className="form-component">
-                  <label>Nom</label>
-                  <input
-                    className="form-input"
-                    type="text"
-                    value={locataire.nom.value}
-                    name={`locataires[${idx}].nom`}
-                    onChange={handleFormChangeValue}
-                  />
-                </div>
-                <div className="form-component">
-                  <label>Prénom</label>
-                  <input
-                    className="form-input"
-                    type="text"
-                    value={locataire.prenom.value}
-                    name={`locataires[${idx}].prenom`}
-                    onChange={handleFormChangeValue}
-                  />
-                </div>
-                <div className="form-component">
-                  <label>Email</label>
-                  <input
-                    className="form-input"
-                    type="email"
-                    value={locataire.email.value}
-                    name={`locataires[${idx}].email`}
-                    onChange={handleFormChangeValue}
-                  />
-                </div>
-                <div className="form-component">
-                  <label>Téléphone</label>
-                  <input
-                    className="form-input"
-                    type="tel"
-                    value={locataire.telephone.value}
-                    name={`locataires[${idx}].telephone`}
-                    onChange={handleFormChangeValue}
-                  />
-                </div>
-
-                <div className="form-component ml-3 col-start-1 flex flex-col items-end col-span-2">
-                  <ConfirmButton
-                    className="btn btn-lg btn-ternary inverse flex gap-3 items-center"
-                    onConfirm={handleRemoveFromCollection('locataires', idx)}>
-                    <FontAwesomeIcon icon={faTrash} />
-                    Supprimer le locataire
-                  </ConfirmButton>
-                </div>
               </div>
-            </fieldset>
-          ))}
-          <div className="form-component ml-12">
-            <button type="button" className="btn btn-lg btn-secondary" onClick={handleAddToCollection('locataires')}>
-              Ajouter un locataire
-            </button>
-          </div>
-        </Card>
+              <div className="form-component lg:col-span-2">
+                <label>Détails sur le mandataire le cas échéant</label>
+                <textarea
+                  maxLength={500}
+                  className="form-textarea"
+                  name="bailleur.details"
+                  value={form.bailleur.details.value}
+                  onChange={handleFormChangeValue}></textarea>
+                <small className="text-gray-400">500 caractères maxi</small>
+              </div>
+            </div>
+          </Card>
 
-        <Card title="Description du logement" id="description_logement" className="md:col-span-2">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
+          <Card title="Les locataires" id="locataires" className="md:col-span-2">
+            {form.locataires.map((locataire, idx) => (
+              <fieldset key={idx} className="form-fieldset ">
+                <legend>{`#${String(idx + 1).padStart(2, '0')}`}</legend>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div className="form-component">
+                    <label>Nom</label>
+                    <input
+                      className="form-input"
+                      type="text"
+                      value={locataire.nom.value}
+                      name={`locataires[${idx}].nom`}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+                  <div className="form-component">
+                    <label>Prénom</label>
+                    <input
+                      className="form-input"
+                      type="text"
+                      value={locataire.prenom.value}
+                      name={`locataires[${idx}].prenom`}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+                  <div className="form-component">
+                    <label>Email</label>
+                    <input
+                      className="form-input"
+                      type="email"
+                      value={locataire.email.value}
+                      name={`locataires[${idx}].email`}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+                  <div className="form-component">
+                    <label>Téléphone</label>
+                    <input
+                      className="form-input"
+                      type="tel"
+                      value={locataire.telephone.value}
+                      name={`locataires[${idx}].telephone`}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+
+                  <div className="form-component ml-3 col-start-1 flex flex-col items-end col-span-2">
+                    <ConfirmButton
+                      className="btn btn-lg btn-ternary inverse flex gap-3 items-center"
+                      onConfirm={handleRemoveFromCollection('locataires', idx)}>
+                      <FontAwesomeIcon icon={faTrash} />
+                      Supprimer le locataire
+                    </ConfirmButton>
+                  </div>
+                </div>
+              </fieldset>
+            ))}
+            <div className="form-component ml-12">
+              <button type="button" className="btn btn-lg btn-secondary" onClick={handleAddToCollection('locataires')}>
+                Ajouter un locataire
+              </button>
+            </div>
+          </Card>
+
+          <Card title="Description du logement" id="description_logement" className="md:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
               <div className="form-component">
                 <label>Régime juridique</label>
                 <select required className="form-select" name="typeHabitat" value={form.regimeJuridique.value} onChange={handleFormChangeValue}>
@@ -282,99 +301,99 @@ function GoodLease({ onSubmitLease }) {
                 </select>
               </div>
               <div className="form-component md:col-span-2 md:col-start-1">
-              <label>Type de logement</label>
-              <select required className="form-select" name="typeLogement" value={form.typeLogement.value} onChange={handleFormChangeValue}>
-                <option></option>
-                <option value="house">Maison</option>
-                <option value="flat">Appartement</option>
-                <option value="studio">Studio</option>
-                <option value="room">Chambre</option>
-              </select>
-            </div>
-
-            <div className="col-span-2 flex gap-3">
-              <div className="form-component self-end mb-2">
-                <label className="inline-flex items-center">
-                  <input
-                    className="form-checkbox h-5 w-5 text-secondary"
-                    type="checkbox"
-                    checked={!!form.logementMeuble.value}
-                      value=""
-                    onChange={() => {
-                      const f = { ...form };
-                      if (f.logementMeuble.value && ['9m', '1y'].includes(form.dureeBail.value)) {
-                        form.dureeBail.value = null;
-                      }
-                      setForm({ ...f, logementMeuble: { value: !f.logementMeuble.value }, bailEtudiant: { value: false } });
-                    }}
-                  />{' '}
-                  <span className="ml-2 text-gray-700">Logement meublé</span>
-                </label>
+                <label>Type de logement</label>
+                <select required className="form-select" name="typeLogement" value={form.typeLogement.value} onChange={handleFormChangeValue}>
+                  <option></option>
+                  <option value="house">Maison</option>
+                  <option value="flat">Appartement</option>
+                  <option value="studio">Studio</option>
+                  <option value="room">Chambre</option>
+                </select>
               </div>
-              {form.logementMeuble.value && (
+
+              <div className="col-span-2 flex gap-3">
                 <div className="form-component self-end mb-2">
                   <label className="inline-flex items-center">
                     <input
                       className="form-checkbox h-5 w-5 text-secondary"
                       type="checkbox"
-                      checked={!!form.bailEtudiant.value}
-                        value=""
+                      checked={!!form.logementMeuble.value}
+                      value=""
                       onChange={() => {
                         const f = { ...form };
-                        if (f.bailEtudiant.value && form.dureeBail.value === '9m') {
-                            f.dureeBail.value = null;
+                        if (f.logementMeuble.value && ['9m', '1y'].includes(form.dureeBail.value)) {
+                          form.dureeBail.value = null;
                         }
-                        setForm({ ...f, bailEtudiant: { value: !f.bailEtudiant.value } });
+                        setForm({ ...f, logementMeuble: { value: !f.logementMeuble.value }, bailEtudiant: { value: false } });
                       }}
                     />{' '}
-                    <span className="ml-2 text-gray-700">Bail étudiant</span>
+                    <span className="ml-2 text-gray-700">Logement meublé</span>
                   </label>
                 </div>
-              )}
-            </div>
+                {form.logementMeuble.value && (
+                  <div className="form-component self-end mb-2">
+                    <label className="inline-flex items-center">
+                      <input
+                        className="form-checkbox h-5 w-5 text-secondary"
+                        type="checkbox"
+                        checked={!!form.bailEtudiant.value}
+                        value=""
+                        onChange={() => {
+                          const f = { ...form };
+                          if (f.bailEtudiant.value && form.dureeBail.value === '9m') {
+                            f.dureeBail.value = null;
+                          }
+                          setForm({ ...f, bailEtudiant: { value: !f.bailEtudiant.value } });
+                        }}
+                      />{' '}
+                      <span className="ml-2 text-gray-700">Bail étudiant</span>
+                    </label>
+                  </div>
+                )}
+              </div>
 
-            <div className="form-component">
-              <label>Nombre de pièces</label>
-              <input
-                className="form-input"
-                type="number"
-                min={1}
-                name="nombrePieces"
-                value={form.nombrePieces.value}
-                onChange={handleFormChangeValue}
-              />
-            </div>
-            <div className="form-component">
-              <label>Surface habitable (m²)</label>
-              <input
-                className="form-input"
-                type="number"
-                min={1}
-                name="surfaceHabitable"
-                value={form.surfaceHabitable.value}
-                onChange={handleFormChangeValue}
-              />
-            </div>
+              <div className="form-component">
+                <label>Nombre de pièces</label>
+                <input
+                  className="form-input"
+                  type="number"
+                  min={1}
+                  name="nombrePieces"
+                  value={form.nombrePieces.value}
+                  onChange={handleFormChangeValue}
+                />
+              </div>
+              <div className="form-component">
+                <label>Surface habitable (m²)</label>
+                <input
+                  className="form-input"
+                  type="number"
+                  min={1}
+                  name="surfaceHabitable"
+                  value={form.surfaceHabitable.value}
+                  onChange={handleFormChangeValue}
+                />
+              </div>
 
-            <div className="form-component lg:col-span-2 col-start-1">
-              <label>Période de construction du logement</label>
+              <div className="form-component lg:col-span-2 col-start-1">
+                <label>Période de construction du logement</label>
                 <select
                   required
                   className="form-select"
                   name="periodeConstruction"
                   value={form.periodeConstruction.value}
                   onChange={handleFormChangeValue}>
-                <option></option>
+                  <option></option>
                   {Object.entries(periodesConstruction).map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
                     </option>
                   ))}
-              </select>
-            </div>
+                </select>
+              </div>
 
-            <div className="form-component lg:col-span-4">
-              <label>Adresse du logement</label>
+              <div className="form-component lg:col-span-4">
+                <label>Adresse du logement</label>
                 <textarea
                   maxLength={500}
                   required
@@ -382,103 +401,234 @@ function GoodLease({ onSubmitLease }) {
                   name="adresseLogement"
                   value={form.adresseLogement.value}
                   onChange={handleFormChangeValue}></textarea>
-              <small className="text-gray-400">500 caractères maxi</small>
-            </div>
-          </div>
-        </Card>
-
-        <Card title="Accessoires au logement" id="accessoires_au_logement" className="md:col-span-2">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12 items-center">
-            <div className="form-component items-center  mt-3">
-              <label className="inline-flex items-center">
-                <input
-                  className="form-checkbox h-5 w-5 text-secondary"
-                  type="checkbox"
-                  name="accessoires.cave"
-                  checked={!!form.accessoires.cave.value}
-                  onChange={handleFormChangeValue}
-                    value=""
-                />{' '}
-                <span className="ml-2 text-gray-700">Cave</span>
-              </label>
-            </div>
-            {form.accessoires.cave.value && (
-              <div className="form-component">
-                <label>Numéro de la cave</label>
-                <input
-                  className="form-input"
-                  type="number"
-                  min={1}
-                  name="accessoires.cave.numero"
-                  value={form.accessoires.cave.numero.value}
-                  onChange={handleFormChangeValue}
-                />
+                <small className="text-gray-400">500 caractères maxi</small>
               </div>
-            )}
-
-            <div className="form-component col-start-1 items-center mt-3">
-              <label className="inline-flex items-center">
-                <input
-                  className="form-checkbox h-5 w-5 text-secondary"
-                  type="checkbox"
-                  name="accessoires.garage"
-                  checked={!!form.accessoires.garage.value}
-                  onChange={handleFormChangeValue}
-                    value=""
-                />{' '}
-                <span className="ml-2 text-gray-700">Garage</span>
-              </label>
             </div>
-            {form.accessoires.garage.value && (
-                <>
-              <div className="form-component">
-                <label>Numéro du garage</label>
-                <input
-                  className="form-input"
-                  type="number"
-                  min={1}
-                  name="accessoires.garage.numero"
-                  value={form.accessoires.garage.numero.value}
-                  onChange={handleFormChangeValue}
-                />
-              </div>
-                  <div className="form-component col-span-2">
-                    <label>Adresse du garage</label>
-                    <input
-                      className="form-input"
-                      type="text"
-                      min={1}
-                      name="accessoires.garage.adresse"
-                      value={form.accessoires.garage.adresse.value}
-                      onChange={handleFormChangeValue}
-                    />
-                  </div>
-                </>
-              )}
+          </Card>
 
-              <div className="form-component col-start-1 items-center mt-3">
+          <Card title="Parties non habitable" id="parties_non_habitable" className="md:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12 items-center">
+              <div className="form-component items-center mt-3">
                 <label className="inline-flex items-center">
                   <input
                     className="form-checkbox h-5 w-5 text-secondary"
                     type="checkbox"
-                    name="accessoires.parking"
-                    checked={!!form.accessoires.parking.value}
+                    name="partiesNonHabitable.jardin"
+                    checked={!!form.partiesNonHabitable.jardin.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Jardin</span>
+                </label>
+              </div>
+
+              <div className="form-component items-center mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="partiesNonHabitable.balcon"
+                    checked={!!form.partiesNonHabitable.balcon.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Balcon</span>
+                </label>
+              </div>
+
+              <div className="form-component items-center mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="partiesNonHabitable.terasse"
+                    checked={!!form.partiesNonHabitable.terasse.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Terasse</span>
+                </label>
+              </div>
+
+              <div className="form-component items-center mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="partiesNonHabitable.grenier"
+                    checked={!!form.partiesNonHabitable.grenier.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Grenier</span>
+                </label>
+              </div>
+
+              {form.partiesNonHabitable.jardin.value && (
+                <div className="form-component  col-start-1 col-span-2">
+                  <label>Surface du jardin</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    min={1}
+                    name="partiesNonHabitable.jardin.surface"
+                    value={form.partiesNonHabitable.jardin.surface.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
+              )}
+
+              {form.partiesNonHabitable.terasse.value && (
+                <div className="form-component  col-start-1 col-span-2">
+                  <label>Surface de la terasse</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    min={1}
+                    name="partiesNonHabitable.terasse.surface"
+                    value={form.partiesNonHabitable.terasse.surface.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
+              )}
+            </div>
+          </Card>
+          <Card title="Parties non habitable" id="accessoires_privatifs" className="md:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12 items-center">
+              <div className="form-component items-center  mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoiresPrivatifs.cave"
+                    checked={!!form.accessoiresPrivatifs.cave.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Cave</span>
+                </label>
+              </div>
+
+              <div className="form-component items-center mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoiresPrivatifs.garage"
+                    checked={!!form.accessoiresPrivatifs.garage.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Garage</span>
+                </label>
+              </div>
+
+              <div className="form-component items-center mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoiresPrivatifs.parking"
+                    checked={!!form.accessoiresPrivatifs.parking.value}
                     onChange={handleFormChangeValue}
                   />{' '}
                   <span className="ml-2 text-gray-700">Parking</span>
                 </label>
               </div>
 
-              {form.accessoires.parking.value && (
+              <div className="form-component items-center mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoiresPrivatifs.equipements"
+                    checked={!!form.accessoiresPrivatifs.equipements.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Equipements</span>
+                </label>
+              </div>
+
+              <div className="form-component col-span-2 items-center mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoiresPrivatifs.communs"
+                    checked={!!form.accessoiresPrivatifs.communs.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Equipements et locaux accessoires privatifs à usage commun</span>
+                </label>
+              </div>
+
+              <div className="form-component col-span-2 items-center mt-3">
+                <label className="inline-flex items-center">
+                  <input
+                    className="form-checkbox h-5 w-5 text-secondary"
+                    type="checkbox"
+                    name="accessoiresPrivatifs.autres"
+                    checked={!!form.accessoiresPrivatifs.autres.value}
+                    onChange={handleFormChangeValue}
+                    value=""
+                  />{' '}
+                  <span className="ml-2 text-gray-700">Autres</span>
+                </label>
+              </div>
+
+              {form.accessoiresPrivatifs.cave.value && (
+                <div className="form-component col-start-1 col-span-2">
+                  <label>Numéro de la cave</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    min={1}
+                    name="accessoiresPrivatifs.cave.numero"
+                    value={form.accessoiresPrivatifs.cave.numero.value}
+                    onChange={handleFormChangeValue}
+                  />
+                </div>
+              )}
+
+              {form.accessoiresPrivatifs.garage.value && (
                 <>
-                  <div className="form-component">
+                  <div className="form-component  col-start-1 col-span-2">
+                    <label>Numéro du garage</label>
+                    <input
+                      className="form-input"
+                      type="number"
+                      min={1}
+                      name="accessoiresPrivatifs.garage.numero"
+                      value={form.accessoiresPrivatifs.garage.numero.value}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+                  <div className="form-component col-span-2">
+                    <label>Adresse du garage</label>
+                    <input
+                      className="form-input"
+                      type="text"
+                      min={1}
+                      name="accessoiresPrivatifs.garage.adresse"
+                      value={form.accessoiresPrivatifs.garage.adresse.value}
+                      onChange={handleFormChangeValue}
+                    />
+                  </div>
+                </>
+              )}
+
+              {form.accessoiresPrivatifs.parking.value && (
+                <>
+                  <div className="form-component col-start-1 col-span-2">
                     <label>Numéro du parking</label>
                     <input
                       className="form-input"
                       type="number"
                       min={1}
-                      name="accessoires.parking.numero"
-                      value={form.accessoires.parking.numero.value}
+                      name="accessoiresPrivatifs.parking.numero"
+                      value={form.accessoiresPrivatifs.parking.numero.value}
                       onChange={handleFormChangeValue}
                     />
                   </div>
@@ -488,215 +638,51 @@ function GoodLease({ onSubmitLease }) {
                       className="form-input"
                       type="number"
                       min={1}
-                      name="accessoires.parking.adresse"
-                      value={form.accessoires.parking.adresse.value}
+                      name="accessoiresPrivatifs.parking.adresse"
+                      value={form.accessoiresPrivatifs.parking.adresse.value}
                       onChange={handleFormChangeValue}
                     />
                   </div>
                 </>
               )}
 
-              <div className="form-component col-start-1 items-center  mt-3">
-                <label className="inline-flex items-center">
-                  <input
-                    className="form-checkbox h-5 w-5 text-secondary"
-                    type="checkbox"
-                    name="accessoires.jardin"
-                    checked={!!form.accessoires.jardin.value}
-                    onChange={handleFormChangeValue}
-                    value=""
-                  />{' '}
-                  <span className="ml-2 text-gray-700">Jardin</span>
-                </label>
-              </div>
-              {form.accessoires.jardin.value && (
-                <div className="form-component">
-                  <label>Surface du jardin</label>
-                  <input
-                    className="form-input"
-                    type="number"
-                    min={1}
-                    name="accessoires.jardin.surface"
-                    value={form.accessoires.jardin.surface.value}
-                    onChange={handleFormChangeValue}
-                  />
-                </div>
-              )}
-
-              <div className="form-component col-start-1 items-center  mt-3">
-                <label className="inline-flex items-center">
-                  <input
-                    className="form-checkbox h-5 w-5 text-secondary"
-                    type="checkbox"
-                    name="accessoires.terasse"
-                    checked={!!form.accessoires.terasse.value}
-                    onChange={handleFormChangeValue}
-                    value=""
-                  />{' '}
-                  <span className="ml-2 text-gray-700">Terasse</span>
-                </label>
-              </div>
-              {form.accessoires.terasse.value && (
-                <div className="form-component">
-                  <label>Surface de la terasse</label>
-                  <input
-                    className="form-input"
-                    type="number"
-                    min={1}
-                    name="accessoires.terasse.surface"
-                    value={form.accessoires.terasse.surface.value}
-                    onChange={handleFormChangeValue}
-                  />
-                </div>
-              )}
-
-              <div className="form-component col-start-1 col-span-2 items-center  mt-3">
-                <label className="inline-flex items-center">
-                  <input
-                    className="form-checkbox h-5 w-5 text-secondary"
-                    type="checkbox"
-                    name="accessoires.equipements"
-                    checked={!!form.accessoires.equipements.value}
-                    onChange={handleFormChangeValue}
-                    value=""
-                  />{' '}
-                  <span className="ml-2 text-gray-700">Equipements</span>
-                </label>
-              </div>
-              {form.accessoires.equipements.value && (
+              {form.accessoiresPrivatifs.equipements.value && (
                 <div className="form-component col-start-1 col-span-2">
                   <label>Précisez</label>
                   <textarea
                     className="form-input"
-                    name="accessoires.equipements.precisions"
-                    value={form.accessoires.equipements.precisions.value}
+                    name="accessoiresPrivatifs.equipements.precisions"
+                    value={form.accessoiresPrivatifs.equipements.precisions.value}
                     onChange={handleFormChangeValue}
                   />
                 </div>
               )}
 
-              <div className="form-component col-start-1 col-span-2 items-center  mt-3">
-                <label className="inline-flex items-center">
-                  <input
-                    className="form-checkbox h-5 w-5 text-secondary"
-                    type="checkbox"
-                    name="accessoires.communs"
-                    checked={!!form.accessoires.communs.value}
-                    onChange={handleFormChangeValue}
-                    value=""
-                  />{' '}
-                  <span className="ml-2 text-gray-700">Equipements et locaux accessoires à usage commun</span>
-                </label>
-              </div>
-              {form.accessoires.communs.value && (
+              {form.accessoiresPrivatifs.communs.value && (
                 <div className="form-component col-start-1 col-span-2">
                   <label>Précisez</label>
                   <textarea
                     className="form-input"
-                    name="accessoires.communs.precisions"
-                    value={form.accessoires.communs.precisions.value}
+                    name="accessoiresPrivatifs.communs.precisions"
+                    value={form.accessoiresPrivatifs.communs.precisions.value}
                     onChange={handleFormChangeValue}
                   />
                 </div>
               )}
 
-              <div className="form-component col-start-1 col-span-2 items-center  mt-3">
-                <label className="inline-flex items-center">
-                  <input
-                    className="form-checkbox h-5 w-5 text-secondary"
-                    type="checkbox"
-                    name="accessoires.autres"
-                    checked={!!form.accessoires.autres.value}
-                    onChange={handleFormChangeValue}
-                    value=""
-                  />{' '}
-                  <span className="ml-2 text-gray-700">Autres</span>
-                </label>
-              </div>
-              {form.accessoires.autres.value && (
+              {form.accessoiresPrivatifs.autres.value && (
                 <div className="form-component col-start-1 col-span-2">
                   <label>Précisez</label>
                   <textarea
                     className="form-input"
-                    name="accessoires.autres.precisions"
-                    value={form.accessoires.autres.precisions.value}
+                    name="accessoiresPrivatifs.autres.precisions"
+                    value={form.accessoiresPrivatifs.autres.precisions.value}
                     onChange={handleFormChangeValue}
                   />
                 </div>
-            )}
-          </div>
-        </Card>
-
-        <Card title="Description de la location" id="description_location" className="md:col-span-2">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
-            <div className="form-component">
-              <label>Prise d&apos;effet du contrat</label>
-              <input
-                className="form-input"
-                type="date"
-                required
-                name="priseEffetContrat"
-                value={form.priseEffetContrat.value}
-                onChange={handleFormChangeValue}
-              />
+              )}
             </div>
-            <div className="form-component">
-              <label>Durée du bail</label>
-              <div className="relative">
-                <input
-                  className="form-input pr-24"
-                  type="number"
-                  required
-                  min={minDureeBail}
-                  name="dureeBail"
-                  value={form.dureeBail.value}
-                  onChange={handleFormChangeValue}
-                />
-                <div className="absolute inset-y-0 right-0 flex items-center">
-                  <select
-                    name="dureeBailType"
-                    className="focus:ring-2 focus:border-transparent rounded h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-600"
-                    value={form.dureeBailType.value}
-                    onChange={handleFormChangeValue}>
-                    <option value="y">Années</option>
-                    <option value="m">Mois</option>
-                  </select>
-                  </div>
-                </div>
-              </div>
-
-              <div className="form-component">
-                <label>Paiement du loyer</label>
-                <select required className="form-select" name="datePaimentLoyer" value={form.datePaimentLoyer.value} onChange={handleFormChangeValue}>
-                  <option value="1">le 1er du mois</option>
-                  {[...Array(30)].map((v, idx) => (
-                    <option key={idx} value={idx + 2}>{`le ${idx + 2} du mois`}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="form-component">
-                <label>&nbsp;</label>
-                <select
-                  required
-                  className="form-select"
-                  name="termePaimentLoyer"
-                  value={form.termePaimentLoyer.value}
-                  onChange={handleFormChangeValue}>
-                  <option value="a_echoir">à échoir</option>
-                  <option value="terme_echu">à terme échu</option>
-                </select>
-            </div>
-
-            {isDureeBailIllegal && (
-              <div className="form-component lg:col-span-4">
-                <label>Justification de la réduction de la durée minimum légale du bail</label>
-                <textarea maxLength={500} className="form-textarea" required></textarea>
-                <small className="text-gray-400">500 caractères maxi</small>
-              </div>
-            )}
-          </div>
-        </Card>
+          </Card>
 
           <Card title="Modalité de production de chauffage" id="production_chauffage" className="md:col-span-2">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12 items-center" onChange={handleFormChangeValue}>
@@ -802,6 +788,77 @@ function GoodLease({ onSubmitLease }) {
             )}
           </Card>
 
+          <Card title="Description de la location" id="description_location" className="md:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
+              <div className="form-component">
+                <label>Prise d&apos;effet du contrat</label>
+                <input
+                  className="form-input"
+                  type="date"
+                  required
+                  name="priseEffetContrat"
+                  value={form.priseEffetContrat.value}
+                  onChange={handleFormChangeValue}
+                />
+              </div>
+              <div className="form-component">
+                <label>Durée du bail</label>
+                <div className="relative">
+                  <input
+                    className="form-input pr-24"
+                    type="number"
+                    required
+                    min={minDureeBail}
+                    name="dureeBail"
+                    value={form.dureeBail.value}
+                    onChange={handleFormChangeValue}
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center">
+                    <select
+                      name="dureeBailType"
+                      className="focus:ring-2 focus:border-transparent rounded h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-600"
+                      value={form.dureeBailType.value}
+                      onChange={handleFormChangeValue}>
+                      <option value="y">Années</option>
+                      <option value="m">Mois</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-component">
+                <label>Paiement du loyer</label>
+                <select required className="form-select" name="datePaimentLoyer" value={form.datePaimentLoyer.value} onChange={handleFormChangeValue}>
+                  <option value="1">le 1er du mois</option>
+                  {[...Array(30)].map((v, idx) => (
+                    <option key={idx} value={idx + 2}>{`le ${idx + 2} du mois`}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-component">
+                <label>&nbsp;</label>
+                <select
+                  required
+                  className="form-select"
+                  name="termePaimentLoyer"
+                  value={form.termePaimentLoyer.value}
+                  onChange={handleFormChangeValue}>
+                  <option value="a_echoir">à échoir</option>
+                  <option value="terme_echu">à terme échu</option>
+                </select>
+              </div>
+
+              {isDureeBailIllegal && (
+                <div className="form-component lg:col-span-4">
+                  <label>Justification de la réduction de la durée minimum légale du bail</label>
+                  <textarea maxLength={500} className="form-textarea" required></textarea>
+                  <small className="text-gray-400">500 caractères maxi</small>
+                </div>
+              )}
+            </div>
+          </Card>
+
           <Card title="Loyer" id="loyer" className="md:col-span-2">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
               <div className="form-component md:col-span-2">
@@ -842,7 +899,7 @@ function GoodLease({ onSubmitLease }) {
                       }
                       setForm({ ...f, loyerEncadre: { value: !f.loyerEncadre.value } });
                     }}
-                    value=""
+                    value={form.loyerEncadre.value}
                   />{' '}
                   <span className="ml-2 text-gray-700">Le logement est dans une zone où le loyer est encadré</span>
                 </label>
@@ -855,9 +912,18 @@ function GoodLease({ onSubmitLease }) {
                       className="form-input"
                       type="number"
                       required
-                      name="loyerMensuel"
+                      name="loyerMensuelDeReference"
                       value={form.loyerMensuelDeReference.value}
-                      onChange={handleFormChangeValue}
+                      onChange={(ev) => {
+                        const f = { ...form };
+                        const { value } = ev.target;
+
+                        setForm({
+                          ...f,
+                          loyerMensuelDeReference: { value },
+                          loyerMensuelDeReferenceMajore: { value: Math.round(value * 120) / 100 },
+                        });
+                      }}
                     />
                   </div>
                   <div className="form-component md:col-span-2">
@@ -866,14 +932,20 @@ function GoodLease({ onSubmitLease }) {
                       className="form-input"
                       type="number"
                       required
-                      name="loyerMensuel"
+                      name="loyerMensuelDeReferenceMajore"
                       value={form.loyerMensuelDeReferenceMajore.value}
                       onChange={handleFormChangeValue}
                     />
                   </div>
                   <div className="form-component lg:col-span-4">
                     <label>Complément de loyer</label>
-                    <textarea maxLength={500} required className="form-textarea"></textarea>
+                    <textarea
+                      maxLength={500}
+                      required
+                      className="form-textarea"
+                      name="complementLoyer"
+                      value={form.complementLoyer.value}
+                      onChange={handleFormChangeValue}></textarea>
                   </div>
                 </>
               )}
@@ -938,10 +1010,11 @@ function GoodLease({ onSubmitLease }) {
                   name="dateRevisionLoyer"
                   value={form.dateRevisionLoyer.value}
                   onChange={handleFormChangeValue}>
-                  <option value="date_anniv_bail">Date d'annivarsaire du bail</option>
-                  <option value="1er_du_mois_suiv_anniv">1er jour du mois suivant l'annivarsaire</option>
-                  <option value="1er_janvier">1er janvier</option>
-                  <option value="autre">Autre</option>
+                  {Object.entries(dateRevisionLoyer).map(([k, v]) => (
+                    <option key={k} value={v}>
+                      {v}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -1020,12 +1093,31 @@ function GoodLease({ onSubmitLease }) {
           </Card>
 
           <div className="md:col-span-2 flex flex-row justify-between">
-        <button type="submit" className="btn btn-lg btn-secondary">
-          Valider le bail
-        </button>
+            <button type="submit" className="btn btn-lg btn-secondary">
+              Valider le bail
+            </button>
+
+            <button
+              type="button"
+              className="btn btn-lg btn-secondary"
+              onClick={() => {
+                setShowPreview(true);
+              }}>
+              Prévisualiser
+            </button>
           </div>
-      </div>
-    </form>
+        </div>
+      </form>
+      <ScollableModal
+        showModal={showPreview}
+        size="lg"
+        onClose={() => {
+          setShowPreview(false);
+        }}
+        title={'Aperçu du contrat de location'}
+        content={<PDFLease formData={form} />}
+      />
+    </>
   );
 }
 

@@ -10,7 +10,7 @@ const docTypes = {
   électricité: 'badge-info',
   eau: 'badge-warning',
   entretien: 'badge-success',
-  chauffage: 'badge-danger'
+  chauffage: 'badge-danger',
 };
 
 function GoodDocuments({ requestedGood }) {
@@ -20,12 +20,9 @@ function GoodDocuments({ requestedGood }) {
   const limitInvoices = 10;
   const nbPagesInvoices = Math.ceil(requestedGood.documents.invoices.length / limitInvoices);
 
-  console.log('nbPagesInvoices :', nbPagesInvoices);
-
   const onFileChange = (e) => {
     /*Selected files data can be collected here.*/
     const { files } = e.target;
-    console.log('files[0].name :', files[0].name);
     setFileName(files[0].name);
   };
 
@@ -78,7 +75,7 @@ function GoodDocuments({ requestedGood }) {
                       {new Intl.DateTimeFormat('fr-FR', {
                         year: 'numeric',
                         month: 'long',
-                        day: '2-digit'
+                        day: '2-digit',
                       }).format(new Date(invoice.date))}
                     </td>
                     <td className="p-4 text-center align-middle">{Math.floor(invoice.size / 1024)} ko</td>
@@ -109,5 +106,5 @@ function GoodDocuments({ requestedGood }) {
 export default GoodDocuments;
 
 GoodDocuments.propTypes = {
-  requestedGood: PropTypes.object
+  requestedGood: PropTypes.object,
 };

@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 
-function SimpleModal({ title = '', content = '', confirmButtonText = 'OK', showModal = false, onClose }) {
+function SimpleModal({ title = '', content = '', confirmButtonText = 'OK', showModal = false, onClose, size = 'md' }) {
   return (
     <>
       {!showModal ? null : (
         <>
           <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
-            <div className="relative w-auto max-w-sm mx-auto my-6">
+            <div className={`relative w-full max-w-${size} mx-auto my-6`}>
               {/*content*/}
               <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
                 {/*header*/}
@@ -19,8 +19,9 @@ function SimpleModal({ title = '', content = '', confirmButtonText = 'OK', showM
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative flex-auto p-6">
-                  <p className="my-4 text-lg leading-relaxed text-blueGray-500">{content}</p>
+                <div className="relative flex-auto p-6 ">
+                  {/* <p className="my-4 text-lg leading-relaxed text-blueGray-500">{content}</p> */}
+                  <div className="overflow-y-auto h-modal">{content}</div>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid rounded-b border-blueGray-200">
@@ -48,5 +49,6 @@ SimpleModal.propTypes = {
   onClose: PropTypes.func,
   title: PropTypes.string,
   content: PropTypes.string,
-  confirmButtonText: PropTypes.string
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl']),
+  confirmButtonText: PropTypes.string,
 };

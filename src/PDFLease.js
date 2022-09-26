@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { format } from 'date-fns';
 import periodesConstruction from './sources/periodesConstruction.json';
@@ -17,15 +18,16 @@ function PDFLease({ formData }) {
       </section>
       <section>
         <p>
-          Conforme au contrat type défini à l'annexe 1 du décret n° 2015-587 du 29 mai 2015. Soumis au titre Ier de la loi du 6 juillet 1989 tendant à
-          améliorer les rapports locatifs et portant modification de la loi n° 86-1290 du 23 décembre 1986.
+          Conforme au contrat type défini à l&apos;annexe 1 du décret n° 2015-587 du 29 mai 2015. Soumis au titre Ier de la loi du 6 juillet 1989
+          tendant à améliorer les rapports locatifs et portant modification de la loi n° 86-1290 du 23 décembre 1986.
         </p>
         <p>
           Le présent contrat type de location contient uniquement les clauses essentielles du contrat dont la législation et la réglementation en
-          vigueur au jour de sa publication imposent la mention par les parties dans le contrat. Il appartient cependant aux parties de s'assurer des
-          dispositions applicables au jour de la conclusion du contrat. Au-delà de ces clauses, les parties sont également soumises à l'ensemble des
-          dispositions légales et réglementaires d'ordre public applicables aux baux d'habitation sans qu'il soit nécessaire de les faire figurer dans
-          le contrat et qui sont rappelées utilement dans la notice d'information qui doit être jointe à chaque contrat.
+          vigueur au jour de sa publication imposent la mention par les parties dans le contrat. Il appartient cependant aux parties de s&apos;assurer
+          des dispositions applicables au jour de la conclusion du contrat. Au-delà de ces clauses, les parties sont également soumises à
+          l&apos;ensemble des dispositions légales et réglementaires d&apos;ordre public applicables aux baux d&apos;habitation sans qu&apos;il soit
+          nécessaire de les faire figurer dans le contrat et qui sont rappelées utilement dans la notice d&apos;information qui doit être jointe à
+          chaque contrat.
         </p>
       </section>
 
@@ -41,7 +43,7 @@ function PDFLease({ formData }) {
           <br />
           {formData.bailleur?.details?.value && `Représenté par ${formData.bailleur.details.value},`}
         </p>
-        <p>Désigné(s) ci-après "le bailleur",</p>
+        <p>Désigné(s) ci-après &quot;le bailleur&quot;,</p>
         <p>ET</p>
         <p>
           {formData.locataires.map((locataire) => (
@@ -52,7 +54,7 @@ function PDFLease({ formData }) {
             </Fragment>
           ))}
         </p>
-        <p>Désigné(s) ci-après "le locataire",</p>
+        <p>Désigné(s) ci-après &quot;le locataire&quot;,</p>
         <p>Il a été convenu ce qui suit :</p>
         <p>
           Le Bailleur loue les locaux et équipements ci-après désignés au Locataire qui les accepte aux conditions stipulées dans le présent contrat
@@ -78,9 +80,9 @@ function PDFLease({ formData }) {
       </section>
       <section>
         <p>
-          Type d'habitat : <em>immeuble {formData.typeHabitat.value}</em>
+          Type d&apos;habitat : <em>immeuble {formData.typeHabitat.value}</em>
           <br />
-          Régime juridique de l'immeuble : <em>{formData.regimeJuridique.value}propriété</em>
+          Régime juridique de l&apos;immeuble : <em>{formData.regimeJuridique.value}propriété</em>
           <br />
           Période de construction : <em>{periodesConstruction[formData.periodeConstruction.value]}</em>
           <br />
@@ -102,13 +104,13 @@ function PDFLease({ formData }) {
           <br />
           {formData.accessoiresPrivatifs.equipements.value === true ? (
             <span>
-              Éléments d'équipements du logement : <em>{formData.accessoiresPrivatifs.equipements.precisions.value}</em>
+              Éléments d&apos;équipements du logement : <em>{formData.accessoiresPrivatifs.equipements.precisions.value}</em>
             </span>
           ) : null}
           <br />
           Modalité de production de chauffage : <em>{formData.chauffage.value === 'i' ? 'individuelle' : 'collective'}</em>
           <br />
-          Modalité de production d'eau chaude sanitaire : <em>{formData.eauChaude.value === 'i' ? 'individuelle' : 'collective'}</em>
+          Modalité de production d&apos;eau chaude sanitaire : <em>{formData.eauChaude.value === 'i' ? 'individuelle' : 'collective'}</em>
           <br />
         </p>
       </section>
@@ -118,11 +120,11 @@ function PDFLease({ formData }) {
 
       <section>
         <p>
-          Les locaux sont loués pour un usage exclusif <em>d'habitation à titre de résidence principale</em>
+          Les locaux sont loués pour un usage exclusif <em>d&apos;habitation à titre de résidence principale</em>
         </p>
       </section>
       <section>
-        <h3>D. Locaux et équipements accessoires de l'immeuble à usage privatif du locataire</h3>
+        <h3>D. Locaux et équipements accessoires de l&apos;immeuble à usage privatif du locataire</h3>
       </section>
       <section>
         <p>
@@ -156,24 +158,24 @@ function PDFLease({ formData }) {
         </p>
       </section>
       <section>
-        <h3>E. Locaux, parties, équipements et accessoires de l'immeuble à usage commun</h3>
+        <h3>E. Locaux, parties, équipements et accessoires de l&apos;immeuble à usage commun</h3>
       </section>
       <section>
         <p>{formData.accessoiresPrivatifs.communs.value === true ? formData.accessoiresPrivatifs.communs.precisions.value : 'Néant'}</p>
       </section>
 
       <section>
-        <h2>III. Date de prise d'effet et durée du contrat</h2>
+        <h2>III. Date de prise d&apos;effet et durée du contrat</h2>
       </section>
       <section>
-        <p>La durée du contrat et sa date de prise d'effet sont ainsi définies :</p>
+        <p>La durée du contrat et sa date de prise d&apos;effet sont ainsi définies :</p>
       </section>
       <section>
-        <h3>A. Date de prise d'effet du contrat</h3>
+        <h3>A. Date de prise d&apos;effet du contrat</h3>
       </section>
       <section>
         <p>
-          Date de prise d'effet du contrat : <em>{format(new Date(formData.priseEffetContrat.value), 'dd/MM/yyyy')}</em>
+          Date de prise d&apos;effet du contrat : <em>{format(new Date(formData.priseEffetContrat.value), 'dd/MM/yyyy')}</em>
         </p>
       </section>
       <section>
@@ -188,17 +190,17 @@ function PDFLease({ formData }) {
         </p>
         {!formData.logementMeuble.value ? (
           <p>
-            En l'absence de proposition de renouvellement du contrat, celui-ci est, à son terme, reconduit tacitement pour 3 ou 6 ans et dans les
+            En l&apos;absence de proposition de renouvellement du contrat, celui-ci est, à son terme, reconduit tacitement pour 3 ou 6 ans et dans les
             mêmes conditions. Le locataire peut mettre fin au bail à tout moment, après avoir donné congé. Le bailleur, quant à lui, peut mettre fin
-            au bail à son échéance et après avoir donné congé, soit pour reprendre le logement en vue de l'occuper lui-même ou une personne de sa
+            au bail à son échéance et après avoir donné congé, soit pour reprendre le logement en vue de l&apos;occuper lui-même ou une personne de sa
             famille, soit pour le vendre, soit pour un motif sérieux et légitime.
           </p>
         ) : (
           <p>
-            À l'exception des locations consenties à un étudiant pour une durée de neuf mois, les contrats de location de logements meublés sont
-            reconduits tacitement à leur terme pour une durée d'un an et dans les mêmes conditions. Le locataire peut mettre fin au bail à tout
+            À l&apos;exception des locations consenties à un étudiant pour une durée de neuf mois, les contrats de location de logements meublés sont
+            reconduits tacitement à leur terme pour une durée d&apos;un an et dans les mêmes conditions. Le locataire peut mettre fin au bail à tout
             moment, après avoir donné congé. Le bailleur peut, quant à lui, mettre fin au bail à son échéance et après avoir donné congé, soit pour
-            reprendre le logement en vue de l'occuper lui-même ou une personne de sa famille, soit pour le vendre, soit pour un motif sérieux et
+            reprendre le logement en vue de l&apos;occuper lui-même ou une personne de sa famille, soit pour le vendre, soit pour un motif sérieux et
             légitime. Les contrats de locations meublées consenties à un étudiant pour une durée de neuf mois ne sont pas reconduits tacitement à leur
             terme et le locataire peut mettre fin au bail à tout moment, après avoir donné congé. Le bailleur peut, quant à lui, mettre fin au bail à
             son échéance et après avoir donné congé.
@@ -220,7 +222,7 @@ function PDFLease({ formData }) {
           a) Montant du loyer mensuel : <em>{formData.loyerMensuel.value}</em> &euro;
           <br />
           b) Modalités particulières de fixation initiale du loyer applicables dans certaines zones tendues :<br />
-          Le loyer du logement objet du présent contrat est soumis au décret fixant annuellement le montant maximum d'évolution des loyers à la
+          Le loyer du logement objet du présent contrat est soumis au décret fixant annuellement le montant maximum d&apos;évolution des loyers à la
           relocation : <em>{formData.loyerEncadre.value ? 'OUI' : 'NON'}</em>
           <br />
           Le loyer du logement objet du présent contrat est soumis au loyer de référence majoré fixé par arrêté préfectoral :{' '}
@@ -251,21 +253,25 @@ function PDFLease({ formData }) {
         <p>
           a) Date de révision : <em>{dateRevisionLoyer[formData.dateRevisionLoyer.value]}</em>
           <br />
-          b) Date ou trimestre de référence de l'IRL :
+          b) Date ou trimestre de référence de l&apos;IRL :
           <em>
             {irl.period} valeur {irl.value}
           </em>
           <br />
           Le loyer sera révisé chaque année à la date indiquée précédemment, en comparant la variation annuelle du dernier indice IRL connu, ou de
-          tout autre indice l'ayant remplacé.
+          tout autre indice l&apos;ayant remplacé.
         </p>
       </section>
 
       <section>
-        <p>Suite dans la version finale...</p>
+        <p>Suite non disponible dans la démo...</p>
       </section>
     </div>
   );
 }
 
 export default PDFLease;
+
+PDFLease.propTypes = {
+  formData: PropTypes.object,
+};

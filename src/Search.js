@@ -37,7 +37,7 @@ function Search() {
         <div className="container lg:mx-auto lg:py-10">
           <h1 className="font-extrabold tracking-tight text-center">
             <span className="block text-4xl leading-normal text-secondary lg:text-6xl">Trouvez votre prochain logement</span>
-            <span className="block text-xl text-ternary lg:text-3xl">parmis nos 234 900 annonces immobilières</span>
+            <span className="block text-xl text-ternary lg:text-3xl">parmi nos 234 900 annonces immobilières</span>
           </h1>
         </div>
         <SearchBar

@@ -294,7 +294,7 @@ function GoodLease({ onSubmitLease }) {
                 </select>
               </div>
               <div className="form-component">
-                <label>Type d'habitat</label>
+                <label>Type d&apos;habitat</label>
                 <select required className="form-select" name="typeHabitat" value={form.typeHabitat.value} onChange={handleFormChangeValue}>
                   <option value="collectif">Collectif</option>
                   <option value="individuel">Individuel</option>
@@ -963,7 +963,7 @@ function GoodLease({ onSubmitLease }) {
                 </select>
                 {form.typeCharges.value === 'provision' && <small className="text-gray-400">Avec régularisation annuelle.</small>}
                 {form.typeCharges.value === 'abs_charges' && (
-                  <small className="text-gray-400">Attention vous ne pourrez pas demander la taxe d'ordures ménagères au locataire.</small>
+                  <small className="text-gray-400">Attention vous ne pourrez pas demander la taxe d&apos;ordures ménagères au locataire.</small>
                 )}
               </div>
 
@@ -987,7 +987,7 @@ function GoodLease({ onSubmitLease }) {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-12">
               <div className="form-component lg:col-span-2">
                 <label>
-                  Trimestre de référence pour l'<abbr title="Indice de référence des loyers">IRL</abbr>
+                  Trimestre de référence pour l&apos;<abbr title="Indice de référence des loyers">IRL</abbr>
                 </label>
                 <select
                   required
@@ -1029,7 +1029,7 @@ function GoodLease({ onSubmitLease }) {
                     value=""
                   />{' '}
                   <span className="ml-2 text-gray-700">
-                    Le logement est en zone tendue l'évolution du loyer entre 2 locataires est plafonnée à l'IRL
+                    Le logement est en zone tendue l&apos;évolution du loyer entre 2 locataires est plafonnée à l&apos;IRL
                   </span>
                 </label>
                 {form.loyerEncadre.value && !form.zoneTendue.value && (

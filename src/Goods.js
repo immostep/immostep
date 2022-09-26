@@ -17,6 +17,8 @@ import Dashboard from './Dashboard';
 
 function Goods({ isNewGood = false }) {
   const [goods, setGoods] = useState([]);
+  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 
   let { id: requestedGoodId } = useParams();
 
@@ -25,7 +27,7 @@ function Goods({ isNewGood = false }) {
   }, []);
 
   function handleToggleMenu() {
-    setIsSideMenuOpen(!isSideMenuOpen);
+    setIsSideMenuOpen((old) => !old);
   }
 
   function handleAddNewGood(newGood) {
@@ -35,9 +37,6 @@ function Goods({ isNewGood = false }) {
   }
 
   const requestedGood = goods.find((g) => g.id === +requestedGoodId);
-
-  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 
   return (
     <>
@@ -74,5 +73,5 @@ function Goods({ isNewGood = false }) {
 export default Goods;
 
 Goods.propTypes = {
-  isNewGood: PropTypes.bool
+  isNewGood: PropTypes.bool,
 };

@@ -52,7 +52,7 @@ export default function SideBar({ requestedGoodId, goods, isOpen = false, onClic
         {getItems()}
 
         <div className="good add-good">
-          <Link as="h3" className="text-2xl font-bold " to="/owner/goods/new">
+          <Link as="h3" className="text-2xl font-bold " to="/owner/goods/new" onClick={(ev) => onClickToggleMenu(ev)}>
             Nouveau logement
           </Link>
         </div>

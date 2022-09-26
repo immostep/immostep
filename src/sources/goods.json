@@ -13,6 +13,9 @@
     "views": 243,
     "messages": [],
     "images": ["/img/goods/001.jpg"],
+    "documents": {
+      "invoices": []
+    },
     "equipments": ["garage inclus", "balcon", "antenne satellite", "2 salles de bain"],
     "requests": [
       {
@@ -63,6 +66,9 @@
     "views": 1254,
     "messages": [],
     "images": ["/img/goods/002.jpg"],
+    "documents": {
+      "invoices": []
+    },
     "equipments": ["garage inclus", "balcon", "antenne satellite", "2 salles de bain"],
     "requests": [
       {

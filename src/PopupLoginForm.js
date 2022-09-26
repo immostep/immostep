@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import useNotAvailableModal from './hooks/useNotAvailableModal';
 
 function PopupLoginForm({ onClickCloseButton }) {
+  const { notAvailableModal, openNotAvailableModal } = useNotAvailableModal();
+
   return (
     <div className="absolute w-full px-6 lg:px-0">
+      {notAvailableModal}
       <div className="flex items-center justify-center">
         <div className="relative z-20 w-full md:w-4/5 lg:w-1/2 xl:w-2/5">
           <div className="shadow-lg bg-white border-2 border-ternary rounded p-8">
@@ -58,7 +62,7 @@ function PopupLoginForm({ onClickCloseButton }) {
                 </div>
 
                 <div className="mt-4 md:mt-0">
-                  <a href="#" className="text-green no-underline">
+                  <a href="#" className="text-green no-underline" onClick={openNotAvailableModal}>
                     Mot de passe oublié ?
                   </a>
                 </div>
@@ -74,5 +78,5 @@ function PopupLoginForm({ onClickCloseButton }) {
 export default PopupLoginForm;
 
 PopupLoginForm.propTypes = {
-  onClickCloseButton: PropTypes.func
+  onClickCloseButton: PropTypes.func,
 };

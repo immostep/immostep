@@ -2,11 +2,15 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faBed, faExpand } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
+import useNotAvailableModal from './hooks/useNotAvailableModal';
 
 function ResultCard({ sponsorized = false, image, type, city, price, rooms, surface }) {
+  const { notAvailableModal, openNotAvailableModal } = useNotAvailableModal();
+
   return (
     <li className="relative overflow-hidden bg-white rounded-md md:max-w-2xl shadow-center-light-sm hover:shadow-center-lg">
-      <a href="" rel="noopener noreferrer" target="_blank">
+      {notAvailableModal}
+      <a rel="noopener noreferrer" target="_blank" onClick={openNotAvailableModal}>
         {sponsorized ? (
           <div className="absolute top-0 right-0 p-1 text-xs text-right text-gray-300 bg-opacity-50 rounded-bl-sm text-shadow-sm bg-secondary-dark">
             Sponsorisé
@@ -19,12 +23,8 @@ function ResultCard({ sponsorized = false, image, type, city, price, rooms, surf
         </div>
         <div className="p-5">
           <div className="text-sm font-semibold tracking-wide uppercase text-ternary">{type}</div>
-          <div href="#" className="block mt-1 text-lg font-semibold leading-tight text-black">
-            {city}
-          </div>
-          <div href="#" className="block my-3 text-2xl font-bold leading-tight text-black">
-            {price}&nbsp;€/mois
-          </div>
+          <div className="block mt-1 text-lg font-semibold leading-tight text-black">{city}</div>
+          <div className="block my-3 text-2xl font-bold leading-tight text-black">{price}&nbsp;€/mois</div>
 
           <ul className="flex flex-row items-center justify-start text-black list-none">
             <li className="flex items-center">
@@ -52,5 +52,5 @@ ResultCard.propTypes = {
   city: PropTypes.string,
   price: PropTypes.string,
   rooms: PropTypes.string,
-  surface: PropTypes.string
+  surface: PropTypes.string,
 };

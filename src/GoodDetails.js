@@ -14,12 +14,13 @@ import Lightbox from 'react-awesome-lightbox';
 import { faFileAlt, faHourglass } from '@fortawesome/free-regular-svg-icons';
 
 import { faCheck, faEuroSign, faExpand, faHome, faLayerGroup, faTimes } from '@fortawesome/free-solid-svg-icons';
+import useNotAvailableModal from './hooks/useNotAvailableModal';
 
 SwiperCore.use([Pagination, Navigation]);
 
 const listStatus = {
   'En attente': { icon: faHourglass, className: 'text-blue-500' },
-  Refusé: { icon: faTimes, className: 'text-red-600' }
+  Refusé: { icon: faTimes, className: 'text-red-600' },
 };
 
 const actions = [
@@ -27,28 +28,30 @@ const actions = [
     label: 'Editer un bail de location',
     to: '/lease',
     icon: <FontAwesomeIcon icon={faFileAlt} fixedWidth size="2x" />,
-    status: [2]
+    status: [2],
   },
   {
     label: 'Générer une quittance de loyer',
     to: '/receipt',
     icon: <FontAwesomeIcon icon={faEuroSign} fixedWidth size="2x" />,
-    status: [1]
+    status: [1],
   },
   {
     label: 'Remplir un état des lieux',
     to: '/inventory',
     icon: <FontAwesomeIcon icon={faCheck} fixedWidth size="2x" />,
-    status: [1, 2]
-  }
+    status: [1, 2],
+  },
 ];
 
 function GoodDetails({ requestedGood, onClickTile }) {
   const [showLightbox, setShowLightbox] = useState('');
   const [showRequestContentModal, setShowRequestContentModal] = useState(null);
+  const { notAvailableModal, openNotAvailableModal } = useNotAvailableModal();
 
   return (
     <div className="container grid mx-auto">
+      {notAvailableModal}
       <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
         {/* <Card title="Générer" id="actions" className="md:col-span-2"> */}
         <div className="flex flex-row gap-4">
@@ -59,7 +62,13 @@ function GoodDetails({ requestedGood, onClickTile }) {
                   key={idx}
                   type="button"
                   className="btn btn-lg btn-secondary flex flex-row flex-nowrap items-center"
-                  onClick={() => onClickTile(action.to)}>
+                  onClick={(ev) => {
+                    if (action.to === '/receipt') {
+                      return openNotAvailableModal(ev);
+                    }
+
+                    return onClickTile(action.to);
+                  }}>
                   {action.icon} {action.label}
                 </button>
               );
@@ -74,7 +83,7 @@ function GoodDetails({ requestedGood, onClickTile }) {
             slidesPerView={5}
             spaceBetween={20}
             pagination={{
-              clickable: true
+              clickable: true,
             }}
             navigation={true}>
             {requestedGood.images.map((image, idx) => (
@@ -198,5 +207,5 @@ export default GoodDetails;
 
 GoodDetails.propTypes = {
   requestedGood: PropTypes.object,
-  onClickTile: PropTypes.func
+  onClickTile: PropTypes.func,
 };

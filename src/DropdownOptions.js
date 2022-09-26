@@ -2,10 +2,14 @@ import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import useNotAvailableModal from './hooks/useNotAvailableModal';
 
 function DropdownOptions({ isPublished = false }) {
+  const { notAvailableModal, openNotAvailableModal } = useNotAvailableModal();
+
   return (
     <div className="inline-block text-right top-16">
+      {notAvailableModal}
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex justify-center w-full px-4 py-2 btn btn-ternary focus:outline-none">
@@ -26,6 +30,7 @@ function DropdownOptions({ isPublished = false }) {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={openNotAvailableModal}
                     className={`${active ? 'bg-ternary text-white' : 'text-gray-900'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}>
                     {active ? (
                       <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -39,6 +44,7 @@ function DropdownOptions({ isPublished = false }) {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={openNotAvailableModal}
                     className={`${active ? 'bg-ternary text-white' : 'text-gray-900'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}>
                     {active ? (
                       <DuplicateActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -54,6 +60,7 @@ function DropdownOptions({ isPublished = false }) {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={openNotAvailableModal}
                     className={`${active ? 'bg-ternary text-white' : 'text-gray-900'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}>
                     {active ? (
                       <ViewActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -68,6 +75,7 @@ function DropdownOptions({ isPublished = false }) {
                 <Menu.Item>
                   {({ active }) => (
                     <button
+                      onClick={openNotAvailableModal}
                       className={`${active ? 'bg-ternary text-white' : 'text-gray-900'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}>
                       {active ? (
                         <UnpublishActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -82,6 +90,7 @@ function DropdownOptions({ isPublished = false }) {
                 <Menu.Item>
                   {({ active }) => (
                     <button
+                      onClick={openNotAvailableModal}
                       className={`${active ? 'bg-ternary text-white' : 'text-gray-900'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}>
                       {active ? (
                         <PublishActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -98,6 +107,7 @@ function DropdownOptions({ isPublished = false }) {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={openNotAvailableModal}
                     className={`${active ? 'bg-ternary text-white' : 'text-gray-900'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}>
                     {active ? (
                       <ArchiveActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -111,6 +121,7 @@ function DropdownOptions({ isPublished = false }) {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={openNotAvailableModal}
                     className={`${active ? 'bg-ternary text-white' : 'text-gray-900'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}>
                     {active ? (
                       <DeleteActiveIcon className="w-5 h-5 mr-2 text-ternary" aria-hidden="true" />
@@ -297,5 +308,5 @@ function UnpublishActiveIcon(props) {
 export default DropdownOptions;
 
 DropdownOptions.propTypes = {
-  isPublished: PropTypes.bool
+  isPublished: PropTypes.bool,
 };

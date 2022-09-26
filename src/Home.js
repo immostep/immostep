@@ -7,11 +7,15 @@ import userImg1 from './img/1.jpg';
 import userImg2 from './img/2.jpg';
 import userImg3 from './img/3.jpg';
 import Testimonial, { PRIMARY, SECONDARY, TERNARY } from './Testimonial';
+import useNotAvailableModal from './hooks/useNotAvailableModal';
 
 function Home() {
+  const { notAvailableModal, openNotAvailableModal } = useNotAvailableModal();
+
   return (
     <>
       <Header />
+      {notAvailableModal}
       <main className="grid grid-cols-1 my-5 md:grid-cols-2">
         <div className="px-4 py-10 text-center tenant sm:px-6 md:px-8 sm:py-20 xl:py-24">
           <h1 className="mt-0 mb-8 text-5xl font-extrabold leading-none tracking-tight md:text-6xl lg:text-7xl sm:mt-0 sm:mb-10">
@@ -29,7 +33,7 @@ function Home() {
             <span className="block text-ternary">mon bien immobilier</span>
           </h1>
 
-          <button type="button" className="btn btn-lg btn-secondary">
+          <button type="button" className="btn btn-lg btn-secondary" onClick={openNotAvailableModal}>
             S&apos;inscrire
           </button>
         </div>
@@ -138,7 +142,8 @@ function Home() {
             </p>
             <button
               type="button"
-              className="px-5 py-3 text-base font-medium bg-white border border-transparent rounded-sm text-primary hover:bg-gray-200">
+              className="px-5 py-3 text-base font-medium bg-white border border-transparent rounded-sm text-primary hover:bg-gray-200"
+              onClick={openNotAvailableModal}>
               En savoir plus
             </button>
           </div>

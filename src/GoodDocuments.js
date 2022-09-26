@@ -5,6 +5,7 @@ import Pagination from './Pagination';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useNotAvailableModal from './hooks/useNotAvailableModal';
 
 const docTypes = {
   électricité: 'badge-info',
@@ -17,6 +18,7 @@ function GoodDocuments({ requestedGood }) {
   const inputFileRef = useRef(null);
   const [currentInvoicesPage, setCurrentInvoicesPage] = useState(1);
   const [fileName, setFileName] = useState();
+  const { notAvailableModal, openNotAvailableModal } = useNotAvailableModal();
   const limitInvoices = 10;
   const nbPagesInvoices = Math.ceil(requestedGood.documents.invoices.length / limitInvoices);
 
@@ -28,6 +30,7 @@ function GoodDocuments({ requestedGood }) {
 
   return (
     <div className="container grid mx-auto">
+      {notAvailableModal}
       <div className="grid gap-6 mb-8 md:grid-cols-2 ">
         <Card title="Factures" id="factures" className="md:col-span-2" noContent>
           <div className="flex justify-between card-content">
@@ -44,7 +47,7 @@ function GoodDocuments({ requestedGood }) {
               <input ref={inputFileRef} onChange={onFileChange} type="file" className="hidden" />
             </div>
             <div>
-              <button type="button" className="btn btn-md">
+              <button type="button" className="btn btn-md" onClick={openNotAvailableModal}>
                 Filtrer <FontAwesomeIcon icon={faFilter} />
               </button>
             </div>
@@ -84,19 +87,21 @@ function GoodDocuments({ requestedGood }) {
             </tbody>
           </table>
 
-          <Pagination
-            pageActive={currentInvoicesPage}
-            nbPage={nbPagesInvoices}
-            onClickNext={() => {
-              const newPage = currentInvoicesPage + 1 >= nbPagesInvoices ? nbPagesInvoices : currentInvoicesPage + 1;
-              setCurrentInvoicesPage(newPage);
-            }}
-            onClickPrev={() => {
-              const newPage = currentInvoicesPage - 1 < 1 ? 1 : currentInvoicesPage - 1;
-              setCurrentInvoicesPage(newPage);
-            }}
-            onClickPage={(ev, page) => setCurrentInvoicesPage(page)}
-          />
+          {nbPagesInvoices?.length && (
+            <Pagination
+              pageActive={currentInvoicesPage}
+              nbPage={nbPagesInvoices}
+              onClickNext={() => {
+                const newPage = currentInvoicesPage + 1 >= nbPagesInvoices ? nbPagesInvoices : currentInvoicesPage + 1;
+                setCurrentInvoicesPage(newPage);
+              }}
+              onClickPrev={() => {
+                const newPage = currentInvoicesPage - 1 < 1 ? 1 : currentInvoicesPage - 1;
+                setCurrentInvoicesPage(newPage);
+              }}
+              onClickPage={(ev, page) => setCurrentInvoicesPage(page)}
+            />
+          )}
         </Card>
       </div>
     </div>

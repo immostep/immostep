@@ -7,11 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import userImg from './img/2.jpg';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import useNotAvailableModal from './hooks/useNotAvailableModal';
 
 function HeaderBar({ isFluid = false, inverse = false, user = {}, noLogo = false, noSearchField = false }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(!!user.id);
   const [mobileMenuHidden, setMobileMenuHidden] = useState(true);
+  const { notAvailableModal, openNotAvailableModal } = useNotAvailableModal();
 
   useEffect(() => {
     setIsLoggedIn(!!user.id);
@@ -23,12 +25,13 @@ function HeaderBar({ isFluid = false, inverse = false, user = {}, noLogo = false
 
   return (
     <header className={`${isFluid ? ' bg-secondary-dark' : ' bg-white'}`}>
+      {notAvailableModal}
       <div className="container relative flex items-center justify-between h-16 mx-auto flex-nowrap ">
         <nav id="header" className={`top-0 z-5 w-full text-primary`}>
           <div className="flex flex-wrap items-center justify-center md:justify-between w-full mx-auto mt-0">
             {!noLogo && (
               <div>
-                <a className="no-underline hover:no-underline" href="/">
+                <a className="no-underline hover:no-underline" href="/" onClick={openNotAvailableModal}>
                   <img src={inverse ? logo_white : logo_color} className="[height:64px] aspect-auto" alt="ImmoSteps" />
                 </a>
               </div>
@@ -109,7 +112,7 @@ function HeaderBar({ isFluid = false, inverse = false, user = {}, noLogo = false
                           placeholder="Rechercher..."
                           className="w-full h-10 pr-5 border-2 rounded-md placeholder-secondary-light border-secondary bg-secondary hover:border-gray-300 pl-14"
                         />
-                        <button type="submit" className="absolute top-0 left-0 pt-2 pl-6 text-secondary-lighter">
+                        <button type="submit" className="absolute top-0 left-0 pt-2 pl-6 text-secondary-lighter" onClick={openNotAvailableModal}>
                           <FontAwesomeIcon icon={faSearch} />
                         </button>
                       </form>
@@ -118,7 +121,8 @@ function HeaderBar({ isFluid = false, inverse = false, user = {}, noLogo = false
 
                   <button
                     type="button"
-                    className="w-10 h-10 text-2xl rounded-full text-secondary-lighter bg-secondary hover:text-primary hover:bg-gray-100 focus:outline-none">
+                    className="w-10 h-10 text-2xl rounded-full text-secondary-lighter bg-secondary hover:text-primary hover:bg-gray-100 focus:outline-none"
+                    onClick={openNotAvailableModal}>
                     <span className="sr-only">View notifications</span>
                     <FontAwesomeIcon icon={faBell} />
                   </button>
@@ -130,7 +134,8 @@ function HeaderBar({ isFluid = false, inverse = false, user = {}, noLogo = false
                       className="flex text-sm bg-white rounded-full focus:outline-none"
                       id="user-menu-button"
                       aria-expanded="false"
-                      aria-haspopup="true">
+                      aria-haspopup="true"
+                      onClick={openNotAvailableModal}>
                       <span className="sr-only">Open user menu</span>
                       <img className="w-10 h-10 rounded-full" src={userImg} alt={user.name} />
                     </button>

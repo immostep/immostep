@@ -6,24 +6,25 @@ import {} from '@fortawesome/free-regular-svg-icons';
 import { faFilter, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import messagesTypes from './sources/messages_types.json';
+import useNotAvailableModal from './hooks/useNotAvailableModal';
 
 function GoodMessages({ requestedGood }) {
   const [currentMessagesPage, setCurrentMessagesPage] = useState(1);
+  const { notAvailableModal, openNotAvailableModal } = useNotAvailableModal();
   const limitMessages = 10;
   const nbPagesMessages = Math.ceil(requestedGood.messages.length / limitMessages);
 
-  console.log('nbPagesMessages :', nbPagesMessages);
-
   return (
     <div className="container grid mx-auto">
+      {notAvailableModal}
       <div className="grid gap-6 mb-8 md:grid-cols-2 ">
         <Card title="Messages" id="messages" className="md:col-span-2" noContent>
           <div className="flex justify-between card-content">
-            <button type="button" className="rounded btn-md btn-secondary">
+            <button type="button" className="rounded btn-md btn-secondary" onClick={openNotAvailableModal}>
               Nouveau message
             </button>
             <div>
-              <button type="button" className="btn btn-md">
+              <button type="button" className="btn btn-md" onClick={openNotAvailableModal}>
                 Filtrer <FontAwesomeIcon icon={faFilter} />
               </button>
             </div>
@@ -52,7 +53,7 @@ function GoodMessages({ requestedGood }) {
                     {new Intl.DateTimeFormat('fr-FR', {
                       year: 'numeric',
                       month: 'long',
-                      day: '2-digit'
+                      day: '2-digit',
                     }).format(new Date(message.date))}
                   </td>
                 </tr>
@@ -60,19 +61,21 @@ function GoodMessages({ requestedGood }) {
             </tbody>
           </table>
 
-          <Pagination
-            pageActive={currentMessagesPage}
-            nbPage={nbPagesMessages}
-            onClickNext={() => {
-              const newPage = currentMessagesPage + 1 >= nbPagesMessages ? nbPagesMessages : currentMessagesPage + 1;
-              setCurrentMessagesPage(newPage);
-            }}
-            onClickPrev={() => {
-              const newPage = currentMessagesPage - 1 < 1 ? 1 : currentMessagesPage - 1;
-              setCurrentMessagesPage(newPage);
-            }}
-            onClickPage={(ev, page) => setCurrentMessagesPage(page)}
-          />
+          {nbPagesMessages?.length && (
+            <Pagination
+              pageActive={currentMessagesPage}
+              nbPage={nbPagesMessages}
+              onClickNext={() => {
+                const newPage = currentMessagesPage + 1 >= nbPagesMessages ? nbPagesMessages : currentMessagesPage + 1;
+                setCurrentMessagesPage(newPage);
+              }}
+              onClickPrev={() => {
+                const newPage = currentMessagesPage - 1 < 1 ? 1 : currentMessagesPage - 1;
+                setCurrentMessagesPage(newPage);
+              }}
+              onClickPage={(ev, page) => setCurrentMessagesPage(page)}
+            />
+          )}
         </Card>
       </div>
     </div>
@@ -82,5 +85,5 @@ function GoodMessages({ requestedGood }) {
 export default GoodMessages;
 
 GoodMessages.propTypes = {
-  requestedGood: PropTypes.object
+  requestedGood: PropTypes.object,
 };

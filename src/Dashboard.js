@@ -12,10 +12,14 @@ import avatar4 from './img/4.jpg';
 import ChartTrafic from './ChartTrafic';
 import ChartFinances from './ChartFinances';
 import ChartViewsByGood from './ChartViewsByGood';
+import useNotAvailableModal from './hooks/useNotAvailableModal';
 
 function Dashboard() {
+  const { notAvailableModal, openNotAvailableModal } = useNotAvailableModal();
+
   return (
     <>
+      {notAvailableModal}
       <div className="main_title">
         <div className="container grid mx-auto">
           <h1 className="mt-6 mb-2 text-4xl font-bold text-white">Dashboard</h1>
@@ -81,7 +85,7 @@ function Dashboard() {
         <div className="grid grid-flow-row gap-2 my-6">
           <div className="px-5 py-2 text-lg font-normal text-white rounded shadow-sm bg-rose-600">
             <FontAwesomeIcon icon={faExclamationTriangle} /> Vous avez 1 logement dont l&apos;annonce n&apos;est pas publiée.{' '}
-            <Link className="font-semibold" to="/">
+            <Link className="font-semibold" to="/" onClick={openNotAvailableModal}>
               Voir
             </Link>
           </div>
@@ -194,7 +198,9 @@ function Dashboard() {
 
             <div className="px-4 py-2">
               <div className="flex flex-row-reverse">
-                <button className="btn">Voir tout</button>
+                <button className="btn" onClick={openNotAvailableModal}>
+                  Voir tout
+                </button>
               </div>
             </div>
           </Card>
@@ -219,5 +225,5 @@ function Dashboard() {
 export default Dashboard;
 
 Dashboard.propTypes = {
-  rate: PropTypes.number
+  rate: PropTypes.number,
 };
